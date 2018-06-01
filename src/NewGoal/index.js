@@ -21,24 +21,28 @@ class NewGoal extends Component {
 
     save = (e) => {
         e.preventDefault();
-        const description = e.target[0].value;
-        const date = e.target[1].value;
+        const description = document.getElementById('goal-desc').value;
+        let expDate = document.getElementById('goal-date').value + ' ' + document.getElementById('goal-time').value;
+        expDate = new Date(expDate).toUTCString();
         const id = Object.keys(window.localStorage).length + 1;
         const tasksElements = e.target.getElementsByClassName('task');
         let tasks = [];
-        //TODO change date format
-        const dateNow = new Date().toISOString().slice(0, 10);
+        const dateNow = new Date().toUTCString();
         for (let item of tasksElements) {
+            const taskDate = item.getElementsByClassName('task-date')[0].value;
+            const taskTime = item.getElementsByClassName('task-time')[0].value;
+            let taskExpDate = taskDate + ' ' + taskTime;
+            taskExpDate = new Date(taskExpDate).toUTCString();
             const task = {
-                'id': item.children[0].getAttribute('data-id'),
-                'description': item.children[0].value,
-                'expDate': e.target[1].value,
+                'id': item.getAttribute('data-id'),
+                'description': item.getElementsByClassName('task-desc')[0].value,
+                'expDate': taskExpDate,
                 'created': dateNow
             }
             tasks.push(task);
         }
 
-        const goal = { 'id': id, 'description': description, 'expDate': date, 'created': dateNow, 'tasks': tasks };
+        const goal = { 'id': id, 'description': description, 'expDate': expDate, 'created': dateNow, 'tasks': tasks };
 
         window.localStorage.setItem("goal" + id.toString(), JSON.stringify(goal));
         const form = document.getElementById('add-goal');
@@ -61,8 +65,9 @@ class NewGoal extends Component {
 
         return (
             <form onSubmit={this.save} id="add-goal">
-                <input type="text" placeholder="What do I want to achieve?" required />
-                <input type="date" required />
+                <input type="text" placeholder="What do I want to achieve?" required id="goal-desc"/>
+                <input type="date" required id="goal-date"/>
+                <input type="time" required defaultValue="23:59" id="goal-time"/>
                 <AddTask btnClick={this.addTask} />
                 <div>
                     {this.state.tasks}
