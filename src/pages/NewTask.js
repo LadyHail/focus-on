@@ -1,7 +1,13 @@
 ﻿import React, { Component } from 'react';
-import RemoveTask from '../NewGoal/removeTask.js';
+import PropTypes from 'prop-types';
+import RemoveTask from './newGoal/RemoveTask.js';
 
 class NewTask extends Component {
+
+    static propTypes = {
+        id: PropTypes.number.isRequired,
+        removeBtnClick: PropTypes.func.isRequired
+    }
 
     getDate = () => {
         return new Date().toISOString().substring(0, 10);

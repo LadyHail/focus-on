@@ -1,8 +1,9 @@
 ﻿import React, { Component } from 'react';
-import NewTask from '../NewTask/index.js';
-import AddTask from './addTask.js';
+import NewTask from './NewTask.js';
+import AddTask from './newGoal/AddTask.js';
 
 //TODO tasks exp date cannot be further than goals
+//TODO limit tasks number
 class NewGoal extends Component {
     constructor(props) {
         super(props);

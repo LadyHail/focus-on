@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './index.css';
-import NewGoal from '../NewGoal/index.js';
-import ShowGoalsList from '../ShowGoalsList/index.js';
+import './app.css';
+import NewGoal from '../pages/NewGoal.js';
+import ShowGoalsList from '../pages/ShowGoalsList.js';
 
 class App extends Component {
   render() {

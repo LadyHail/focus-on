@@ -25,9 +25,12 @@ class ShowGoalsList extends Component {
         return (
             <div>
                 {this.state.goals.map(item =>
-                    <div key={item.id}>
+                    <div key={item.id} data-id={item.id}>
                         <p>{item.description}</p>
-                        <p>{item.date}</p>
+                        <p>{item.created}</p>
+                        <p>{item.expDate}</p>
+                        <p>{item.tasks.length}</p>
+                        <hr />
                     </div>
                 )
                 }
