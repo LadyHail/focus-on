@@ -1,5 +1,8 @@
 ﻿import React, { Component } from 'react';
+import GoalDetail from './GoalDetail.js';
 
+//TODO add timeleft
+//TODO details
 class ShowGoalsList extends Component {
 
     state = {
