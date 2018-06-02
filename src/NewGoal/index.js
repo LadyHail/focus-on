@@ -2,17 +2,20 @@
 import NewTask from '../NewTask/index.js';
 import AddTask from './addTask.js';
 
+//TODO tasks exp date cannot be further than goals
 class NewGoal extends Component {
     constructor(props) {
         super(props);
         this.id = 0;
         this.addTask = this.addTask.bind(this);
+        this.removeTask = this.removeTask.bind(this);
     }
 
     componentWillMount = () => {
         this.id++;
         this.setState({
-            tasks: [<NewTask key={this.id} id={this.id}/>] });
+            tasks: [<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} />]
+        });
     }
 
     state = {
@@ -47,18 +50,23 @@ class NewGoal extends Component {
         window.localStorage.setItem("goal" + id.toString(), JSON.stringify(goal));
         const form = document.getElementById('add-goal');
         form.reset();
-        this.setState({ tasks: [<NewTask key={this.id} id={this.id} />] });
+        this.setState({ tasks: [<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} />] });
     }
 
     addTask = () => {
         this.id++;
         let newState = this.state.tasks;
-        newState.push(<NewTask key={this.id} id={this.id} />);
+        newState.push(<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} />);
         this.setState({ tasks: newState });
     }
 
-    removeTask = () => {
-        //TODO
+    //TODO delete only if tasks > 1
+    removeTask = (e) => {
+        const id = e.target.getAttribute('data-id');
+        const task = this.state.tasks.findIndex(t => t.props.id == id);
+        let newState = this.state.tasks;
+        newState.splice(task, 1);
+        this.setState({ tasks: newState });
     }
 
     render = () => {
@@ -66,7 +74,7 @@ class NewGoal extends Component {
         return (
             <form onSubmit={this.save} id="add-goal">
                 <input type="text" placeholder="What do I want to achieve?" required id="goal-desc"/>
-                <input type="date" required id="goal-date"/>
+                <input type="date" required id="goal-date" min={new Date().toISOString().substring(0, 10)} />
                 <input type="time" required defaultValue="23:59" id="goal-time"/>
                 <AddTask btnClick={this.addTask} />
                 <div>
