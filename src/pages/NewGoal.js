@@ -1,6 +1,8 @@
 ﻿import React, { Component } from 'react';
 import NewTask from './NewTask.js';
 import AddTask from './newGoal/AddTask.js';
+import { getDate } from '../utils/DateTime.js';
+import { saveGoal } from '../utils/DbHelper.js';
 
 //TODO tasks exp date cannot be further than goals
 //TODO limit tasks number
@@ -28,6 +30,7 @@ class NewGoal extends Component {
         const description = document.getElementById('goal-desc').value;
         let expDate = document.getElementById('goal-date').value + ' ' + document.getElementById('goal-time').value;
         expDate = new Date(expDate).toUTCString();
+        //TODO need other function to find last id
         const id = Object.keys(window.localStorage).length + 1;
         const tasksElements = e.target.getElementsByClassName('task');
         let tasks = [];
@@ -42,13 +45,13 @@ class NewGoal extends Component {
                 'description': item.getElementsByClassName('task-desc')[0].value,
                 'expDate': taskExpDate,
                 'created': dateNow
-            }
+            };
             tasks.push(task);
         }
 
         const goal = { 'id': id, 'description': description, 'expDate': expDate, 'created': dateNow, 'tasks': tasks };
+        saveGoal("goal" + id.toString(), JSON.stringify(goal));
 
-        window.localStorage.setItem("goal" + id.toString(), JSON.stringify(goal));
         const form = document.getElementById('add-goal');
         form.reset();
         this.setState({ tasks: [<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} />] });
@@ -74,16 +77,16 @@ class NewGoal extends Component {
 
         return (
             <form onSubmit={this.save} id="add-goal">
-                <input type="text" placeholder="What do I want to achieve?" required id="goal-desc"/>
-                <input type="date" required id="goal-date" min={new Date().toISOString().substring(0, 10)} />
-                <input type="time" required defaultValue="23:59" id="goal-time"/>
+                <input type="text" placeholder="What do I want to achieve?" required id="goal-desc" />
+                <input type="date" required id="goal-date" min={getDate()} />
+                <input type="time" required defaultValue="23:59" id="goal-time" />
                 <AddTask btnClick={this.addTask} />
                 <div>
                     {this.state.tasks}
                 </div>
                 <button type="submit">Save</button>
             </form>
-            )
+        );
     }
 }
 

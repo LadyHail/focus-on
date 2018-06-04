@@ -1,18 +1,12 @@
 ﻿import React, { Component } from 'react';
+import { getGoal } from '../utils/DbHelper.js';
 
 //TODO show time left
 class GoalDetail extends Component {
 
     componentWillMount = () => {
         const id = this.props.match.params.id;
-        if (!isNaN(id)) {
-            this.getGoal(id);
-        }   
-    }
-
-    getGoal = (id) => {
-        this.goal = window.localStorage.getItem('goal' + id);
-        this.goal = JSON.parse(this.goal);
+        this.goal = getGoal(id);
     }
 
     render = () => {
@@ -28,10 +22,10 @@ class GoalDetail extends Component {
                             <p>{t.created}</p>
                             <p>{t.expDate}</p>
                         </div>
-                        )
+                    );
                 })}
             </div>
-            )
+        );
     }
 }
 
