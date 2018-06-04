@@ -1,4 +1,5 @@
 ﻿import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import GoalDetail from './GoalDetail.js';
 
 //TODO add timeleft
@@ -29,11 +30,13 @@ class ShowGoalsList extends Component {
             <div>
                 {this.state.goals.map(item =>
                     <div key={item.id} data-id={item.id}>
-                        <p>{item.description}</p>
-                        <p>{item.created}</p>
-                        <p>{item.expDate}</p>
-                        <p>{item.tasks.length}</p>
-                        <hr />
+                        <Link to={`/goal/${item.id}/`} className="goal-link">
+                            <p>{item.description}</p>
+                            <p>{item.created}</p>
+                            <p>{item.expDate}</p>
+                            <p>{item.tasks.length}</p>
+                            <hr />
+                        </Link>
                     </div>
                 )
                 }

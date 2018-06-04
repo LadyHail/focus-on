@@ -4,7 +4,10 @@
 class GoalDetail extends Component {
 
     componentWillMount = () => {
-        this.getGoal(this.props.id);
+        const id = this.props.match.params.id;
+        if (!isNaN(id)) {
+            this.getGoal(id);
+        }   
     }
 
     getGoal = (id) => {

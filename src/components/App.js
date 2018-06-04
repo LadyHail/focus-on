@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route, Link } from 'react-router-dom';
 import './app.css';
 import NewGoal from '../pages/NewGoal.js';
 import ShowGoalsList from '../pages/ShowGoalsList.js';
@@ -8,15 +9,14 @@ class App extends Component {
   render() {
     return (
         <main>
-            <GoalDetail id="31" />
-            <hr />
-            <button>Set new goal</button>
-            <div>
-                <NewGoal />
-            </div>
-            <div>
-                <ShowGoalsList />
-            </div>
+            <ul>
+                <li><Link to="/goal/new">Set new goal</Link></li>
+                <li><Link to="/goals">Goals</Link></li>           
+            </ul>
+
+            <Route path="/goal/new" component={NewGoal} />
+            <Route path="/goals" component={ShowGoalsList} />
+            <Route strict path="/goal/:id/" component={GoalDetail} />
         </main>
     );
   }
