@@ -20,3 +20,11 @@ export function getAll() {
 export function saveGoal(id, item) {
     window.localStorage.setItem(id, item);
 }
+
+export function getTask(goalId, id) {
+    if (!isNaN(id)) {
+        const goal = getGoal(goalId);
+        const task = goal.tasks.find(t => t.id == id);
+        return task;
+    }
+}

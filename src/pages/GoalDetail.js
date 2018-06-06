@@ -1,12 +1,14 @@
 ﻿import React, { Component } from 'react';
 import { getGoal } from '../utils/DbHelper.js';
+import { timeLeft } from '../utils/DateTime.js';
+import TaskDetail from './TaskDetail.js';
 
-//TODO show time left
 class GoalDetail extends Component {
 
     componentWillMount = () => {
         const id = this.props.match.params.id;
         this.goal = getGoal(id);
+        this.timeLeft = timeLeft(new Date(this.goal.expDate));
     }
 
     render = () => {
@@ -15,12 +17,11 @@ class GoalDetail extends Component {
                 <p>{this.goal.description}</p>
                 <p>{this.goal.created}</p>
                 <p>{this.goal.expDate}</p>
+                <p>{this.timeLeft.days} days {this.timeLeft.hours} hours {this.timeLeft.minutes} minutes left </p>
                 {this.goal.tasks.map(t => {
                     return (
                         <div key={t.id}>
-                            <p>{t.description}</p>
-                            <p>{t.created}</p>
-                            <p>{t.expDate}</p>
+                            <TaskDetail id={t.id} goalId={this.goal.id} />
                         </div>
                     );
                 })}

@@ -4,7 +4,6 @@ import GoalDetail from './GoalDetail.js';
 import { getAll } from '../utils/DbHelper.js';
 
 //TODO add timeleft
-//TODO details
 class ShowGoalsList extends Component {
 
     componentWillMount = () => {

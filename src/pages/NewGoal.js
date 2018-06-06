@@ -4,7 +4,6 @@ import AddTask from './newGoal/AddTask.js';
 import { getDate } from '../utils/DateTime.js';
 import { saveGoal } from '../utils/DbHelper.js';
 
-//TODO tasks exp date cannot be further than goals
 //TODO limit tasks number
 class NewGoal extends Component {
     constructor(props) {
@@ -12,17 +11,19 @@ class NewGoal extends Component {
         this.id = 0;
         this.addTask = this.addTask.bind(this);
         this.removeTask = this.removeTask.bind(this);
+        this.goalDateChanged = this.goalDateChanged.bind(this);
     }
 
     componentWillMount = () => {
         this.id++;
         this.setState({
-            tasks: [<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} />]
+            tasks: [<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} goalDate={this.state.goalDate} />]
         });
     }
 
     state = {
-        tasks: []
+        tasks: [],
+        goalDate: new Date().toISOString().substring(0, 10)
     }
 
     save = (e) => {
@@ -54,13 +55,13 @@ class NewGoal extends Component {
 
         const form = document.getElementById('add-goal');
         form.reset();
-        this.setState({ tasks: [<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} />] });
+        this.setState({ tasks: [<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} goalDate={this.state.goalDate} />] });
     }
 
     addTask = () => {
         this.id++;
         let newState = this.state.tasks;
-        newState.push(<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} />);
+        newState.push(<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} goalDate={this.state.goalDate} />);
         this.setState({ tasks: newState });
     }
 
@@ -73,12 +74,22 @@ class NewGoal extends Component {
         this.setState({ tasks: newState });
     }
 
+    goalDateChanged = (e) => {
+        const date = e.target.value;
+        this.setState({ goalDate: date});
+        const _this = this;
+        const newState = this.state.tasks.map(p => {
+            return <NewTask key={p.key} id={p.props.id} removeBtnClick={p.props.removeBtnClick} goalDate={date} />
+        });
+        this.setState({ tasks: newState });
+    }
+
     render = () => {
 
         return (
             <form onSubmit={this.save} id="add-goal">
                 <input type="text" placeholder="What do I want to achieve?" required id="goal-desc" />
-                <input type="date" required id="goal-date" min={getDate()} />
+                <input type="date" required id="goal-date" min={getDate()} onChange={this.goalDateChanged} />
                 <input type="time" required defaultValue="23:59" id="goal-time" />
                 <AddTask btnClick={this.addTask} />
                 <div>
