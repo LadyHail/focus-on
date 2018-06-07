@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom';
 import GoalDetail from './GoalDetail.js';
 import { getAll } from '../utils/DbHelper.js';
+import { getLocalDate } from '../utils/DateTime.js';
 
 //TODO add timeleft
 class ShowGoalsList extends Component {
@@ -18,8 +19,8 @@ class ShowGoalsList extends Component {
                         <div key={item.id} data-id={item.id}>
                             <Link to={`/goal/${item.id}/`} className="goal-link">
                                 <p>{item.description}</p>
-                                <p>{item.created}</p>
-                                <p>{item.expDate}</p>
+                                <p>{getLocalDate(item.created)}</p>
+                                <p>{getLocalDate(item.expDate)}</p>
                                 <p>{item.tasks.length}</p>
                                 <hr />
                             </Link>

@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { getTask } from '../utils/DbHelper.js';
-import { timeLeft } from '../utils/DateTime.js';
+import { timeLeft, getLocalDate } from '../utils/DateTime.js';
 
 //TODO add date validation
 class TaskDetail extends Component {
@@ -16,8 +16,8 @@ class TaskDetail extends Component {
         return (
             <div>
                 <p>{this.task.description}</p>
-                <p>{this.task.created}</p>
-                <p>{this.task.expDate}</p>
+                <p>{getLocalDate(this.task.created)}</p>
+                <p>{getLocalDate(this.task.expDate)}</p>
                 <p>{this.timeLeft.days} days {this.timeLeft.hours} hours {this.timeLeft.minutes} minutes left </p>
             </div>
             )

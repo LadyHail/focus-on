@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { getGoal } from '../utils/DbHelper.js';
-import { timeLeft } from '../utils/DateTime.js';
+import { timeLeft, getLocalDate } from '../utils/DateTime.js';
 import TaskDetail from './TaskDetail.js';
 
 class GoalDetail extends Component {
@@ -15,8 +15,8 @@ class GoalDetail extends Component {
         return (
             <div>
                 <p>{this.goal.description}</p>
-                <p>{this.goal.created}</p>
-                <p>{this.goal.expDate}</p>
+                <p>{getLocalDate(this.goal.created)}</p>
+                <p>{getLocalDate(this.goal.expDate)}</p>
                 <p>{this.timeLeft.days} days {this.timeLeft.hours} hours {this.timeLeft.minutes} minutes left </p>
                 {this.goal.tasks.map(t => {
                     return (

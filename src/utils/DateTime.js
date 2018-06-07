@@ -16,3 +16,7 @@ export function timeLeft(expiring) {
     };
     return timeleft;
 }
+
+export function getLocalDate(date) {
+    return new Date(date).toLocaleString();
+}
