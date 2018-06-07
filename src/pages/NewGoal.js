@@ -2,9 +2,8 @@
 import NewTask from './NewTask.js';
 import AddTask from './newGoal/AddTask.js';
 import { getDate } from '../utils/DateTime.js';
-import { saveGoal } from '../utils/DbHelper.js';
+import { saveGoal, findFreeId } from '../utils/DbHelper.js';
 
-//TODO limit tasks number
 class NewGoal extends Component {
     constructor(props) {
         super(props);
@@ -28,15 +27,31 @@ class NewGoal extends Component {
 
     save = (e) => {
         e.preventDefault();
+        const goal = this.createGoalObj();        
+        saveGoal("goal" + goal.id.toString(), JSON.stringify(goal));
+
+        const form = document.getElementById('add-goal');
+        form.reset();
+        this.setState({ tasks: [<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} goalDate={this.state.goalDate} />] });
+    }
+
+    createGoalObj = () => {
         const description = document.getElementById('goal-desc').value;
         let expDate = document.getElementById('goal-date').value + ' ' + document.getElementById('goal-time').value;
         expDate = new Date(expDate).toUTCString();
-        //TODO need other function to find last id
-        const id = Object.keys(window.localStorage).length + 1;
-        const tasksElements = e.target.getElementsByClassName('task');
+        const id = findFreeId();
+        const dateNow = new Date().toUTCString();
+        const tasksElements = document.getElementsByClassName('task');
+        const tasks = this.createTasksObjs(tasksElements);
+
+        const goal = { 'id': id, 'description': description, 'expDate': expDate, 'created': dateNow, 'tasks': tasks };
+        return goal;
+    }
+
+    createTasksObjs = (tasksArray) => {
         let tasks = [];
         const dateNow = new Date().toUTCString();
-        for (let item of tasksElements) {
+        for (let item of tasksArray) {
             const taskDate = item.getElementsByClassName('task-date')[0].value;
             const taskTime = item.getElementsByClassName('task-time')[0].value;
             let taskExpDate = taskDate + ' ' + taskTime;
@@ -49,29 +64,26 @@ class NewGoal extends Component {
             };
             tasks.push(task);
         }
-
-        const goal = { 'id': id, 'description': description, 'expDate': expDate, 'created': dateNow, 'tasks': tasks };
-        saveGoal("goal" + id.toString(), JSON.stringify(goal));
-
-        const form = document.getElementById('add-goal');
-        form.reset();
-        this.setState({ tasks: [<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} goalDate={this.state.goalDate} />] });
+        return tasks;
     }
 
     addTask = () => {
-        this.id++;
-        let newState = this.state.tasks;
-        newState.push(<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} goalDate={this.state.goalDate} />);
-        this.setState({ tasks: newState });
+        if (this.state.tasks.length < 64) {
+            this.id++;
+            let newState = this.state.tasks;
+            newState.push(<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} goalDate={this.state.goalDate} />);
+            this.setState({ tasks: newState });
+        }       
     }
 
-    //TODO delete only if tasks > 1
     removeTask = (e) => {
-        const id = e.target.getAttribute('data-id');
-        const task = this.state.tasks.findIndex(t => t.props.id == id);
-        let newState = this.state.tasks;
-        newState.splice(task, 1);
-        this.setState({ tasks: newState });
+        if (this.state.tasks.length > 1) {
+            const id = e.target.getAttribute('data-id');
+            const task = this.state.tasks.findIndex(t => t.props.id == id);
+            let newState = this.state.tasks;
+            newState.splice(task, 1);
+            this.setState({ tasks: newState });
+        }        
     }
 
     goalDateChanged = (e) => {

@@ -28,3 +28,17 @@ export function getTask(goalId, id) {
         return task;
     }
 }
+
+export function findFreeId() {
+    const busyIds = Object.keys(window.localStorage);
+    let foundId = false;
+    let id = 1;
+    while (!foundId) {
+        if (!busyIds.find(i => i == 'goal' + id)) {
+            foundId = true;
+        } else {
+            id++;
+        }
+    }
+    return id;
+}
