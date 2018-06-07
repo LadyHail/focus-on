@@ -1,4 +1,5 @@
 ﻿import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { getTask } from '../utils/DbHelper.js';
 import { timeLeft, getLocalDate } from '../utils/DateTime.js';
 
@@ -15,6 +16,7 @@ class TaskDetail extends Component {
     render = () => {
         return (
             <div>
+                <Link to={`/goal/edit/${this.props.goalId}/${this.task.id}/`}>EDIT TASK</Link>
                 <p>{this.task.description}</p>
                 <p>{getLocalDate(this.task.created)}</p>
                 <p>{getLocalDate(this.task.expDate)}</p>

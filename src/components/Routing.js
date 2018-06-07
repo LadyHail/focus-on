@@ -2,16 +2,20 @@
 import { Route } from 'react-router-dom';
 import NewGoal from '../pages/NewGoal.js';
 import ShowGoalsList from '../pages/ShowGoalsList.js';
-import GoalDetail from '../pages/GoalDetail';
+import GoalDetail from '../pages/GoalDetail.js';
+import EditGoal from '../pages/EditGoal.js';
+import EditTask from '../pages/EditTask.js';
 
 class Routing extends Component {
     render = () => {
         return (
             <div>
-                <Route exact path="/" />
+                <Route path="/" />
                 <Route path="/goal/new" component={NewGoal} />
                 <Route path="/goals" component={ShowGoalsList} />
-                <Route strict path="/goal/:id/" component={GoalDetail} />
+                <Route exact strict path="/goal/:id/" component={GoalDetail} />
+                <Route exact strict path="/goal/edit/:id" component={EditGoal} />
+                <Route exact strict path="/goal/edit/:goalId/:taskId/" component={EditTask} />
             </div>
         );
     }
