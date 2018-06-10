@@ -5,6 +5,7 @@ import ShowGoalsList from '../pages/ShowGoalsList.js';
 import GoalDetail from '../pages/GoalDetail.js';
 import EditGoal from '../pages/EditGoal.js';
 import EditTask from '../pages/EditTask.js';
+import NewTask from '../pages/goalDetail/NewTask.js';
 
 class Routing extends Component {
     render = () => {
@@ -16,6 +17,7 @@ class Routing extends Component {
                 <Route exact strict path="/goal/:id/" component={GoalDetail} />
                 <Route exact strict path="/goal/edit/:id" component={EditGoal} />
                 <Route exact strict path="/goal/edit/:goalId/:taskId/" component={EditTask} />
+                <Route exact strict path="/goal/add/:id" component={NewTask} />
             </div>
         );
     }

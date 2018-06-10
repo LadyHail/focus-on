@@ -20,7 +20,7 @@ class EditTask extends Component {
     }
 
     save = (e) => {
-        e.preventDefault;
+        e.preventDefault();
         updateTask(this.goalId, this.task.id);
         this.setState({ goBack: true });
     }

@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import NewTask from './NewTask.js';
+import NewTask from './newGoal/NewTask.js';
 import AddTask from './newGoal/AddTask.js';
 import { getDate } from '../utils/DateTime.js';
 import { saveGoal, findFreeId } from '../utils/DbHelper.js';

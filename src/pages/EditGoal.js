@@ -2,7 +2,7 @@
 import { Redirect } from 'react-router-dom';
 import { getGoal, saveGoal } from '../utils/DbHelper.js';
 import { getDate, getExpDate, getExpTime } from '../utils/DateTime.js';
-import { createGoalObj } from '../utils/utils.js';
+import { updateGoal } from '../utils/utils.js';
 
 class EditGoal extends Component {
 
@@ -19,11 +19,9 @@ class EditGoal extends Component {
     }
 
     save = (e) => {
-        e.preventDefault;
-        const goal = createGoalObj(this.goal.id);
-        const tasks = this.goal.tasks;
-        goal.tasks = tasks;
-        saveGoal("goal" + this.goal.id.toString(), JSON.stringify(goal));
+        e.preventDefault();
+        updateGoal(this.goal.id);
+        const goal = getGoal(this.goal.id);
         this.setState({ goBack: true });
     }
 

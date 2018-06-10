@@ -32,8 +32,10 @@ export function getExpDate(date) {
 }
 
 export function getExpTime(date) {
-    const hours = date.getHours().toString();
-    const minutes = date.getMinutes().toString();
+    let hours = date.getHours().toString();
+    let minutes = date.getMinutes().toString();
+    hours = hours.length === 1 ? '0' + hours : hours;
+    minutes = minutes.length === 1 ? '0' + minutes : minutes;
 
     return hours + ':' + minutes;
 }

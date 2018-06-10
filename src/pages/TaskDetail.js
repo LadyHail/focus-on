@@ -16,7 +16,8 @@ class TaskDetail extends Component {
     render = () => {
         return (
             <div>
-                <Link to={`/goal/edit/${this.props.goalId}/${this.task.id}/`}>EDIT TASK</Link>
+                <li><Link to={`/goal/edit/${this.props.goalId}/${this.task.id}/`}>EDIT TASK</Link></li>
+                <button onClick={this.props.delete} data-id={this.task.id}>DELETE</button>
                 <p>{this.task.description}</p>
                 <p>{getLocalDate(this.task.created)}</p>
                 <p>{getLocalDate(this.task.expDate)}</p>

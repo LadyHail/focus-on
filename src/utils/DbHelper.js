@@ -42,3 +42,18 @@ export function findFreeId() {
     }
     return id;
 }
+
+export function setTaskId(goalId) {
+    const goal = getGoal(goalId);
+    const busyIds = goal.tasks.map(t =>t.id);
+    let foundId = false;
+    let id = 1;
+    while (!foundId) {
+        if (!busyIds.find(i => i == id)) {
+            foundId = true;
+        } else {
+            id++;
+        }
+    }
+    return id;
+}
