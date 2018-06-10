@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { getGoal, saveGoal } from '../utils/DbHelper.js';
-import { getDate, getExpDate, getExpTime } from '../utils/DateTime.js';
+import { getExpDate, getExpTime } from '../utils/DateTime.js';
 import { updateGoal } from '../utils/utils.js';
 
 class EditGoal extends Component {
