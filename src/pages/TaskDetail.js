@@ -1,10 +1,19 @@
 ﻿import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getTask } from '../utils/DbHelper.js';
 import { timeLeft, getLocalDate } from '../utils/DateTime.js';
 import { updateStatus } from '../utils/utils.js';
 
+//TODO parse IDs to numbers
 class TaskDetail extends Component {
+
+    static propTypes = {
+        completeTask: PropTypes.func.isRequired,
+        delete: PropTypes.func.isRequired,
+        goalId: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired
+    }
 
     componentWillMount = () => {
         const id = this.props.id;

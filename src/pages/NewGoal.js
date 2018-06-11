@@ -2,7 +2,7 @@
 import NewTask from './newGoal/NewTask.js';
 import AddTask from './newGoal/AddTask.js';
 import { getDate } from '../utils/DateTime.js';
-import { saveGoal, findFreeId } from '../utils/DbHelper.js';
+import { saveGoal } from '../utils/DbHelper.js';
 import { createGoalObj, createTasksObjs } from '../utils/utils.js';
 
 class NewGoal extends Component {
@@ -53,7 +53,7 @@ class NewGoal extends Component {
     removeTask = (e) => {
         if (this.state.tasks.length > 1) {
             const id = e.target.getAttribute('data-id');
-            const task = this.state.tasks.findIndex(t => t.props.id == id);
+            const task = this.state.tasks.findIndex(t => t.props.id === id);
             let newState = this.state.tasks;
             newState.splice(task, 1);
             this.setState({ tasks: newState });
@@ -63,7 +63,6 @@ class NewGoal extends Component {
     goalDateChanged = (e) => {
         const date = e.target.value;
         this.setState({ goalDate: date});
-        const _this = this;
         const newState = this.state.tasks.map(p => {
             return <NewTask key={p.key} id={p.props.id} removeBtnClick={p.props.removeBtnClick} goalDate={date} />
         });

@@ -26,9 +26,11 @@ export function updateStatus(obj, timeLeft, goalId = null) {
             case "Task":
                 obj.status = STATUS.failed;
                 const goal = getGoal(goalId);
-                const index = goal.tasks.findIndex(t => t.id == obj.id);
+                const index = goal.tasks.findIndex(t => t.id === obj.id);
                 goal.tasks[index] = obj;
                 saveGoal("goal" + goalId, JSON.stringify(goal));
+                break;
+            default:
                 break;
         }        
     }
@@ -71,46 +73,45 @@ export function createTaskObj(taskHTML) {
     const taskTime = taskHTML.getElementsByClassName('task-time')[0].value;
     let taskExpDate = taskDate + ' ' + taskTime;
     taskExpDate = new Date(taskExpDate).toUTCString();
-    const task = {
-        'id': taskHTML.getAttribute('data-id'),
-        'description': taskHTML.getElementsByClassName('task-desc')[0].value,
-        'expDate': taskExpDate,
-        'created': dateNow,
-        'status': STATUS.waiting
-    };
-
+    const task = new Task(
+        taskHTML.getAttribute('data-id'),
+        taskHTML.getElementsByClassName('task-desc')[0].value,
+        taskExpDate,
+        dateNow,
+        STATUS.waiting
+    );
     return task;
 }
 
 export function updateGoal(goalId) {
-    const description = document.getElementById('goal-desc').value;
     let expDate = document.getElementById('goal-date').value + ' ' + document.getElementById('goal-time').value;
     expDate = new Date(expDate).toUTCString();
     const id = goalId;
     const goal = getGoal(goalId);
+    const description = goal.description;
     const status = goal.status;
     const dateNow = goal.created;
     const tasks = goal.tasks;
-    const newGoal = { 'id': id, 'description': description, 'expDate': expDate, 'created': dateNow, 'tasks': tasks, 'status': status };
+    const newGoal = new Goal(id, description, expDate, dateNow, status, tasks);
     saveGoal("goal" + goalId, JSON.stringify(newGoal));
 }
 
 export function updateTask(goalId, taskId) {
     const goal = getGoal(goalId);
-    const task = goal.tasks.find(t => t.id == taskId);
+    const task = goal.tasks.find(t => t.id === taskId);
     const status = task.status;
-    const taskIndex = goal.tasks.findIndex(t => t == task);
+    const taskIndex = goal.tasks.findIndex(t => t === task);
     const taskDate = document.getElementsByClassName('task-date')[0].value;
     const taskTime = document.getElementsByClassName('task-time')[0].value;
     let taskExpDate = taskDate + ' ' + taskTime;
     taskExpDate = new Date(taskExpDate).toUTCString();
-    const newTask = {
-        'id': taskId,
-        'description': document.getElementsByClassName('task-desc')[0].value,
-        'expDate': taskExpDate,
-        'created': task.created,
-        'status': status
-    };
+    const newTask = new Task(
+        taskId,
+        document.getElementsByClassName('task-desc')[0].value,
+        taskExpDate,
+        task.created,
+        status
+    );
     goal.tasks[taskIndex] = newTask;
     saveGoal("goal" + goal.id.toString(), JSON.stringify(goal));
 }
@@ -118,7 +119,7 @@ export function updateTask(goalId, taskId) {
 export function deleteTask(goalId, taskId) {
     const goal = getGoal(goalId);
     if (goal.tasks.length > 1) {
-        const index = goal.tasks.findIndex(i => i.id == taskId);
+        const index = goal.tasks.findIndex(i => i.id === taskId);
         goal.tasks.splice(index, 1);
         saveGoal("goal" + goalId, JSON.stringify(goal));
     }    

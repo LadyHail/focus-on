@@ -7,7 +7,8 @@ class NewTask extends Component {
 
     static propTypes = {
         id: PropTypes.number.isRequired,
-        removeBtnClick: PropTypes.func.isRequired
+        removeBtnClick: PropTypes.func.isRequired,
+        goalDate: PropTypes.string.isRequired
     }
 
     state = {

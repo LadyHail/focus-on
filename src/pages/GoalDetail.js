@@ -35,7 +35,7 @@ class GoalDetail extends Component {
     complete = (e) => {
         const taskId = e.target.getAttribute('data-id');
         if (taskId) {
-            const index = this.goal.tasks.findIndex(t => t.id == taskId);
+            const index = this.goal.tasks.findIndex(t => t.id === taskId);
             const task = this.goal.tasks[index];
             task.status = STATUS.done;
             this.goal.tasks[index] = task;

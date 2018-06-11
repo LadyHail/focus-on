@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { getTask, saveGoal, getGoal } from '../utils/DbHelper.js';
+import { getTask, getGoal } from '../utils/DbHelper.js';
 import { getDate, getExpDate, getExpTime } from '../utils/DateTime.js';
 import { updateTask } from '../utils/utils.js';
 

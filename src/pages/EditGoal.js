@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { getGoal, saveGoal } from '../utils/DbHelper.js';
+import { getGoal } from '../utils/DbHelper.js';
 import { getExpDate, getExpTime } from '../utils/DateTime.js';
 import { updateGoal } from '../utils/utils.js';
 
@@ -21,7 +21,6 @@ class EditGoal extends Component {
     save = (e) => {
         e.preventDefault();
         updateGoal(this.goal.id);
-        const goal = getGoal(this.goal.id);
         this.setState({ goBack: true });
     }
 
@@ -31,12 +30,14 @@ class EditGoal extends Component {
                 {this.state.goBack === true ?
                     <Redirect to={`/goal/${this.goal.id}/`} />
                     :
-                    <form onSubmit={this.save} id="add-goal">
-                        <input type="text" placeholder="What do I want to achieve?" required id="goal-desc" defaultValue={this.goal.description} />
-                        <input type="date" required id="goal-date" min={this.expDate} defaultValue={this.expDate} />
-                        <input type="time" required id="goal-time" defaultValue={this.expTime} />
-                        <button type="submit">Save</button>
-                    </form>
+                    <div>
+                        <p>{this.goal.description}</p>
+                        <form onSubmit={this.save} id="add-goal">
+                            <input type="date" required id="goal-date" min={this.expDate} defaultValue={this.expDate} />
+                            <input type="time" required id="goal-time" defaultValue={this.expTime} />
+                            <button type="submit">Save</button>
+                        </form>
+                    </div>
                 }
             </div>
             )

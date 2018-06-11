@@ -1,4 +1,5 @@
 ﻿import { Goal, Task } from './models.js';
+/*eslint no-loop-func: "off"*/
 
 export function getGoal(id) {
     if (!isNaN(id)) {
@@ -29,7 +30,7 @@ export function saveGoal(id, item) {
 export function getTask(goalId, id) {
     if (!isNaN(id)) {
         const goal = getGoal(goalId);
-        const task = goal.tasks.find(t => t.id == id);
+        const task = goal.tasks.find(t => t.id === id);
         const taskObj = new Task(task.id, task.description, task.expDate, task.created, task.status);
         return taskObj;
     }
@@ -40,7 +41,7 @@ export function findFreeId() {
     let foundId = false;
     let id = 1;
     while (!foundId) {
-        if (!busyIds.find(i => i == 'goal' + id)) {
+        if (!busyIds.find(i => i === 'goal' + id.toString())) {
             foundId = true;
         } else {
             id++;
@@ -55,7 +56,7 @@ export function setTaskId(goalId) {
     let foundId = false;
     let id = 1;
     while (!foundId) {
-        if (!busyIds.find(i => i == id)) {
+        if (!busyIds.find(i => i === id.toString())) {
             foundId = true;
         } else {
             id++;

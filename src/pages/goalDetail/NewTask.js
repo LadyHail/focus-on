@@ -1,5 +1,4 @@
 ﻿import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { setTaskId, getGoal } from '../../utils/DbHelper.js';
 import { getDate, getExpDate } from '../../utils/DateTime.js';
 import { createTaskObj, addTask } from '../../utils/utils.js';
@@ -24,7 +23,6 @@ class NewTask extends Component {
 
     save = (e) => {
         e.preventDefault();
-        let tasksArray = this.goal.tasks;
         const taskHTML = document.getElementById('task');
         const task = createTaskObj(taskHTML);
         addTask(this.goal.id, task);
