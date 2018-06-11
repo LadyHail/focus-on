@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 import GoalDetail from './GoalDetail.js';
 import { getAll } from '../utils/DbHelper.js';
-import { getLocalDate } from '../utils/DateTime.js';
+import { getLocalDate, timeLeft } from '../utils/DateTime.js';
 
 //TODO add timeleft
 class ShowGoalsList extends Component {

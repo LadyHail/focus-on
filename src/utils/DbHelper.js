@@ -1,8 +1,11 @@
-﻿export function getGoal(id) {
+﻿import { Goal, Task } from './models.js';
+
+export function getGoal(id) {
     if (!isNaN(id)) {
         let goal = window.localStorage.getItem('goal' + id);
         goal = JSON.parse(goal);
-        return goal;
+        const goalObj = new Goal(goal.id, goal.description, goal.expDate, goal.created, goal.status, goal.tasks);
+        return goalObj;
     }
 }
 
@@ -12,7 +15,9 @@ export function getAll() {
     let goal = {};
     keys.forEach(function (key) {
         goal = window.localStorage.getItem(key);
-        goals.push(JSON.parse(goal));
+        goal = JSON.parse(goal);
+        const goalObj = new Goal(goal.id, goal.description, goal.expDate, goal.created, goal.status, goal.tasks);
+        goals.push(goalObj);
     });
     return goals;
 }
@@ -25,7 +30,8 @@ export function getTask(goalId, id) {
     if (!isNaN(id)) {
         const goal = getGoal(goalId);
         const task = goal.tasks.find(t => t.id == id);
-        return task;
+        const taskObj = new Task(task.id, task.description, task.expDate, task.created, task.status);
+        return taskObj;
     }
 }
 

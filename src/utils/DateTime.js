@@ -12,7 +12,8 @@ export function timeLeft(expiring) {
     const timeleft = {
         days: days,
         hours: hours,
-        minutes: minutes
+        minutes: minutes,
+        time: difference
     };
     return timeleft;
 }
