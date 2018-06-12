@@ -4,16 +4,21 @@ import { getGoal, saveGoal } from '../utils/DbHelper.js';
 import { timeLeft, getLocalDate } from '../utils/DateTime.js';
 import { deleteTask, updateStatus, STATUS } from '../utils/utils.js';
 import TaskDetail from './TaskDetail.js';
+import Notification from '../components/Notification.js';
+import RenderToBody from '../components/RenderToBody';
 
 class GoalDetail extends Component {
     constructor(props) {
         super(props);
         this.deleteTask = this.deleteTask.bind(this);
         this.complete = this.complete.bind(this);
+        this.notifyMsg = '';
+        this.notifyLvl = '';
     }
 
     state = {
-        tasks: null
+        tasks: null,
+        notify: false
     }
 
     componentWillMount = () => {
@@ -30,6 +35,9 @@ class GoalDetail extends Component {
         deleteTask(this.id, taskId);
         this.goal = getGoal(this.id);
         this.setState({ tasks: this.goal.tasks.length });
+        this.setState({ notify: true });
+        this.notifyMsg = 'Task deleted!';
+        this.notifyLvl = 'error';
     }
 
     complete = (e) => {
@@ -43,11 +51,15 @@ class GoalDetail extends Component {
             this.goal.status = STATUS.done;
         }        
         saveGoal("goal" + this.goal.id, JSON.stringify(this.goal));
+        this.setState({ notify: true });
+        this.notifyMsg = 'Goal completed!';
+        this.notifyLvl = 'success';
     }
 
     render = () => {
         return (
             <div>
+                {this.state.notify ? <RenderToBody><Notification msg={this.notifyMsg} level={this.notifyLvl} /></RenderToBody> : null}
                 <li><Link to={`/goal/edit/${this.id}`}>EDIT</Link></li>
                 <li><Link to={`/goal/add/${this.id}`}>ADD</Link></li>
                 <button onClick={this.complete}>Complete!</button>

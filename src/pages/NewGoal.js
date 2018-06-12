@@ -4,6 +4,7 @@ import AddTask from './newGoal/AddTask.js';
 import { getDate } from '../utils/DateTime.js';
 import { saveGoal } from '../utils/DbHelper.js';
 import { createGoalObj, createTasksObjs } from '../utils/utils.js';
+import Notification from '../components/Notification.js';
 
 class NewGoal extends Component {
     constructor(props) {
@@ -23,7 +24,8 @@ class NewGoal extends Component {
 
     state = {
         tasks: [],
-        goalDate: new Date().toISOString().substring(0, 10)
+        goalDate: new Date().toISOString().substring(0, 10),
+        notify: false
     }
 
     save = (e) => {
@@ -37,6 +39,7 @@ class NewGoal extends Component {
         const form = document.getElementById('add-goal');
         form.reset();
         this.setState({ tasks: [<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} goalDate={this.state.goalDate} />] });
+        this.setState({ notify: true });
     }
 
     
@@ -72,16 +75,21 @@ class NewGoal extends Component {
     render = () => {
 
         return (
-            <form onSubmit={this.save} id="add-goal">
-                <input type="text" placeholder="What do I want to achieve?" required id="goal-desc" />
-                <input type="date" required id="goal-date" min={getDate()} onChange={this.goalDateChanged} />
-                <input type="time" required defaultValue="23:59" id="goal-time" />
-                <AddTask btnClick={this.addTask} />
-                <div>
-                    {this.state.tasks}
-                </div>
-                <button type="submit">Save</button>
-            </form>
+            <div>
+                {this.state.notify ? 
+                    <Notification msg="Goal saved!" level="success" /> : null
+}
+                <form onSubmit={this.save} id="add-goal">
+                    <input type="text" placeholder="What do I want to achieve?" required id="goal-desc" />
+                    <input type="date" required id="goal-date" min={getDate()} onChange={this.goalDateChanged} />
+                    <input type="time" required defaultValue="23:59" id="goal-time" />
+                    <AddTask btnClick={this.addTask} />
+                    <div>
+                        {this.state.tasks}
+                    </div>
+                    <button type="submit">Save</button>
+                </form>
+            </div>
         );
     }
 }

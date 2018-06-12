@@ -3,11 +3,14 @@ import { Redirect } from 'react-router-dom';
 import { getTask, getGoal } from '../utils/DbHelper.js';
 import { getDate, getExpDate, getExpTime } from '../utils/DateTime.js';
 import { updateTask } from '../utils/utils.js';
+import Notification from '../components/Notification.js';
+import RenderToBody from '../components/RenderToBody';
 
 class EditTask extends Component {
 
     state = {
-        goBack: false
+        goBack: false,
+        notify: false
     }
 
     componentWillMount = () => {
@@ -25,11 +28,13 @@ class EditTask extends Component {
         e.preventDefault();
         updateTask(this.goalId, this.task.id);
         this.setState({ goBack: true });
+        this.setState({ notify: true });
     }
 
     render = () => {
         return (
             <div>
+                {this.state.notify ? <RenderToBody><Notification msg="Changes saved!" level="success" /></RenderToBody> : null}
                 {this.state.goBack === true ?
                     <Redirect to={`/goal/${this.goalId}/`} />
                     :

@@ -3,11 +3,15 @@ import { Redirect } from 'react-router-dom';
 import { getGoal } from '../utils/DbHelper.js';
 import { getExpDate, getExpTime } from '../utils/DateTime.js';
 import { updateGoal } from '../utils/utils.js';
+import Notification from '../components/Notification.js';
+import RenderToBody from '../components/RenderToBody';
 
+//TODO fix date bug
 class EditGoal extends Component {
 
     state = {
-        goBack: false
+        goBack: false,
+        notify: false
     }
 
     componentWillMount = () => {
@@ -19,16 +23,20 @@ class EditGoal extends Component {
     }
 
     save = (e) => {
+        const _this = this;
         e.preventDefault();
         updateGoal(this.goal.id);
         this.setState({ goBack: true });
+        this.setState({ notify: true });
     }
 
     render = () => {
+        const _this = this;
         return (
             <div>
-                {this.state.goBack === true ?
-                    <Redirect to={`/goal/${this.goal.id}/`} />
+                {this.state.notify ? <RenderToBody><Notification msg="Changes saved!" level="success" /></RenderToBody> : null}
+                {this.state.goBack ?
+                    <Redirect to={`/goal/${_this.goal.id}/`} />
                     :
                     <div>
                         <p>{this.goal.description}</p>
