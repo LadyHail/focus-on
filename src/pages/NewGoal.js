@@ -78,16 +78,18 @@ class NewGoal extends Component {
             <div>
                 {this.state.notify ? 
                     <Notification msg="Goal saved!" level="success" /> : null
-}
+                }
                 <form onSubmit={this.save} id="add-goal">
-                    <input type="text" placeholder="What do I want to achieve?" required id="goal-desc" />
-                    <input type="date" required id="goal-date" min={getDate()} onChange={this.goalDateChanged} />
-                    <input type="time" required defaultValue="23:59" id="goal-time" />
                     <AddTask btnClick={this.addTask} />
-                    <div>
+                    <button type="submit" className="btn-success btn-save">Save</button>
+                    <div className="input-container">
+                        <input type="text" placeholder="What do I want to achieve?" required id="goal-desc" className="description" />
+                        <label>I want to achieve my goal until: <input type="date" required id="goal-date" min={getDate()} onChange={this.goalDateChanged} /></label>
+                        <input type="time" required defaultValue="23:59" id="goal-time" />
+                    </div>                    
+                    <div className="input-container">
                         {this.state.tasks}
                     </div>
-                    <button type="submit">Save</button>
                 </form>
             </div>
         );

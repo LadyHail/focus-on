@@ -1,0 +1,102 @@
+﻿body {
+    /*Variables*/
+    $font-color: black;
+    $border-color: #0496ff;
+
+    margin: auto;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #0072bb;
+    /*width: 50%;*/
+    
+    /*Navigation*/
+    nav {
+        width: 50%;
+        margin: auto;
+        background-color: white;
+
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0;
+
+            li {
+                display: inline;
+                list-style: none;
+                width: 33.3%;
+                text-align: center;
+
+                a {
+                    text-decoration: none;
+                    color: $font-color;
+                    border: 1px outset $border-color;
+                    background-color: $border-color;
+                    padding: 7px;
+                }
+
+                a:hover {
+                    background-color: #027bce;
+                }
+            }
+        }
+    }
+
+    /*New Goal*/
+    input {
+        margin: 10px auto;
+        display: block;
+        width: 170px;
+        text-align: center;
+    }
+
+    .description {
+        width: 500px;
+    }
+
+    %btn {
+        cursor: pointer;
+        border: 1px outset;
+        padding: 5px;
+    }
+
+    .btn-success {
+        @extend %btn;
+        background-color: #8fc93a;
+    }
+
+    .btn-fail {
+        @extend %btn;
+        background-color: #d61815;
+        float: right;
+        margin: -71px 0 0 0;
+    }
+
+    .btn-save {
+        @extend %btn;
+        width: 100px;
+        float: right;
+        text-transform: uppercase;
+    }
+
+    .input-container {
+        width: fit-content;
+        margin: auto;
+        margin-bottom: 50px;
+        text-align: center;
+    }
+
+    .task {
+        margin-bottom: 30px;
+    }
+
+    /*Goals List*/
+    .goals-list {
+        display: block;
+
+        .list-item {
+            width: 80%;
+            margin: auto;
+            border: 1px solid #ff6a00;
+        }
+    }
+}

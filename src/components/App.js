@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import './app.css';
 import NewGoal from '../pages/NewGoal.js';
 import ShowGoalsList from '../pages/ShowGoalsList.js';
 import GoalDetail from '../pages/GoalDetail.js';

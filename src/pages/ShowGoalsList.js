@@ -11,16 +11,15 @@ class ShowGoalsList extends Component {
 
     render = () => {
         return (
-            <div>
+            <div className="goals-list">
                 {this.goals.map(item => {
                     return (
-                        <div key={item.id} data-id={item.id}>
+                        <div key={item.id} data-id={item.id} className="list-item">
                             <Link to={`/goal/${item.id}/`} className="goal-link">
                                 <p>{item.description}</p>
                                 <p>{getLocalDate(item.created)}</p>
                                 <p>{getLocalDate(item.expDate)}</p>
                                 <p>{item.tasks.length}</p>
-                                <hr />
                             </Link>
                         </div>
                     );

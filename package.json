@@ -9,9 +9,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm sass:build && react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "sass": "sass src/styles/scss/index.scss src/styles/css/index.css",
+    "sass:build": "sass—update src/styles/scss/index.scss src/styles/css/index.css"
   },
   "devDependencies": {
     "prop-types": "^15.6.1",
