@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { getGoal, saveGoal } from '../utils/DbHelper.js';
 import { timeLeft, getLocalDate } from '../utils/DateTime.js';
 import { deleteTask, updateStatus, STATUS } from '../utils/utils.js';
-import TaskDetail from './TaskDetail.js';
+import TaskDetail from '../pages/goalDetail/TaskDetail.js';
 import Notification from '../components/Notification.js';
 import RenderToBody from '../components/RenderToBody';
 
@@ -52,7 +52,7 @@ class GoalDetail extends Component {
         }        
         saveGoal("goal" + this.goal.id, JSON.stringify(this.goal));
         this.setState({ notify: true });
-        this.notifyMsg = 'Goal completed!';
+        this.notifyMsg = 'Completed!';
         this.notifyLvl = 'success';
     }
 

@@ -1,5 +1,4 @@
 ﻿import React from 'react';
-import ReactDOM from 'react-dom';
 import NotificationSystem from 'react-notification-system';
 
 class Notification extends React.Component {

@@ -3,6 +3,8 @@ import { setTaskId, getGoal } from '../../utils/DbHelper.js';
 import { getDate, getExpDate } from '../../utils/DateTime.js';
 import { createTaskObj, addTask } from '../../utils/utils.js';
 import { Redirect } from 'react-router-dom';
+import Notification from '../../components/Notification.js';
+import RenderToBody from '../../components/RenderToBody';
 
 class NewTask extends Component {
     constructor(props) {
@@ -11,7 +13,8 @@ class NewTask extends Component {
     }
 
     state = {
-        goBack: false
+        goBack: false,
+        notify: false
     }
 
     componentWillMount = () => {
@@ -27,11 +30,13 @@ class NewTask extends Component {
         const task = createTaskObj(taskHTML);
         addTask(this.goal.id, task);
         this.setState({ goBack: true });
+        this.setState({ notify: true });
     }
 
     render = () => {
         return (
-        <div>
+            <div>
+                {this.state.notify ? <RenderToBody><Notification msg="New task added!" level="success" /></RenderToBody> : null}
             {this.state.goBack === true ?
                     <Redirect to={`/goal/${this.goal.id}/`} />
                     :
