@@ -16,11 +16,16 @@ export function isTimedOut(timeLeft) {
 }
 
 export function updateStatus(obj, timeLeft, goalId = null) {
-    if (isTimedOut(timeLeft)) {
+    if (isTimedOut(timeLeft) && obj.status === STATUS.waiting) {
         const type = obj.constructor.name;
         switch (type) {
             case "Goal":
                 obj.status = STATUS.failed;
+                obj.tasks.forEach(t => {
+                    if (t.status === STATUS.waiting) {
+                        t.status = STATUS.failed;
+                    }
+                });
                 saveGoal("goal" + obj.id, JSON.stringify(obj));
                 break;
             case "Task":
@@ -92,7 +97,8 @@ export function updateGoal(goalId) {
     const status = goal.status;
     const dateNow = goal.created;
     const tasks = goal.tasks;
-    const newGoal = new Goal(id, description, expDate, dateNow, status, tasks);
+    const done = goal.done;
+    const newGoal = new Goal(id, description, expDate, dateNow, status, tasks, done);
     saveGoal("goal" + goalId, JSON.stringify(newGoal));
 }
 
@@ -105,12 +111,14 @@ export function updateTask(goalId, taskId) {
     const taskTime = document.getElementsByClassName('task-time')[0].value;
     let taskExpDate = taskDate + ' ' + taskTime;
     taskExpDate = new Date(taskExpDate).toUTCString();
+    const done = task.done;
     const newTask = new Task(
         taskId,
         document.getElementsByClassName('task-desc')[0].value,
         taskExpDate,
         task.created,
-        status
+        status,
+        done
     );
     goal.tasks[taskIndex] = newTask;
     saveGoal("goal" + goal.id.toString(), JSON.stringify(goal));

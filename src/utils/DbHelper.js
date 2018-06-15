@@ -5,7 +5,7 @@ export function getGoal(id) {
     if (!isNaN(id)) {
         let goal = window.localStorage.getItem('goal' + id);
         goal = JSON.parse(goal);
-        const goalObj = new Goal(goal.id, goal.description, goal.expDate, goal.created, goal.status, goal.tasks);
+        const goalObj = new Goal(goal.id, goal.description, goal.expDate, goal.created, goal.status, goal.tasks, goal.done);
         return goalObj;
     }
 }
@@ -17,7 +17,7 @@ export function getAll() {
     keys.forEach(function (key) {
         goal = window.localStorage.getItem(key);
         goal = JSON.parse(goal);
-        const goalObj = new Goal(goal.id, goal.description, goal.expDate, goal.created, goal.status, goal.tasks);
+        const goalObj = new Goal(goal.id, goal.description, goal.expDate, goal.created, goal.status, goal.tasks, goal.done);
         goals.push(goalObj);
     });
     return goals;
@@ -31,7 +31,7 @@ export function getTask(goalId, id) {
     if (!isNaN(id)) {
         const goal = getGoal(goalId);
         const task = goal.tasks.find(t => t.id === id);
-        const taskObj = new Task(task.id, task.description, task.expDate, task.created, task.status);
+        const taskObj = new Task(task.id, task.description, task.expDate, task.created, task.status, task.done);
         return taskObj;
     }
 }

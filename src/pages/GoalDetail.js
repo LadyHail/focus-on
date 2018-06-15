@@ -46,9 +46,11 @@ class GoalDetail extends Component {
             const index = this.goal.tasks.findIndex(t => t.id === taskId);
             const task = this.goal.tasks[index];
             task.status = STATUS.done;
+            task.done = new Date().toUTCString();
             this.goal.tasks[index] = task;
         } else {
             this.goal.status = STATUS.done;
+            this.goal.done = new Date().toUTCString();
         }        
         saveGoal("goal" + this.goal.id, JSON.stringify(this.goal));
         this.setState({ notify: true });
@@ -58,22 +60,41 @@ class GoalDetail extends Component {
 
     render = () => {
         return (
-            <div>
-                {this.state.notify ? <RenderToBody><Notification msg={this.notifyMsg} level={this.notifyLvl} /></RenderToBody> : null}
-                <li><Link to={`/goal/edit/${this.id}`}>EDIT</Link></li>
-                <li><Link to={`/goal/add/${this.id}`}>ADD</Link></li>
-                <button onClick={this.complete}>Complete!</button>
-                <p>{this.goal.description}</p>
-                <p>{getLocalDate(this.goal.created)}</p>
-                <p>{getLocalDate(this.goal.expDate)}</p>
-                <p>{this.timeLeft.days} days {this.timeLeft.hours} hours {this.timeLeft.minutes} minutes left </p>
-                {this.goal.tasks.map(t => {
-                    return (
-                        <div key={t.id}>
-                            <TaskDetail id={t.id} goalId={this.id} delete={this.deleteTask} completeTask={this.complete} />
-                        </div>
-                    );
-                })}
+            <div className="goal-detail">
+                {this.goal.status === STATUS.done ?
+                    <div>
+                        <p>I achieved my goal: {this.goal.description}.</p>
+                        <p>I started {getLocalDate(this.goal.created)}</p>
+                        <p>I finished {getLocalDate(this.goal.done)}</p>
+                        {this.goal.tasks.map(t => {
+                            return (
+                                <div key={t.id}>
+                                    <TaskDetail id={t.id} goalId={this.id} delete={this.deleteTask} completeTask={this.complete} />
+                                </div>
+                            );
+                        })}
+                    </div>
+                    :
+                    <div>
+                        {this.state.notify ? <RenderToBody><Notification msg={this.notifyMsg} level={this.notifyLvl} /></RenderToBody> : null}
+                        <ul>
+                            <li><Link to={`/goal/edit/${this.id}`}>I need more time!</Link></li>
+                            <li><Link to={`/goal/add/${this.id}`}>I want to set new task</Link></li>
+                        </ul>
+                        <button onClick={this.complete} className="btn-success btn-save">Complete!</button>
+                        <p>I want to {this.goal.description}</p>
+                        <p>I started {getLocalDate(this.goal.created)}</p>
+                        <p>I want to finish until {getLocalDate(this.goal.expDate)}</p>
+                        <p>I still have {this.timeLeft.days} days {this.timeLeft.hours} hours {this.timeLeft.minutes} minutes left.</p>
+                        {this.goal.tasks.map(t => {
+                            return (
+                                <div key={t.id}>
+                                    <TaskDetail id={t.id} goalId={this.id} delete={this.deleteTask} completeTask={this.complete} />
+                                </div>
+                            );
+                        })}
+                    </div>
+                }
             </div>
         );
     }

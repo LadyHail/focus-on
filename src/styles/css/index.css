@@ -1,83 +1,139 @@
+/*Variables*/
 body {
-  /*Variables*/
   margin: auto;
   padding: 0;
   font-family: sans-serif;
-  background-color: #0072bb;
+  background-color: white;
   /*width: 50%;*/
-  /*Navigation*/
-  /*New Goal*/
-  /*Goals List*/
 }
-body nav {
+
+/*Navigation*/
+nav {
   width: 50%;
   margin: auto;
-  background-color: white;
+  background-color: #0496ff;
 }
-body nav ul {
+nav ul {
   display: flex;
   flex-wrap: wrap;
   padding: 0;
 }
-body nav ul li {
+nav ul li {
   display: inline;
   list-style: none;
   width: 33.3%;
   text-align: center;
 }
-body nav ul li a {
+nav ul li a {
+  text-decoration: none;
+  color: black;
+  padding: 7px;
+}
+nav ul li a:hover {
+  background-color: #027bce;
+}
+
+/*New Goal*/
+input {
+  margin: 10px auto;
+  display: block;
+  width: 170px;
+  text-align: center;
+}
+
+.description {
+  width: 500px;
+}
+
+.input-container {
+  width: fit-content;
+  margin: auto;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.task {
+  margin-bottom: 30px;
+}
+
+/*Button*/
+.btn-save, .btn-fail, .btn-success {
+  cursor: pointer;
+  border: 1px outset;
+  padding: 5px;
+}
+
+.btn-success {
+  background-color: #8fc93a;
+}
+
+.btn-fail {
+  background-color: #d61815;
+  float: right;
+  margin: -71px 0 0 0;
+}
+
+.btn-save {
+  width: 100px;
+  float: right;
+  text-transform: uppercase;
+}
+
+/*Goals List*/
+.goals-list {
+  display: block;
+}
+.goals-list .list-item {
+  width: 80%;
+  margin: 20px auto;
+  border: 1px outset;
+}
+.goals-list .list-item:hover {
+  background-color: #1c77c3;
+}
+
+.goal-link {
+  text-decoration: none;
+  color: black;
+}
+
+/*Goal status*/
+.done {
+  border-color: #8d99ae;
+  background-color: #8d99ae;
+}
+
+.failed {
+  border-color: #d61815;
+  background-color: #d61815;
+}
+
+.waiting {
+  border-color: #8fc93a;
+  background-color: #8fc93a;
+}
+
+/*Goal detail*/
+.goal-detail ul {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+}
+.goal-detail ul li {
+  display: inline;
+  list-style: none;
+  width: 33.3%;
+  text-align: center;
+}
+.goal-detail ul li a {
   text-decoration: none;
   color: black;
   border: 1px outset #0496ff;
   background-color: #0496ff;
   padding: 7px;
 }
-body nav ul li a:hover {
+.goal-detail ul li a:hover {
   background-color: #027bce;
-}
-body input {
-  margin: 10px auto;
-  display: block;
-  width: 170px;
-  text-align: center;
-}
-body .description {
-  width: 500px;
-}
-body .btn-save, body .btn-fail, body .btn-success {
-  cursor: pointer;
-  border: 1px outset;
-  padding: 5px;
-}
-body .btn-success {
-  background-color: #8fc93a;
-}
-body .btn-fail {
-  background-color: #d61815;
-  float: right;
-  margin: -71px 0 0 0;
-}
-body .btn-save {
-  width: 100px;
-  float: right;
-  text-transform: uppercase;
-}
-body .input-container {
-  width: fit-content;
-  margin: auto;
-  margin-bottom: 50px;
-  text-align: center;
-}
-body .task {
-  margin-bottom: 30px;
-}
-body .goals-list {
-  display: block;
-}
-body .goals-list .list-item {
-  width: 80%;
-  margin: auto;
-  border: 1px thin #ff6a00;
 }
 
 /*# sourceMappingURL=src/styles/css/index.css.map */

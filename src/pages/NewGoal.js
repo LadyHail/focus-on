@@ -83,7 +83,7 @@ class NewGoal extends Component {
                     <AddTask btnClick={this.addTask} />
                     <button type="submit" className="btn-success btn-save">Save</button>
                     <div className="input-container">
-                        <input type="text" placeholder="What do I want to achieve?" required id="goal-desc" className="description" />
+                        <label>What I want to achieve?<input type="text" placeholder="eg. Learn Web Development" required id="goal-desc" className="description" /></label>
                         <label>I want to achieve my goal until: <input type="date" required id="goal-date" min={getDate()} onChange={this.goalDateChanged} /></label>
                         <input type="time" required defaultValue="23:59" id="goal-time" />
                     </div>                    

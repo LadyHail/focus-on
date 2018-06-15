@@ -23,7 +23,7 @@ class NewTask extends Component {
     render = () => {
         return (
             <div className="task" data-id={this.props.id}>
-                <input type="text" placeholder="How to achieve my goal?" required id="task-desc" className="task-desc description" />
+                <label>How to achieve my goal?<input type="text" placeholder="eg. Learn HTML" required id="task-desc" className="task-desc description" /></label>
                 <label>I want to complete this task until: <input type="date" defaultValue={getDate()} id="task-date" className="task-date" required min={getDate()} max={this.state.goalDate} /></label>
                 <input type="time" defaultValue="23:59" id="task-time" className="task-time" required />
                 <RemoveTask btnClick={this.props.removeBtnClick} id={this.props.id} />
