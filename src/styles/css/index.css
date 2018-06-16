@@ -1,139 +1,112 @@
-/*Variables*/
-body {
+@charset "UTF-8";
+﻿body {
   margin: auto;
   padding: 0;
   font-family: sans-serif;
   background-color: white;
-  /*width: 50%;*/
-}
+  /*width: 50%;*/ }
 
 /*Navigation*/
 nav {
-  width: 50%;
+  width: 100%;
   margin: auto;
-  background-color: #0496ff;
-}
-nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0;
-}
-nav ul li {
-  display: inline;
-  list-style: none;
-  width: 33.3%;
-  text-align: center;
-}
-nav ul li a {
-  text-decoration: none;
-  color: black;
-  padding: 7px;
-}
-nav ul li a:hover {
-  background-color: #027bce;
-}
+  background-color: #0496ff; }
+  nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0; }
+    nav ul li {
+      display: inline;
+      list-style: none;
+      width: 33.3%;
+      text-align: center; }
+      nav ul li a {
+        text-decoration: none;
+        color: black;
+        padding: 7px; }
+      nav ul li a:hover {
+        background-color: #027bce; }
 
 /*New Goal*/
 input {
   margin: 10px auto;
   display: block;
   width: 170px;
-  text-align: center;
-}
+  text-align: center; }
 
 .description {
-  width: 500px;
-}
+  width: 500px; }
 
 .input-container {
   width: fit-content;
   margin: auto;
   margin-bottom: 50px;
-  text-align: center;
-}
+  text-align: center; }
 
 .task {
-  margin-bottom: 30px;
-}
+  margin-bottom: 30px; }
 
 /*Button*/
-.btn-save, .btn-fail, .btn-success {
+.btn-success, .btn-fail, .btn-save {
   cursor: pointer;
   border: 1px outset;
-  padding: 5px;
-}
+  padding: 5px; }
 
 .btn-success {
-  background-color: #8fc93a;
-}
+  background-color: #8fc93a; }
 
 .btn-fail {
   background-color: #d61815;
   float: right;
-  margin: -71px 0 0 0;
-}
+  margin: -71px 0 0 0; }
 
 .btn-save {
   width: 100px;
   float: right;
-  text-transform: uppercase;
-}
+  text-transform: uppercase; }
 
 /*Goals List*/
 .goals-list {
-  display: block;
-}
-.goals-list .list-item {
-  width: 80%;
-  margin: 20px auto;
-  border: 1px outset;
-}
-.goals-list .list-item:hover {
-  background-color: #1c77c3;
-}
+  display: block; }
+  .goals-list .list-item {
+    width: 80%;
+    margin: 20px auto;
+    border: 1px outset; }
+  .goals-list .list-item:hover {
+    background-color: #1c77c3; }
 
 .goal-link {
   text-decoration: none;
-  color: black;
-}
+  color: black; }
 
 /*Goal status*/
 .done {
   border-color: #8d99ae;
-  background-color: #8d99ae;
-}
+  background-color: #8d99ae; }
 
 .failed {
   border-color: #d61815;
-  background-color: #d61815;
-}
+  background-color: #d61815; }
 
 .waiting {
   border-color: #8fc93a;
-  background-color: #8fc93a;
-}
+  background-color: #8fc93a; }
 
 /*Goal detail*/
 .goal-detail ul {
   display: flex;
   flex-wrap: wrap;
-  padding: 0;
-}
-.goal-detail ul li {
-  display: inline;
-  list-style: none;
-  width: 33.3%;
-  text-align: center;
-}
-.goal-detail ul li a {
-  text-decoration: none;
-  color: black;
-  border: 1px outset #0496ff;
-  background-color: #0496ff;
-  padding: 7px;
-}
-.goal-detail ul li a:hover {
-  background-color: #027bce;
-}
-
-/*# sourceMappingURL=src/styles/css/index.css.map */
+  padding: 0; }
+  .goal-detail ul li {
+    display: inline;
+    list-style: none;
+    width: 33.3%;
+    text-align: center; }
+    .goal-detail ul li a {
+      text-decoration: none;
+      color: black;
+      border: 1px outset #0496ff;
+      background-color: #0496ff;
+      padding: 7px; }
+    .goal-detail ul li a:hover {
+      background-color: #027bce; }
