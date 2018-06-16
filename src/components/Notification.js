@@ -13,7 +13,7 @@ class Notification extends React.Component {
         this._notificationSystem.addNotification({
             message: msg,
             level: level,
-            position: 'tr'
+            position: 'br'
         });
     };
 

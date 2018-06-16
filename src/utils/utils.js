@@ -16,8 +16,8 @@ export function isTimedOut(timeLeft) {
 }
 
 export function updateStatus(obj, timeLeft, goalId = null) {
-    if (isTimedOut(timeLeft) && obj.status === STATUS.waiting) {
-        const type = obj.constructor.name;
+    const type = obj.constructor.name;
+    if (isTimedOut(timeLeft) && obj.status !== STATUS.done) {
         switch (type) {
             case "Goal":
                 obj.status = STATUS.failed;
@@ -37,7 +37,30 @@ export function updateStatus(obj, timeLeft, goalId = null) {
                 break;
             default:
                 break;
-        }        
+        }
+    } else if (!isTimedOut(timeLeft) && obj.status === STATUS.failed) {
+        switch (type) {
+            case "Goal":
+                obj.status = STATUS.waiting;
+                obj.tasks.forEach(t => {
+                    if (t.status === STATUS.failed) {
+                        t.status = STATUS.waiting;
+                    }
+                });
+                saveGoal("goal" + obj.id, JSON.stringify(obj));
+                break;
+            case "Task":
+                const goal = getGoal(goalId);
+                if (goal.status !== STATUS.failed) {
+                    obj.status = STATUS.waiting;
+                    const index = goal.tasks.findIndex(t => t.id === obj.id);
+                    goal.tasks[index] = obj;
+                    saveGoal("goal" + goalId, JSON.stringify(goal));
+                }
+                break;
+            default:
+                break;
+        }
     }
 }
 

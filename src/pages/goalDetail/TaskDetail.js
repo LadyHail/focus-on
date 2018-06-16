@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { getTask } from '../../utils/DbHelper.js';
+import { getTask, getGoal } from '../../utils/DbHelper.js';
 import { timeLeft, getLocalDate } from '../../utils/DateTime.js';
 import { updateStatus, STATUS } from '../../utils/utils.js';
 
@@ -23,6 +23,7 @@ class TaskDetail extends Component {
     componentWillMount = () => {
         const id = this.props.id;
         this.goalId = this.props.goalId;
+        this.goal = getGoal(this.goalId);
         this.task = getTask(this.goalId, id);
         this.timeLeft = timeLeft(new Date(this.task.expDate));
         updateStatus(this.task, this.timeLeft, this.goalId);
@@ -38,15 +39,32 @@ class TaskDetail extends Component {
                         <p>I finished {getLocalDate(this.task.done)}</p>
                     </div>
                     :
-                    <div>
-                        <li><Link to={`/goal/edit/${this.props.goalId}/${this.task.id}/`}>EDIT TASK</Link></li>
-                        <button onClick={this.props.delete} data-id={this.task.id}>DELETE</button>
-                        <button onClick={this.props.completeTask} data-id={this.task.id}>Complete!</button>
-                        <p>{this.task.description}</p>
-                        <p>{getLocalDate(this.task.created)}</p>
-                        <p>{getLocalDate(this.task.expDate)}</p>
-                        <p>{this.timeLeft.days} days {this.timeLeft.hours} hours {this.timeLeft.minutes} minutes left </p>
-                    </div>
+                    this.task.status === STATUS.failed && this.goal.status !== STATUS.failed ?
+                        <div>
+                            <li><Link to={`/goal/edit/${this.props.goalId}/${this.task.id}/`}>EDIT TASK</Link></li>
+                            <p>{this.task.description}</p>
+                            <p>{getLocalDate(this.task.created)}</p>
+                            <p>{getLocalDate(this.task.expDate)}</p>
+                            <p>The time ended {-this.timeLeft.days} days {-this.timeLeft.hours} hours {-this.timeLeft.minutes} minutes ago. </p>
+                        </div>
+                        :
+                        this.task.status === STATUS.failed && this.goal.status === STATUS.failed ?
+                            <div>
+                                <p>{this.task.description}</p>
+                                <p>{getLocalDate(this.task.created)}</p>
+                                <p>{getLocalDate(this.task.expDate)}</p>
+                                <p>The goal expired.</p>
+                            </div>
+                            :
+                                <div>
+                                    <li><Link to={`/goal/edit/${this.props.goalId}/${this.task.id}/`}>EDIT TASK</Link></li>
+                                    <button onClick={this.props.delete} data-id={this.task.id}>DELETE</button>
+                                    <button onClick={this.props.completeTask} data-id={this.task.id}>Complete!</button>
+                                    <p>{this.task.description}</p>
+                                    <p>{getLocalDate(this.task.created)}</p>
+                                    <p>{getLocalDate(this.task.expDate)}</p>
+                                    <p>{this.timeLeft.days} days {this.timeLeft.hours} hours {this.timeLeft.minutes} minutes left </p>
+                                </div>
                     }
             </div>
             )

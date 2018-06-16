@@ -39,7 +39,7 @@ class GoalDetail extends Component {
         this.notifyMsg = 'Task deleted!';
         this.notifyLvl = 'error';
     }
-
+    //TODO refactor
     complete = (e) => {
         const taskId = e.target.getAttribute('data-id');
         if (taskId) {
@@ -50,6 +50,12 @@ class GoalDetail extends Component {
             this.goal.tasks[index] = task;
         } else {
             this.goal.status = STATUS.done;
+            this.goal.tasks.forEach(t => {
+                if (t.status === STATUS.waiting) {
+                    t.status = STATUS.done;
+                    t.done = new Date().toUTCString();
+                }
+            });
             this.goal.done = new Date().toUTCString();
         }        
         saveGoal("goal" + this.goal.id, JSON.stringify(this.goal));
@@ -75,6 +81,25 @@ class GoalDetail extends Component {
                         })}
                     </div>
                     :
+                    this.goal.status === STATUS.failed ?
+                        <div>
+                            {this.state.notify ? <RenderToBody><Notification msg={this.notifyMsg} level={this.notifyLvl} /></RenderToBody> : null}
+                            <ul>
+                                <li><Link to={`/goal/edit/${this.id}`}>I need more time!</Link></li>
+                            </ul>
+                            <p>I want to {this.goal.description}</p>
+                            <p>I started {getLocalDate(this.goal.created)}</p>
+                            <p>I wanted to finish until {getLocalDate(this.goal.expDate)}</p>
+                            <p>The time ended {-this.timeLeft.days} days {-this.timeLeft.hours} hours {-this.timeLeft.minutes} minutes ago.</p>
+                            {this.goal.tasks.map(t => {
+                                return (
+                                    <div key={t.id}>
+                                        <TaskDetail id={t.id} goalId={this.id} delete={this.deleteTask} completeTask={this.complete} />
+                                    </div>
+                                );
+                            })}
+                        </div>
+                        :
                     <div>
                         {this.state.notify ? <RenderToBody><Notification msg={this.notifyMsg} level={this.notifyLvl} /></RenderToBody> : null}
                         <ul>
