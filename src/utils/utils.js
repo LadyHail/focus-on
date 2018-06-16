@@ -1,163 +1,140 @@
-﻿import { findFreeId, getGoal, saveGoal } from './DbHelper.js';
+﻿import { findFreeId, getGoal, saveGoal, STATUS } from './dbHelper.js';
 import { Goal, Task } from './models.js';
 
-export const STATUS = {
-    done: 'done',
-    waiting: 'waiting',
-    failed: 'failed'
-}
-
-export function isTimedOut(timeLeft) {
-    if (timeLeft.time < 0) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-export function updateStatus(obj, timeLeft, goalId = null) {
-    const type = obj.constructor.name;
-    if (isTimedOut(timeLeft) && obj.status !== STATUS.done) {
-        switch (type) {
-            case "Goal":
-                obj.status = STATUS.failed;
-                obj.tasks.forEach(t => {
-                    if (t.status === STATUS.waiting) {
-                        t.status = STATUS.failed;
-                    }
-                });
-                saveGoal("goal" + obj.id, JSON.stringify(obj));
-                break;
-            case "Task":
-                obj.status = STATUS.failed;
-                const goal = getGoal(goalId);
-                const index = goal.tasks.findIndex(t => t.id === obj.id);
-                goal.tasks[index] = obj;
-                saveGoal("goal" + goalId, JSON.stringify(goal));
-                break;
-            default:
-                break;
-        }
-    } else if (!isTimedOut(timeLeft) && obj.status === STATUS.failed) {
-        switch (type) {
-            case "Goal":
-                obj.status = STATUS.waiting;
-                obj.tasks.forEach(t => {
-                    if (t.status === STATUS.failed) {
-                        t.status = STATUS.waiting;
-                    }
-                });
-                saveGoal("goal" + obj.id, JSON.stringify(obj));
-                break;
-            case "Task":
-                const goal = getGoal(goalId);
-                if (goal.status !== STATUS.failed) {
-                    obj.status = STATUS.waiting;
-                    const index = goal.tasks.findIndex(t => t.id === obj.id);
-                    goal.tasks[index] = obj;
-                    saveGoal("goal" + goalId, JSON.stringify(goal));
-                }
-                break;
-            default:
-                break;
-        }
-    }
-}
-
-//TODO check data type
 export function createGoalObj() {
-    const description = document.getElementById('goal-desc').value;
-    let expDate = document.getElementById('goal-date').value + ' ' + document.getElementById('goal-time').value;
-    expDate = new Date(expDate).toUTCString();
-    const id = findFreeId();
-    const dateNow = new Date().toUTCString();
-    const goal = new Goal(id, description, expDate, dateNow, STATUS.waiting);
-    return goal;
+    try {
+        const description = document.getElementById('goal-desc').value;
+        let expDate = document.getElementById('goal-date').value + ' ' + document.getElementById('goal-time').value;
+        expDate = new Date(expDate).toUTCString();
+        const id = findFreeId();
+        const dateNow = new Date().toUTCString();
+        const goal = new Goal(id, description, expDate, dateNow, STATUS.waiting);
+        return goal;
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
 }
 
 export function createTasksObjs(tasksArray) {
     let tasks = [];
     const dateNow = new Date().toUTCString();
     for (let item of tasksArray) {
-        const taskDate = item.getElementsByClassName('task-date')[0].value;
-        const taskTime = item.getElementsByClassName('task-time')[0].value;
-        let taskExpDate = taskDate + ' ' + taskTime;
-        taskExpDate = new Date(taskExpDate).toUTCString();
-        const task = new Task(
-            item.getAttribute('data-id'),
-            item.getElementsByClassName('task-desc')[0].value,
-            taskExpDate,
-            dateNow,
-            STATUS.waiting
-        );
-        tasks.push(task);
+        try {
+            const taskDate = item.getElementsByClassName('task-date')[0].value;
+            const taskTime = item.getElementsByClassName('task-time')[0].value;
+            let taskExpDate = taskDate + ' ' + taskTime;
+            taskExpDate = new Date(taskExpDate).toUTCString();
+            const task = new Task(
+                item.getAttribute('data-id'),
+                item.getElementsByClassName('task-desc')[0].value,
+                taskExpDate,
+                dateNow,
+                STATUS.waiting
+            );
+            tasks.push(task);
+        } catch (e) {
+            console.log(e);
+        }
     }
     return tasks;
 }
 
 export function createTaskObj(taskHTML) {
     const dateNow = new Date().toUTCString();
-    const taskDate = taskHTML.getElementsByClassName('task-date')[0].value;
-    const taskTime = taskHTML.getElementsByClassName('task-time')[0].value;
-    let taskExpDate = taskDate + ' ' + taskTime;
-    taskExpDate = new Date(taskExpDate).toUTCString();
-    const task = new Task(
-        taskHTML.getAttribute('data-id'),
-        taskHTML.getElementsByClassName('task-desc')[0].value,
-        taskExpDate,
-        dateNow,
-        STATUS.waiting
-    );
-    return task;
+    try {
+        const taskDate = taskHTML.getElementsByClassName('task-date')[0].value;
+        const taskTime = taskHTML.getElementsByClassName('task-time')[0].value;
+        let taskExpDate = taskDate + ' ' + taskTime;
+        taskExpDate = new Date(taskExpDate).toUTCString();
+        const task = new Task(
+            taskHTML.getAttribute('data-id'),
+            taskHTML.getElementsByClassName('task-desc')[0].value,
+            taskExpDate,
+            dateNow,
+            STATUS.waiting
+        );
+        return task;
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
 }
 
 export function updateGoal(goalId) {
-    let expDate = document.getElementById('goal-date').value + ' ' + document.getElementById('goal-time').value;
-    expDate = new Date(expDate).toUTCString();
+    let expDate = null;
+    try {
+        expDate = document.getElementById('goal-date').value + ' ' + document.getElementById('goal-time').value;
+        expDate = new Date(expDate).toUTCString();
+    } catch (e) {
+        expDate = new Date().toUTCString();
+        console.log(e);
+    }
     const id = goalId;
     const goal = getGoal(goalId);
-    const description = goal.description;
-    const status = goal.status;
-    const dateNow = goal.created;
-    const tasks = goal.tasks;
-    const done = goal.done;
-    const newGoal = new Goal(id, description, expDate, dateNow, status, tasks, done);
-    saveGoal("goal" + goalId, JSON.stringify(newGoal));
+    if (goal !== null) {
+        const description = goal.description;
+        const status = goal.status;
+        const dateNow = goal.created;
+        const tasks = goal.tasks;
+        const done = goal.done;
+        const newGoal = new Goal(id, description, expDate, dateNow, status, tasks, done);
+        saveGoal("goal" + goalId, newGoal);
+    }
 }
 
 export function updateTask(goalId, taskId) {
     const goal = getGoal(goalId);
-    const task = goal.tasks.find(t => t.id === taskId);
-    const status = task.status;
-    const taskIndex = goal.tasks.findIndex(t => t === task);
-    const taskDate = document.getElementsByClassName('task-date')[0].value;
-    const taskTime = document.getElementsByClassName('task-time')[0].value;
-    let taskExpDate = taskDate + ' ' + taskTime;
-    taskExpDate = new Date(taskExpDate).toUTCString();
-    const done = task.done;
-    const newTask = new Task(
-        taskId,
-        document.getElementsByClassName('task-desc')[0].value,
-        taskExpDate,
-        task.created,
-        status,
-        done
-    );
-    goal.tasks[taskIndex] = newTask;
-    saveGoal("goal" + goal.id.toString(), JSON.stringify(goal));
+    let task = null;
+    let taskExpDate = null;
+    if (goal !== null) {
+        task = goal.tasks.find(t => t.id === taskId);
+    } else {
+        return null;
+    }
+
+    try {
+        const taskDate = document.getElementsByClassName('task-date')[0].value;
+        const taskTime = document.getElementsByClassName('task-time')[0].value;
+        taskExpDate = taskDate + ' ' + taskTime;
+        taskExpDate = new Date(taskExpDate).toUTCString();
+    } catch (e) {
+        console.log(e);
+        taskExpDate = new Date().toUTCString();
+    }
+
+    if (task !== null) {
+        const taskIndex = goal.tasks.findIndex(t => t === task);
+        const status = task.status;
+        const done = task.done;
+        const newTask = new Task(
+            taskId,
+            document.getElementsByClassName('task-desc')[0].value,
+            taskExpDate,
+            task.created,
+            status,
+            done
+        );
+        goal.tasks[taskIndex] = newTask;
+        saveGoal("goal" + goal.id.toString(), goal);
+    }
 }
 
 export function deleteTask(goalId, taskId) {
     const goal = getGoal(goalId);
-    if (goal.tasks.length > 1) {
+    if (goal !== null && goal.tasks.length > 1) {
         const index = goal.tasks.findIndex(i => i.id === taskId);
-        goal.tasks.splice(index, 1);
-        saveGoal("goal" + goalId, JSON.stringify(goal));
+        if (index !== -1) {
+            goal.tasks.splice(index, 1);
+        }
+        saveGoal("goal" + goalId, goal);
     }    
 }
 
 export function addTask(goalId, task) {
     const goal = getGoal(goalId);
-    goal.tasks.push(task);
-    saveGoal("goal" + goalId, JSON.stringify(goal));
+    if (goal !== null && task.constructor.name === 'Task') {
+        goal.tasks.push(task);
+        saveGoal("goal" + goalId, goal);
+    }
 }

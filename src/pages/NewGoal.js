@@ -1,10 +1,11 @@
 ﻿import React, { Component } from 'react';
 import NewTask from './newGoal/NewTask.js';
 import AddTask from './newGoal/AddTask.js';
-import { getDate } from '../utils/DateTime.js';
-import { saveGoal } from '../utils/DbHelper.js';
+import { getDate } from '../utils/dateTime.js';
+import { saveGoal } from '../utils/dbHelper.js';
 import { createGoalObj, createTasksObjs } from '../utils/utils.js';
 import Notification from '../components/Notification.js';
+import NotFound from '../components/NotFound';
 
 class NewGoal extends Component {
     constructor(props) {
@@ -25,7 +26,8 @@ class NewGoal extends Component {
     state = {
         tasks: [],
         goalDate: new Date().toISOString().substring(0, 10),
-        notify: false
+        notify: false,
+        isError: false
     }
 
     save = (e) => {
@@ -33,16 +35,17 @@ class NewGoal extends Component {
         const goal = createGoalObj();
         const tasksElements = document.getElementsByClassName('task');
         const tasks = createTasksObjs(tasksElements);
-        goal.tasks = tasks;
-        saveGoal("goal" + goal.id.toString(), JSON.stringify(goal));
-
-        const form = document.getElementById('add-goal');
-        form.reset();
-        this.setState({ tasks: [<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} goalDate={this.state.goalDate} />] });
-        this.setState({ notify: true });
-    }
-
-    
+        if (goal !== null && tasks !== null) {
+            goal.tasks = tasks;
+            saveGoal("goal" + goal.id.toString(), goal);
+            const form = document.getElementById('add-goal');
+            form.reset();
+            this.setState({ tasks: [<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} goalDate={this.state.goalDate} />] });
+            this.setState({ notify: true });
+        } else {
+            this.setState({ isError: true });
+        }
+    }  
 
     addTask = () => {
         if (this.state.tasks.length < 64) {
@@ -76,21 +79,26 @@ class NewGoal extends Component {
 
         return (
             <div>
-                {this.state.notify ? 
-                    <Notification msg="Goal saved!" level="success" /> : null
-                }
-                <form onSubmit={this.save} id="add-goal">
-                    <AddTask btnClick={this.addTask} />
-                    <button type="submit" className="btn-success btn-save">Save</button>
-                    <div className="input-container">
-                        <label>What I want to achieve?<input type="text" placeholder="eg. Learn Web Development" required id="goal-desc" className="description" /></label>
-                        <label>I want to achieve my goal until: <input type="date" required id="goal-date" min={getDate()} onChange={this.goalDateChanged} /></label>
-                        <input type="time" required defaultValue="23:59" id="goal-time" />
-                    </div>                    
-                    <div className="input-container">
-                        {this.state.tasks}
-                    </div>
-                </form>
+                {this.state.isError ?
+                    <NotFound />
+                    :
+                <div>
+                    {this.state.notify ?
+                            <Notification msg="Goal saved!" level="success" /> : null}
+                    <form onSubmit = { this.save } id="add-goal">
+                        <AddTask btnClick={this.addTask} />
+                        <button type="submit" className="btn-success btn-save">Save</button>
+                        <div className="input-container">
+                            <label>What I want to achieve?<input type="text" placeholder="eg. Learn Web Development" required id="goal-desc" className="description" /></label>
+                            <label>I want to achieve my goal until: <input type="date" required id="goal-date" min={getDate()} onChange={this.goalDateChanged} /></label>
+                            <input type="time" required defaultValue="23:59" id="goal-time" />
+                        </div>
+                        <div className="input-container">
+                            {this.state.tasks}
+                        </div>
+                        </form>
+                </div>
+            }
             </div>
         );
     }

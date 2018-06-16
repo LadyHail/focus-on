@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import RemoveTask from './RemoveTask.js';
-import { getDate } from '../../utils/DateTime.js';
+import { getDate } from '../../utils/dateTime.js';
 
 class NewTask extends Component {
 

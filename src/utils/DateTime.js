@@ -3,19 +3,23 @@
 }
 
 export function timeLeft(expiring) {
-    const now = new Date();
-    const difference = expiring - now;
-    const oneDay = (1000 * 60 * 60 * 24);
-    const days = Math.round(difference / oneDay);
-    const hours = Math.round((difference % oneDay) / 3600000);
-    const minutes = Math.round(((difference % oneDay) % 3600000) / 60000);
-    const timeleft = {
-        days: days,
-        hours: hours,
-        minutes: minutes,
-        time: difference
-    };
-    return timeleft;
+    expiring = new Date(expiring);
+    if (expiring.toString() !== 'Invalid Date') {
+        const now = new Date();
+        const difference = expiring - now;
+        const oneDay = (1000 * 60 * 60 * 24);
+        const days = Math.round(difference / oneDay);
+        const hours = Math.round((difference % oneDay) / 3600000);
+        const minutes = Math.round(((difference % oneDay) % 3600000) / 60000);
+        const timeleft = {
+            days: days,
+            hours: hours,
+            minutes: minutes,
+            time: difference
+        };
+        return timeleft;
+    }
+    return {'days': null, 'hours': null, 'minutes': null, 'time': null};
 }
 
 export function getLocalDate(date) {
@@ -23,20 +27,28 @@ export function getLocalDate(date) {
 }
 
 export function getExpDate(date) {
-    const year = date.getFullYear().toString();
-    let month = (date.getMonth() + 1).toString();
-    month = month.length === 1 ? '0' + month : month;
-    let day = date.getDate().toString();
-    day = day.length === 1 ? '0' + day : day;
+    date = new Date(date);
+    if (date.toString() !== 'Invalid Date') {
+        const year = date.getFullYear().toString();
+        let month = (date.getMonth() + 1).toString();
+        month = month.length === 1 ? '0' + month : month;
+        let day = date.getDate().toString();
+        day = day.length === 1 ? '0' + day : day;
 
-    return year + '-' + month + '-' + day;
+        return year + '-' + month + '-' + day;
+    }
+    return null;
 }
 
 export function getExpTime(date) {
-    let hours = date.getHours().toString();
-    let minutes = date.getMinutes().toString();
-    hours = hours.length === 1 ? '0' + hours : hours;
-    minutes = minutes.length === 1 ? '0' + minutes : minutes;
+    date = new Date(date);
+    if (date.toString() !== 'Invalid Date') {
+        let hours = date.getHours().toString();
+        let minutes = date.getMinutes().toString();
+        hours = hours.length === 1 ? '0' + hours : hours;
+        minutes = minutes.length === 1 ? '0' + minutes : minutes;
 
-    return hours + ':' + minutes;
+        return hours + ':' + minutes;
+    }
+    return null;
 }

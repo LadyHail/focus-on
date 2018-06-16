@@ -1,9 +1,8 @@
 ﻿import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { getTask, getGoal } from '../../utils/DbHelper.js';
-import { timeLeft, getLocalDate } from '../../utils/DateTime.js';
-import { updateStatus, STATUS } from '../../utils/utils.js';
+import { getTask, getGoal, STATUS, updateStatus } from '../../utils/dbHelper.js';
+import { timeLeft, getLocalDate } from '../../utils/dateTime.js';
 
 //TODO parse IDs to numbers
 class TaskDetail extends Component {
