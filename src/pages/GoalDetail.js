@@ -1,12 +1,15 @@
 ﻿import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { getGoal, saveGoal, getTask, updateStatus, STATUS } from '../utils/dbHelper.js';
-import { timeLeft, getLocalDate } from '../utils/dateTime.js';
+import { timeLeft, getLocalDate, spentTime } from '../utils/dateTime.js';
 import { deleteTask } from '../utils/utils.js';
 import TaskDetail from '../pages/goalDetail/TaskDetail.js';
 import Notification from '../components/Notification.js';
 import RenderToBody from '../components/RenderToBody.js';
 import NotFound from '../components/NotFound.js';
+import ObjDone from '../components/ObjDone';
+import ObjFailed from '../components/ObjFailed';
+import ObjWaiting from '../components/ObjWaiting';
 
 class GoalDetail extends Component {
     constructor(props) {
@@ -94,10 +97,8 @@ class GoalDetail extends Component {
                     <NotFound />
                     :                   
                     this.goal.status === STATUS.done ?
-                        <div>
-                            <p>I achieved my goal: {this.goal.description}.</p>
-                            <p>I started {getLocalDate(this.goal.created)}</p>
-                            <p>I finished {getLocalDate(this.goal.done)}</p>
+                        <div>                            
+                            <ObjDone obj={this.goal} />
                             {this.goal.tasks.map(t => {
                                 return (
                                     <div key={t.id}>
@@ -113,10 +114,7 @@ class GoalDetail extends Component {
                                 <ul>
                                     <li><Link to={`/goal/edit/${this.id}`}>I need more time!</Link></li>
                                 </ul>
-                                <p>I want to {this.goal.description}</p>
-                                <p>I started {getLocalDate(this.goal.created)}</p>
-                                <p>I wanted to finish until {getLocalDate(this.goal.expDate)}</p>
-                                <p>The time ended {-this.timeLeft.days} days {-this.timeLeft.hours} hours {-this.timeLeft.minutes} minutes ago.</p>
+                                <ObjFailed obj={this.goal} time={this.timeLeft} />
                                 {this.goal.tasks.map(t => {
                                     return (
                                         <div key={t.id}>
@@ -132,11 +130,8 @@ class GoalDetail extends Component {
                                     <li><Link to={`/goal/edit/${this.id}`}>I need more time!</Link></li>
                                     <li><Link to={`/goal/add/${this.id}`}>I want to set new task</Link></li>
                                 </ul>
-                                <button onClick={this.complete} className="btn-success btn-save">Complete!</button>
-                                <p>I want to {this.goal.description}</p>
-                                <p>I started {getLocalDate(this.goal.created)}</p>
-                                <p>I want to finish until {getLocalDate(this.goal.expDate)}</p>
-                                <p>I still have {this.timeLeft.days} days {this.timeLeft.hours} hours {this.timeLeft.minutes} minutes left.</p>
+                                <button onClick={this.complete} className="btn-success btn-save">Complete!</button>                                
+                                <ObjWaiting obj={this.goal} time={this.timeLeft} />
                                 {this.goal.tasks.map(t => {
                                     return (
                                         <div key={t.id}>

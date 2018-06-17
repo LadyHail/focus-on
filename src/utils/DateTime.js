@@ -52,3 +52,23 @@ export function getExpTime(date) {
     }
     return null;
 }
+
+export function spentTime(start, finish) {
+    start = new Date(start);
+    finish = new Date(finish);
+    if (start.toString() !== 'Invalid Date' && finish.toString() !== 'Invalid Date') {
+        const difference = finish - start;
+        const oneDay = (1000 * 60 * 60 * 24);
+        const days = Math.round(difference / oneDay);
+        const hours = Math.round((difference % oneDay) / 3600000);
+        const minutes = Math.round(((difference % oneDay) % 3600000) / 60000);
+        const result = {
+            days: days,
+            hours: hours,
+            minutes: minutes,
+            time: difference
+        };
+        return result;
+    }
+    return { 'days': null, 'hours': null, 'minutes': null, 'time': null };
+}

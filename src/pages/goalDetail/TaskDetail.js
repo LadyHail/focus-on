@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getTask, getGoal, STATUS, updateStatus } from '../../utils/dbHelper.js';
-import { timeLeft, getLocalDate } from '../../utils/dateTime.js';
+import { timeLeft, getLocalDate, spentTime } from '../../utils/dateTime.js';
 import NotFound from '../../components/NotFound';
 
 class TaskDetail extends Component {
@@ -49,33 +49,34 @@ class TaskDetail extends Component {
                                 <p>I did it! {this.task.description} is complete.</p>
                                 <p>I started {getLocalDate(this.task.created)}</p>
                                 <p>I finished {getLocalDate(this.task.done)}</p>
+                                <p>I spent {spentTime(this.task.created, this.task.done).days} days {spentTime(this.task.created, this.task.done).hours} hours {spentTime(this.task.created, this.task.done).minutes} minutes.</p>
                             </div>
                             :
                             this.task.status === STATUS.failed && this.goal.status !== STATUS.failed ?
                                 <div>
                                     <li><Link to={`/goal/edit/${this.props.goalId}/${this.task.id}/`}>EDIT TASK</Link></li>
-                                    <p>{this.task.description}</p>
-                                    <p>{getLocalDate(this.task.created)}</p>
-                                    <p>{getLocalDate(this.task.expDate)}</p>
+                                    <p>I want to {this.task.description}.</p>
+                                    <p>I started {getLocalDate(this.task.created)}.</p>
+                                    <p>I wanted to finish until {getLocalDate(this.task.expDate)}.</p>
                                     <p>The time ended {-this.timeLeft.days} days {-this.timeLeft.hours} hours {-this.timeLeft.minutes} minutes ago. </p>
                                 </div>
                                 :
                                 this.task.status === STATUS.failed && this.goal.status === STATUS.failed ?
                                     <div>
-                                        <p>{this.task.description}</p>
-                                        <p>{getLocalDate(this.task.created)}</p>
-                                        <p>{getLocalDate(this.task.expDate)}</p>
-                                        <p>The goal expired.</p>
+                                        <p>I wanted to {this.task.description}.</p>
+                                        <p>I started {getLocalDate(this.task.created)}.</p>
+                                        <p>I wanted to finish until {getLocalDate(this.task.expDate)}.</p>
+                                        <p>I failed the task because the goal expired.</p>
                                     </div>
                                     :
                                     <div>
                                         <li><Link to={`/goal/edit/${this.props.goalId}/${this.task.id}/`}>EDIT TASK</Link></li>
                                         <button onClick={this.props.delete} data-id={this.task.id}>DELETE</button>
                                         <button onClick={this.props.completeTask} data-id={this.task.id}>Complete!</button>
-                                        <p>{this.task.description}</p>
-                                        <p>{getLocalDate(this.task.created)}</p>
-                                        <p>{getLocalDate(this.task.expDate)}</p>
-                                        <p>{this.timeLeft.days} days {this.timeLeft.hours} hours {this.timeLeft.minutes} minutes left </p>
+                                        <p>I want to {this.task.description}</p>
+                                        <p>I started {getLocalDate(this.task.created)}.</p>
+                                        <p>I want to finish until {getLocalDate(this.task.expDate)}.</p>
+                                        <p>{this.timeLeft.days} days {this.timeLeft.hours} hours {this.timeLeft.minutes} minutes left.</p>
                                     </div>
                         }
                     </div>

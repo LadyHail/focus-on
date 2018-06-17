@@ -21,13 +21,13 @@ export function createTasksObjs(tasksArray) {
     const dateNow = new Date().toUTCString();
     for (let item of tasksArray) {
         try {
-            const taskDate = item.getElementsByClassName('task-date')[0].value;
-            const taskTime = item.getElementsByClassName('task-time')[0].value;
+            const taskDate = item.querySelector('.task-date').value;
+            const taskTime = item.querySelector('.task-time').value;
             let taskExpDate = taskDate + ' ' + taskTime;
             taskExpDate = new Date(taskExpDate).toUTCString();
             const task = new Task(
                 item.getAttribute('data-id'),
-                item.getElementsByClassName('task-desc')[0].value,
+                item.querySelector('.task-desc').value,
                 taskExpDate,
                 dateNow,
                 STATUS.waiting
@@ -44,13 +44,13 @@ export function createTasksObjs(tasksArray) {
 export function createTaskObj(taskHTML) {
     const dateNow = new Date().toUTCString();
     try {
-        const taskDate = taskHTML.getElementsByClassName('task-date')[0].value;
-        const taskTime = taskHTML.getElementsByClassName('task-time')[0].value;
+        const taskDate = taskHTML.querySelector('.task-date').value;
+        const taskTime = taskHTML.querySelector('.task-time').value;
         let taskExpDate = taskDate + ' ' + taskTime;
         taskExpDate = new Date(taskExpDate).toUTCString();
         const task = new Task(
             taskHTML.getAttribute('data-id'),
-            taskHTML.getElementsByClassName('task-desc')[0].value,
+            taskHTML.querySelector('.task-desc').value,
             taskExpDate,
             dateNow,
             STATUS.waiting
@@ -97,8 +97,8 @@ export function updateTask(goalId, taskId) {
     }
 
     try {
-        const taskDate = document.getElementsByClassName('task-date')[0].value;
-        const taskTime = document.getElementsByClassName('task-time')[0].value;
+        const taskDate = document.querySelector('.task-date').value;
+        const taskTime = document.querySelector('.task-time').value;
         taskExpDate = taskDate + ' ' + taskTime;
         taskExpDate = new Date(taskExpDate).toUTCString();
     } catch (e) {
@@ -112,7 +112,7 @@ export function updateTask(goalId, taskId) {
         const done = task.done;
         const newTask = new Task(
             taskId,
-            document.getElementsByClassName('task-desc')[0].value,
+            document.querySelector('.task-desc').value,
             taskExpDate,
             task.created,
             status,
@@ -146,4 +146,24 @@ export function addTask(goalId, task) {
         return true;
     }
     return false;
+}
+
+export function sortGoals(goals) {
+    let result = [];
+    let done = goals.filter(g => g.status === STATUS.done);
+    let failed = goals.filter(g => g.status === STATUS.failed);
+    let waiting = goals.filter(g => g.status === STATUS.waiting);
+    done.sort((a, b) => new Date(a.expDate) - new Date(b.expDate));
+    failed.sort((a, b) => new Date(a.expDate) - new Date(b.expDate));
+    waiting.sort((a, b) => new Date(a.expDate) - new Date(b.expDate));
+    failed.forEach(g => {
+        result.push(g);
+    });
+    waiting.forEach(g => {
+        result.push(g);
+    });
+    done.forEach(g => {
+        result.push(g);
+    });
+    return result;
 }
