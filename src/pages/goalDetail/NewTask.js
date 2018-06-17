@@ -40,8 +40,16 @@ class NewTask extends Component {
         const taskHTML = document.getElementById('task');
         const task = createTaskObj(taskHTML);
         if (task !== null) {
-            addTask(this.goal.id, task);
-            this.setState({ goBack: true });
+            let isSuccess = addTask(this.goal.id, task);
+            if (!isSuccess) {
+                this.msg = 'Oops... Something went wrong!';
+                this.level = 'error';
+                this.setState({ goBack: false });
+            } else {
+                this.msg = 'New task added!';
+                this.level = 'success';
+                this.setState({ goBack: true });
+            }
             this.setState({ notify: true });
         } else {
             this.setState({ isError: true });
@@ -55,7 +63,7 @@ class NewTask extends Component {
                     <NotFound />
                     :
                     <div>
-                        {this.state.notify ? <RenderToBody><Notification msg="New task added!" level="success" /></RenderToBody> : null}
+                        {this.state.notify ? <RenderToBody><Notification msg={this.msg} level={this.level} /></RenderToBody> : null}
                         {this.state.goBack === true ?
                             <Redirect to={`/goal/${this.goal.id}/`} />
                             :

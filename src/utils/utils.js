@@ -33,11 +33,12 @@ export function createTasksObjs(tasksArray) {
                 STATUS.waiting
             );
             tasks.push(task);
+            return tasks;
         } catch (e) {
             console.log(e);
         }
     }
-    return tasks;
+    return null;
 }
 
 export function createTaskObj(taskHTML) {
@@ -67,8 +68,8 @@ export function updateGoal(goalId) {
         expDate = document.getElementById('goal-date').value + ' ' + document.getElementById('goal-time').value;
         expDate = new Date(expDate).toUTCString();
     } catch (e) {
-        expDate = new Date().toUTCString();
         console.log(e);
+        return false;
     }
     const id = goalId;
     const goal = getGoal(goalId);
@@ -80,7 +81,9 @@ export function updateGoal(goalId) {
         const done = goal.done;
         const newGoal = new Goal(id, description, expDate, dateNow, status, tasks, done);
         saveGoal("goal" + goalId, newGoal);
+        return true;
     }
+    return false;
 }
 
 export function updateTask(goalId, taskId) {
@@ -90,7 +93,7 @@ export function updateTask(goalId, taskId) {
     if (goal !== null) {
         task = goal.tasks.find(t => t.id === taskId);
     } else {
-        return null;
+        return false;
     }
 
     try {
@@ -100,7 +103,7 @@ export function updateTask(goalId, taskId) {
         taskExpDate = new Date(taskExpDate).toUTCString();
     } catch (e) {
         console.log(e);
-        taskExpDate = new Date().toUTCString();
+        return false;
     }
 
     if (task !== null) {
@@ -117,7 +120,9 @@ export function updateTask(goalId, taskId) {
         );
         goal.tasks[taskIndex] = newTask;
         saveGoal("goal" + goal.id.toString(), goal);
+        return true;
     }
+    return false;
 }
 
 export function deleteTask(goalId, taskId) {
@@ -128,7 +133,9 @@ export function deleteTask(goalId, taskId) {
             goal.tasks.splice(index, 1);
         }
         saveGoal("goal" + goalId, goal);
+        return true;
     }    
+    return false;
 }
 
 export function addTask(goalId, task) {
@@ -136,5 +143,7 @@ export function addTask(goalId, task) {
     if (goal !== null && task.constructor.name === 'Task') {
         goal.tasks.push(task);
         saveGoal("goal" + goalId, goal);
+        return true;
     }
+    return false;
 }

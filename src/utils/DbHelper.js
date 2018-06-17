@@ -31,8 +31,14 @@ export function getAll() {
 }
 
 export function saveGoal(id, item) {
-    item = JSON.stringify(item);
-    window.localStorage.setItem(id, item);
+    try {
+        item = JSON.stringify(item);
+        window.localStorage.setItem(id, item);
+    } catch (e) {
+        console.log(e);
+        return false;
+    }
+    return true;
 }
 
 export function getTask(goalId, id) {
@@ -99,11 +105,11 @@ export function isTimedOut(timeLeft) {
 export function updateStatus(obj, timeLeft, goalId = null) {
     const type = obj.constructor.name;
     if (!timeLeft.hasOwnProperty('time')) {
-        return null;
+        return false;
     }
     if (goalId !== null) {
         if (isNaN(goalId)) {
-            return null;
+            return false;
         }
     }
     if (isTimedOut(timeLeft) && obj.status !== STATUS.done) {
@@ -116,14 +122,17 @@ export function updateStatus(obj, timeLeft, goalId = null) {
                     }
                 });
                 saveGoal("goal" + obj.id, obj);
-                break;
+                return true;
             case "Task":
                 obj.status = STATUS.failed;
                 const goal = getGoal(goalId);
-                const index = goal.tasks.findIndex(t => t.id === obj.id);
-                goal.tasks[index] = obj;
-                saveGoal("goal" + goalId, goal);
-                break;
+                if (goal !== null) {
+                    const index = goal.tasks.findIndex(t => t.id === obj.id);
+                    goal.tasks[index] = obj;
+                    saveGoal("goal" + goalId, goal);
+                    return true;
+                }
+                return false;
             default:
                 break;
         }
@@ -137,16 +146,19 @@ export function updateStatus(obj, timeLeft, goalId = null) {
                     }
                 });
                 saveGoal("goal" + obj.id, obj);
-                break;
+                return true;
             case "Task":
                 const goal = getGoal(goalId);
-                if (goal.status !== STATUS.failed) {
-                    obj.status = STATUS.waiting;
-                    const index = goal.tasks.findIndex(t => t.id === obj.id);
-                    goal.tasks[index] = obj;
-                    saveGoal("goal" + goalId, goal);
+                if (goal !== null) {
+                    if (goal.status !== STATUS.failed) {
+                        obj.status = STATUS.waiting;
+                        const index = goal.tasks.findIndex(t => t.id === obj.id);
+                        goal.tasks[index] = obj;
+                        saveGoal("goal" + goalId, goal);
+                    }
+                    return true;
                 }
-                break;
+                return false;
             default:
                 break;
         }

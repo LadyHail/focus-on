@@ -6,7 +6,23 @@ import { getLocalDate, timeLeft } from '../utils/dateTime.js';
 class ShowGoalsList extends Component {
 
     componentWillMount = () => {
-        this.goals = getAll();
+        const goals = getAll();
+        let done = goals.filter(g => g.status === STATUS.done);
+        let failed = goals.filter(g => g.status === STATUS.failed);
+        let waiting = goals.filter(g => g.status === STATUS.waiting);
+        done.sort((a, b) => new Date(a.expDate) - new Date(b.expDate));
+        failed.sort((a, b) => new Date(a.expDate) - new Date(b.expDate));
+        waiting.sort((a, b) => new Date(a.expDate) - new Date(b.expDate));
+        this.goals = [];
+        failed.forEach(g => {
+            this.goals.push(g);
+        });
+        waiting.forEach(g => {
+            this.goals.push(g);
+        });
+        done.forEach(g => {
+            this.goals.push(g);
+        });
         this.times = this.goals.map(g => {
             const time = timeLeft(new Date(g.expDate));
             updateStatus(g, time);
@@ -27,12 +43,12 @@ class ShowGoalsList extends Component {
                                 <p>{getLocalDate(item.expDate)}</p>
                                 <p>{item.tasks.length}</p>
                                 {item.status === STATUS.waiting ?
-                                    <p>{time.time.days} days {time.time.hours} hours {time.time.minutes} minutes left</p>
+                                    <p>{time.time.days} days {time.time.hours} hours {time.time.minutes} minutes left.</p>
                                     :
                                     item.status === STATUS.done ?
                                         <p>I did it!</p>
                                         :
-                                        <p>The challange expired!</p>
+                                        <p>The challange expired {-time.time.days} days {-time.time.hours} hours {-time.time.minutes} minutes ago.</p>
                                     }
                             </Link>
                         </div>                            

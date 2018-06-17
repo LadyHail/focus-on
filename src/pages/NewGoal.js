@@ -5,7 +5,7 @@ import { getDate } from '../utils/dateTime.js';
 import { saveGoal } from '../utils/dbHelper.js';
 import { createGoalObj, createTasksObjs } from '../utils/utils.js';
 import Notification from '../components/Notification.js';
-import NotFound from '../components/NotFound';
+import NotFound from '../components/NotFound.js';
 
 class NewGoal extends Component {
     constructor(props) {
@@ -53,6 +53,7 @@ class NewGoal extends Component {
             let newState = this.state.tasks;
             newState.push(<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} goalDate={this.state.goalDate} />);
             this.setState({ tasks: newState });
+            this.setState({ notify: false });
         }       
     }
 
@@ -63,6 +64,7 @@ class NewGoal extends Component {
             let newState = this.state.tasks;
             newState.splice(task, 1);
             this.setState({ tasks: newState });
+            this.setState({ notify: false });
         }        
     }
 
@@ -73,6 +75,7 @@ class NewGoal extends Component {
             return <NewTask key={p.key} id={p.props.id} removeBtnClick={p.props.removeBtnClick} goalDate={date} />
         });
         this.setState({ tasks: newState });
+        this.setState({ notify: false });
     }
 
     render = () => {

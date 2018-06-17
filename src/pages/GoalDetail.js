@@ -28,9 +28,14 @@ class GoalDetail extends Component {
         this.goal = getGoal(this.id);
         try {
             this.timeLeft = timeLeft(new Date(this.goal.expDate));
-            updateStatus(this.goal, this.timeLeft);
+            const isSuccess = updateStatus(this.goal, this.timeLeft);
+            if (!isSuccess) {
+                this.notifyMsg = 'Ooops... Something went wrong!';
+                this.notifyLvl = 'error';
+            }
             this.setState({ tasks: this.goal.tasks.length });
         } catch (e) {
+            console.log(e);
             this.setState({ isError: true });
         }
 
@@ -39,12 +44,17 @@ class GoalDetail extends Component {
     deleteTask = (e) => {
         e.preventDefault();
         const taskId = e.target.getAttribute('data-id');
-        deleteTask(this.id, taskId);
+        let isSuccess = deleteTask(this.id, taskId);
+        if (!isSuccess) {
+            this.notifyMsg = 'Ooops... Something went wrong!';
+            this.notifyLvl = 'error';
+        } else {
+            this.notifyMsg = 'Task deleted!';
+            this.notifyLvl = 'warning';
+        }
         this.goal = getGoal(this.id);
         this.setState({ tasks: this.goal.tasks.length });
         this.setState({ notify: true });
-        this.notifyMsg = 'Task deleted!';
-        this.notifyLvl = 'error';
     }
     
     complete = (e) => {
@@ -52,9 +62,15 @@ class GoalDetail extends Component {
         if (taskId) {
             const index = this.goal.tasks.findIndex(t => t.id === taskId);
             const task = getTask(this.goal.id, taskId);
-            task.status = STATUS.done;
-            task.done = new Date().toUTCString();
-            this.goal.tasks[index] = task;
+            try {
+                task.status = STATUS.done;
+                task.done = new Date().toUTCString();
+                this.goal.tasks[index] = task;
+            } catch (e) {
+                console.log(e);
+                this.notifyMsg = 'Ooops... Something went wrong!';
+                this.notifyLvl = 'error';
+            }
         } else {
             this.goal.status = STATUS.done;
             this.goal.tasks.forEach(t => {
