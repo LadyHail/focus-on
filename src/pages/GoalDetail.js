@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { getGoal, saveGoal, getTask, updateStatus, STATUS } from '../utils/dbHelper.js';
-import { timeLeft, getLocalDate, spentTime } from '../utils/dateTime.js';
+import { timeLeft } from '../utils/dateTime.js';
 import { deleteTask } from '../utils/utils.js';
 import TaskDetail from '../pages/goalDetail/TaskDetail.js';
 import Notification from '../components/Notification.js';
@@ -97,8 +97,10 @@ class GoalDetail extends Component {
                     <NotFound />
                     :                   
                     this.goal.status === STATUS.done ?
-                        <div>                            
-                            <ObjDone obj={this.goal} />
+                        <div>
+                            <div className="goal-done">
+                                <ObjDone obj={this.goal} />
+                            </div>
                             {this.goal.tasks.map(t => {
                                 return (
                                     <div key={t.id}>
@@ -111,10 +113,14 @@ class GoalDetail extends Component {
                         this.goal.status === STATUS.failed ?
                             <div>
                                 {this.state.notify ? <RenderToBody><Notification msg={this.notifyMsg} level={this.notifyLvl} /></RenderToBody> : null}
-                                <ul>
-                                    <li><Link to={`/goal/edit/${this.id}`}>I need more time!</Link></li>
-                                </ul>
-                                <ObjFailed obj={this.goal} time={this.timeLeft} />
+                                <div className="goal-container failed">                                    
+                                    <ObjFailed obj={this.goal} time={this.timeLeft} />
+                                    <div className="btns-list">
+                                        <ul>
+                                            <li><Link to={`/goal/edit/${this.id}`}><button className="btn">I need more time!</button></Link></li>
+                                        </ul>
+                                    </div>
+                                </div>
                                 {this.goal.tasks.map(t => {
                                     return (
                                         <div key={t.id}>
@@ -126,12 +132,16 @@ class GoalDetail extends Component {
                             :
                             <div>
                                 {this.state.notify ? <RenderToBody><Notification msg={this.notifyMsg} level={this.notifyLvl} /></RenderToBody> : null}
-                                <ul>
-                                    <li><Link to={`/goal/edit/${this.id}`}>I need more time!</Link></li>
-                                    <li><Link to={`/goal/add/${this.id}`}>I want to set new task</Link></li>
-                                </ul>
-                                <button onClick={this.complete} className="btn-success btn-save">Complete!</button>                                
-                                <ObjWaiting obj={this.goal} time={this.timeLeft} />
+                                <div className="goal-container waiting">                                    
+                                    <ObjWaiting obj={this.goal} time={this.timeLeft} />
+                                    <div className="btns-list">
+                                        <ul>
+                                            <li><Link to={`/goal/edit/${this.id}`}><button className="btn">I need more time!</button></Link></li>
+                                            <li><Link to={`/goal/add/${this.id}`}><button className="btn">I want to set new task.</button></Link></li>
+                                            <li><button onClick={this.complete} className="btn-success btn-save">Complete!</button></li>
+                                        </ul>
+                                    </div>
+                                </div>
                                 {this.goal.tasks.map(t => {
                                     return (
                                         <div key={t.id}>

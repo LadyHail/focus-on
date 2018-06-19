@@ -1,12 +1,17 @@
 $font-color: black;
-$border-color: #0496ff;
-
+$btn-color: #d3d4dd;
+$banana: #fcf6b1;
+$background-hover: #00a6ed;
+$green: #7fb800;
+$red: #f6511d;
+$gold: #ffb400;
 
 ﻿body {
     margin: auto;
     padding: 0;
     font-family: sans-serif;
-    background-color: white;
+    background-color: #0d2c54;
+    word-break: break-all;
     /*width: 50%;*/
 }
 
@@ -14,7 +19,7 @@ $border-color: #0496ff;
 nav {
     width: 100%;
     margin: auto;
-    background-color: $border-color;
+    background-color: #00a6ed;
 
     ul {
         display: flex;
@@ -34,7 +39,7 @@ nav {
             }
 
             a:hover {
-                background-color: #027bce;
+                background-color: $background-hover;
             }
         }
     }
@@ -60,14 +65,45 @@ input {
 }
 
 .task {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+}
+
+.container {
+  width: 75%;
+}
+
+#add-goal {
+  display: flex;
+  flex-wrap: wrap;
+
+  .btns-list {
+    width: 20%;
+
+    li {
+      list-style: none;
+    }
+  }
 }
 
 /*Button*/
 %btn {
     cursor: pointer;
-    border: 1px outset;
-    padding: 5px;
+    border: none;
+    padding: 10px 5px;
+    border-radius: 5px;
+}
+
+%btn:hover {
+  background-color: $background-hover;
+}
+
+%btn:active {
+  border: 1px inset white;
+}
+
+.btn {
+  @extend %btn;
+  background-color: $btn-color;
 }
 
 .btn-success {
@@ -78,15 +114,12 @@ input {
 .btn-fail {
     @extend %btn;
     background-color: #d61815;
-    float: right;
-    margin: -71px 0 0 0;
 }
 
 .btn-save {
     @extend %btn;
-    width: 100px;
-    float: right;
     text-transform: uppercase;
+    background-color: $gold;
 }
 
 /*Goals List*/
@@ -96,59 +129,175 @@ input {
     .list-item {
         width: 80%;
         margin: 20px auto;
-        border: 1px outset;
+        border-radius: 18px;
     }
 
     .list-item:hover {
-      background-color: #1c77c3;
+      /*background-color: $background-hover;*/
+      border: 3px solid $background-hover;
+    }
+
+    .goal-div {
+      padding: 20px 30px;
+      background-color: $banana;
+
+      p {
+        margin: 5px;
+      }
+    }
+
+    .goal-link {
+        text-decoration: none;
+        color: $font-color;
     }
 }
 
-.goal-link {
-    text-decoration: none;
-    color: $font-color;
-}
-
 /*Goal status*/
+%goal-status {
+  border-width: 1px 1px 1px 15px;
+  border-radius: 15px;
+  border-style: solid;
+}
 .done {
-  border-color: #8d99ae;
-  background-color: #8d99ae;
+  @extend %goal-status;
+  border-color: $gold;
 }
 
 .failed {
-  border-color: #d61815;
-  background-color: #d61815;
+  @extend %goal-status;
+  border-color: $red;
 }
 
 .waiting {
-  border-color: #8fc93a;
-  background-color: #8fc93a;
+  @extend %goal-status;
+  border-color: $green;
 }
 
 /*Goal detail*/
 .goal-detail {
+
+  p {
+    margin: 10px 20px;
+  }
+
   ul {
-      display: flex;
-      flex-wrap: wrap;
       padding: 0;
 
       li {
-          display: inline;
           list-style: none;
-          width: 33.3%;
-          text-align: center;
-
-          a {
-              text-decoration: none;
-              color: $font-color;
-              border: 1px outset $border-color;
-              background-color: $border-color;
-              padding: 7px;
-          }
-
-          a:hover {
-              background-color: #027bce;
-          }
         }
       }
+
+  .goal-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px 0;
+
+    .waiting {
+      border: none;
+    }
+
+    .failed {
+      border: none;
+    }
+  }
+
+  .goal-done{
+    @extend %goal-status;
+    border-color: $gold;
+
+    .done {
+      border: none;
+    }
+  }
+
+  .btns-list {
+    width: 20%;
+
+  }
+
+  .goal-div {
+    width: 75%;
+
+    p:first-child {
+      font-weight: bold;
+    }
+  }
+}
+
+/*Task detail*/
+.task-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0;
+
+  .task-div {
+    width: 75%;
+
+    p:first-child {
+      font-weight: bold;
+    }
+  }
+
+  .btns-list {
+    width: 20%;
+  }
+
+  .done {
+    @extend %goal-status;
+    border-color: $gold;
+    display: block;
+    width: 100%;
+  }
+
+  .failed {
+    @extend %goal-status;
+    border-color: $red;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .failed-both {
+    @extend %goal-status;
+    border-color: $red;
+    width: 100%;
+  }
+
+  .waiting {
+    @extend %goal-status;
+    border-color: $green;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+}
+
+.btns-list {
+
+  li {
+    margin: 10px 0;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+/*Edit Goal*/
+.edit {
+  text-align: center;
+
+  p:first-child {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  input {
+    background-color: $banana;
+  }
+}
+
+form {
+  text-align: center;
 }

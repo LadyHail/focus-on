@@ -1,11 +1,17 @@
 ﻿import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { spentTime, getLocalDate } from '../utils/dateTime.js';
 
 class ObjDone extends Component {
+
+    static propTypes = {
+        obj: PropTypes.object.isRequired
+    }
+
     render() {
         const obj = this.props.obj;
         return (
-            <div>
+            <div className="goal-div done">
                 <p>I achieved my goal: {obj.description}.</p>
                 <p>I started {getLocalDate(obj.created)}.</p>
                 <p>I finished {getLocalDate(obj.done)}.</p>

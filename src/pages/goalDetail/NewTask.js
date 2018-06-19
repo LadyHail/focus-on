@@ -68,12 +68,12 @@ class NewTask extends Component {
                             <Redirect to={`/goal/${this.goal.id}/`} />
                             :
                             <form onSubmit={this.save}>
-                                <div className="task" data-id={this.id} id="task">
+                                <div className="task edit" data-id={this.id} id="task">
                                     <input type="text" placeholder="How to achieve my goal?" required id="task-desc" className="task-desc" />
                                     <input type="date" defaultValue={getDate()} id="task-date" className="task-date" required min={getDate()} max={this.goalDate} />
                                     <input type="time" defaultValue="23:59" id="task-time" className="task-time" required />
                                 </div>
-                                <button type="submit">Save</button>
+                                <button type="submit" className="btn-success btn-save">Set new task!</button>
                             </form>
                         }    
                      </div>

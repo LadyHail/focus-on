@@ -53,12 +53,12 @@ class EditGoal extends Component {
                         {this.state.goBack ?
                             <Redirect to={`/goal/${_this.goal.id}/`} />
                             :
-                            <div>
+                            <div className="edit">
                                 <p>{this.goal.description}</p>
                                 <form onSubmit={this.save} id="add-goal">
                                     <input type="date" required id="goal-date" min={this.expDate} defaultValue={this.expDate} max="2100-12-31" />
                                     <input type="time" required id="goal-time" defaultValue={this.expTime} />
-                                    <button type="submit">Save</button>
+                                    <button type="submit" className="btn-success btn-save">Save changes!</button>
                                 </form>
                             </div>
                         }

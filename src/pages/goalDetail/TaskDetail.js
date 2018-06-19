@@ -43,9 +43,9 @@ class TaskDetail extends Component {
         return (
             <div>
                 {this.state.isError ? <NotFound /> :
-                    <div>
+                    <div className="task-container">
                         {this.task.status === STATUS.done ?
-                            <div>
+                            <div className="done task-div">
                                 <p>I did it! {this.task.description} is complete.</p>
                                 <p>I started {getLocalDate(this.task.created)}</p>
                                 <p>I finished {getLocalDate(this.task.done)}</p>
@@ -53,30 +53,42 @@ class TaskDetail extends Component {
                             </div>
                             :
                             this.task.status === STATUS.failed && this.goal.status !== STATUS.failed ?
-                                <div>
-                                    <li><Link to={`/goal/edit/${this.props.goalId}/${this.task.id}/`}>EDIT TASK</Link></li>
-                                    <p>I want to {this.task.description}.</p>
-                                    <p>I started {getLocalDate(this.task.created)}.</p>
-                                    <p>I wanted to finish until {getLocalDate(this.task.expDate)}.</p>
-                                    <p>The time ended {-this.timeLeft.days} days {-this.timeLeft.hours} hours {-this.timeLeft.minutes} minutes ago. </p>
+                                <div className="failed">
+                                    <div className="task-div">
+                                        <p>I want to {this.task.description}.</p>
+                                        <p>I started {getLocalDate(this.task.created)}.</p>
+                                        <p>I wanted to finish until {getLocalDate(this.task.expDate)}.</p>
+                                        <p>The time ended {-this.timeLeft.days} days {-this.timeLeft.hours} hours {-this.timeLeft.minutes} minutes ago. </p>
+                                    </div>
+                                    <div className="btns-list">
+                                        <ul>
+                                            <li><Link to={`/goal/edit/${this.props.goalId}/${this.task.id}/`}><button className="btn">I want to try again.</button></Link></li>
+                                        </ul>
+                                    </div>
                                 </div>
                                 :
                                 this.task.status === STATUS.failed && this.goal.status === STATUS.failed ?
-                                    <div>
+                                    <div className="failed-both task-div">
                                         <p>I wanted to {this.task.description}.</p>
                                         <p>I started {getLocalDate(this.task.created)}.</p>
                                         <p>I wanted to finish until {getLocalDate(this.task.expDate)}.</p>
                                         <p>I failed the task because the goal expired.</p>
                                     </div>
                                     :
-                                    <div>
-                                        <li><Link to={`/goal/edit/${this.props.goalId}/${this.task.id}/`}>EDIT TASK</Link></li>
-                                        <button onClick={this.props.delete} data-id={this.task.id}>DELETE</button>
-                                        <button onClick={this.props.completeTask} data-id={this.task.id}>Complete!</button>
-                                        <p>I want to {this.task.description}</p>
-                                        <p>I started {getLocalDate(this.task.created)}.</p>
-                                        <p>I want to finish until {getLocalDate(this.task.expDate)}.</p>
-                                        <p>{this.timeLeft.days} days {this.timeLeft.hours} hours {this.timeLeft.minutes} minutes left.</p>
+                                    <div className="waiting">
+                                        <div className="task-div">
+                                            <p>I want to {this.task.description}.</p>
+                                            <p>I started {getLocalDate(this.task.created)}.</p>
+                                            <p>I want to finish until {getLocalDate(this.task.expDate)}.</p>
+                                            <p>I still have {this.timeLeft.days} days {this.timeLeft.hours} hours {this.timeLeft.minutes} minutes left.</p>
+                                        </div>
+                                        <div className="btns-list">
+                                            <ul>
+                                                <li><Link to={`/goal/edit/${this.props.goalId}/${this.task.id}/`}><button className="btn">I want to change something.</button></Link></li>
+                                                <li><button onClick={this.props.delete} data-id={this.task.id} className="btn">I decide to delete the task.</button></li>
+                                                <li><button onClick={this.props.completeTask} data-id={this.task.id} className="btn-success btn-save">Complete!</button></li>
+                                            </ul>
+                                        </div>
                                     </div>
                         }
                     </div>

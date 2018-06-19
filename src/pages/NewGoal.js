@@ -88,17 +88,25 @@ class NewGoal extends Component {
                 <div>
                     {this.state.notify ?
                             <Notification msg="Goal saved!" level="success" /> : null}
-                    <form onSubmit = { this.save } id="add-goal">
-                        <AddTask btnClick={this.addTask} />
-                        <button type="submit" className="btn-success btn-save">Save</button>
-                        <div className="input-container">
-                            <label>What I want to achieve?<input type="text" placeholder="eg. Learn Web Development" required id="goal-desc" className="description" /></label>
-                            <label>I want to achieve my goal until: <input type="date" required id="goal-date" min={getDate()} onChange={this.goalDateChanged} /></label>
-                            <input type="time" required defaultValue="23:59" id="goal-time" />
-                        </div>
-                        <div className="input-container">
-                            {this.state.tasks}
-                        </div>
+                        <form onSubmit={this.save} id="add-goal">
+                            <div className="container">                                
+                                <div className="input-container">
+                                    <label>What I want to achieve?<input type="text" placeholder="eg. Learn Web Development" required id="goal-desc" className="description" maxLength="250" /></label>
+                                    <label>I want to achieve my goal until: <input type="date" required id="goal-date" min={getDate()} onChange={this.goalDateChanged} /></label>
+                                    <input type="time" required defaultValue="23:59" id="goal-time" />
+                                </div>
+                                
+                            
+                                <div className="input-container">
+                                    {this.state.tasks}
+                                </div>
+                            </div>
+                            <div className="btns-list">
+                                <ul>
+                                    <li><AddTask btnClick={this.addTask} /></li>
+                                    <li><button type="submit" className="btn-success btn-save">Set new goal!</button></li>
+                                </ul>
+                            </div>
                         </form>
                 </div>
             }
