@@ -46,7 +46,7 @@ class TaskDetail extends Component {
                     <div className="task-container">
                         {this.task.status === STATUS.done ?
                             <div className="done task-div">
-                                <p>I did it! {this.task.description} is complete.</p>
+                                <p>I did it! {this.task.description} is completed.</p>
                                 <p>I started {getLocalDate(this.task.created)}</p>
                                 <p>I finished {getLocalDate(this.task.done)}</p>
                                 <p>I spent {spentTime(this.task.created, this.task.done).days} days {spentTime(this.task.created, this.task.done).hours} hours {spentTime(this.task.created, this.task.done).minutes} minutes.</p>

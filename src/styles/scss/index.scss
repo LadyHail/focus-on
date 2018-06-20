@@ -1,7 +1,7 @@
 $font-color: black;
 $btn-color: #d3d4dd;
 $banana: #fcf6b1;
-$background-hover: #00a6ed;
+$background-hover: #45bef1;
 $green: #7fb800;
 $red: #f6511d;
 $gold: #ffb400;
@@ -10,9 +10,9 @@ $gold: #ffb400;
     margin: auto;
     padding: 0;
     font-family: sans-serif;
-    background-color: #0d2c54;
-    word-break: break-all;
+    word-break: break-word;
     /*width: 50%;*/
+    background-image: url('../../img/back.jpeg');
 }
 
 /*Navigation*/
@@ -54,14 +54,17 @@ input {
 }
 
 .description {
-    width: 500px;
+    width: 100%;
 }
 
 .input-container {
-    width: fit-content;
+    width: 100%;
     margin: auto;
-    margin-bottom: 50px;
+    margin-bottom: 15px;
     text-align: center;
+    background-color: $banana;
+    padding: 10px;
+    border-radius: 15px;
 }
 
 .task {
@@ -133,7 +136,6 @@ input {
     }
 
     .list-item:hover {
-      /*background-color: $background-hover;*/
       border: 3px solid $background-hover;
     }
 
@@ -144,17 +146,53 @@ input {
       p {
         margin: 5px;
       }
+
+      p:first-child{
+        font-weight: bold;
+      }
     }
 
     .goal-link {
         text-decoration: none;
         color: $font-color;
     }
+
+    /*Icons*/
+    .img {
+      width: 20%;
+    }
+
+    .img-gold {
+      color: $gold;
+      float: right;
+      margin: 20px 0;
+    }
+
+    .img-red {
+      color: $red;
+      float: right;
+      margin: 30px 0;
+    }
+
+    .img-green {
+      color: $green;
+      float: right;
+      margin: 10px 0;
+    }
+
+    .goal-div {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .details {
+      width: 75%;
+    }
 }
 
 /*Goal status*/
 %goal-status {
-  border-width: 1px 1px 1px 15px;
+  border-width: 2px 2px 2px 15px;
   border-radius: 15px;
   border-style: solid;
 }
@@ -192,6 +230,7 @@ input {
     display: flex;
     flex-wrap: wrap;
     margin: 20px 0;
+    background-color: $banana;
 
     .waiting {
       border: none;
@@ -205,6 +244,7 @@ input {
   .goal-done{
     @extend %goal-status;
     border-color: $gold;
+    background-color: $banana;
 
     .done {
       border: none;
@@ -223,6 +263,10 @@ input {
       font-weight: bold;
     }
   }
+
+  .img {
+    display: none;
+  }
 }
 
 /*Task detail*/
@@ -230,6 +274,8 @@ input {
   display: flex;
   flex-wrap: wrap;
   margin: 10px 0;
+  background-color: $banana;
+  border-radius: 15px;
 
   .task-div {
     width: 75%;
@@ -287,14 +333,20 @@ input {
 /*Edit Goal*/
 .edit {
   text-align: center;
+  display: block !important;
+  width: fit-content;
+  margin: auto;
+  padding: 10px 20px;
+  background-color: $banana;
+  border-radius: 15px;
+
+  #add-goal {
+    display: block;
+  }
 
   p:first-child {
     font-weight: bold;
     text-transform: uppercase;
-  }
-
-  input {
-    background-color: $banana;
   }
 }
 

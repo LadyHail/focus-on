@@ -1,197 +1,292 @@
-@charset "UTF-8";
-﻿body {
+body {
   margin: auto;
   padding: 0;
   font-family: sans-serif;
-  background-color: #0d2c54;
-  word-break: break-all;
-  /*width: 50%;*/ }
+  word-break: break-word;
+  /*width: 50%;*/
+  background-image: url("../../img/back.jpeg");
+}
 
 /*Navigation*/
 nav {
   width: 100%;
   margin: auto;
-  background-color: #00a6ed; }
-  nav ul {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0; }
-    nav ul li {
-      display: inline;
-      list-style: none;
-      width: 33.3%;
-      text-align: center; }
-      nav ul li a {
-        text-decoration: none;
-        color: black;
-        padding: 7px; }
-      nav ul li a:hover {
-        background-color: #00a6ed; }
+  background-color: #00a6ed;
+}
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+}
+nav ul li {
+  display: inline;
+  list-style: none;
+  width: 33.3%;
+  text-align: center;
+}
+nav ul li a {
+  text-decoration: none;
+  color: black;
+  padding: 7px;
+}
+nav ul li a:hover {
+  background-color: #45bef1;
+}
 
 /*New Goal*/
 input {
   margin: 10px auto;
   display: block;
   width: 170px;
-  text-align: center; }
+  text-align: center;
+}
 
 .description {
-  width: 500px; }
+  width: 100%;
+}
 
 .input-container {
-  width: fit-content;
+  width: 100%;
   margin: auto;
-  margin-bottom: 50px;
-  text-align: center; }
+  margin-bottom: 15px;
+  text-align: center;
+  background-color: #fcf6b1;
+  padding: 10px;
+  border-radius: 15px;
+}
 
 .task {
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+}
 
 .container {
-  width: 75%; }
+  width: 75%;
+}
 
 #add-goal {
   display: flex;
-  flex-wrap: wrap; }
-  #add-goal .btns-list {
-    width: 20%; }
-    #add-goal .btns-list li {
-      list-style: none; }
+  flex-wrap: wrap;
+}
+#add-goal .btns-list {
+  width: 20%;
+}
+#add-goal .btns-list li {
+  list-style: none;
+}
 
 /*Button*/
-.btn, .btn-success, .btn-fail, .btn-save {
+.btn-save, .btn-fail, .btn-success, .btn {
   cursor: pointer;
   border: none;
   padding: 10px 5px;
-  border-radius: 5px; }
+  border-radius: 5px;
+}
 
-.btn:hover, .btn-success:hover, .btn-fail:hover, .btn-save:hover {
-  background-color: #00a6ed; }
+.btn-save:hover, .btn-fail:hover, .btn-success:hover, .btn:hover {
+  background-color: #45bef1;
+}
 
-.btn:active, .btn-success:active, .btn-fail:active, .btn-save:active {
-  border: 1px inset white; }
+.btn-save:active, .btn-fail:active, .btn-success:active, .btn:active {
+  border: 1px inset white;
+}
 
 .btn {
-  background-color: #d3d4dd; }
+  background-color: #d3d4dd;
+}
 
 .btn-success {
-  background-color: #8fc93a; }
+  background-color: #8fc93a;
+}
 
 .btn-fail {
-  background-color: #d61815; }
+  background-color: #d61815;
+}
 
 .btn-save {
   text-transform: uppercase;
-  background-color: #ffb400; }
+  background-color: #ffb400;
+}
 
 /*Goals List*/
 .goals-list {
-  display: block; }
-  .goals-list .list-item {
-    width: 80%;
-    margin: 20px auto;
-    border-radius: 18px; }
-  .goals-list .list-item:hover {
-    /*background-color: $background-hover;*/
-    border: 3px solid #00a6ed; }
-  .goals-list .goal-div {
-    padding: 20px 30px;
-    background-color: #fcf6b1; }
-    .goals-list .goal-div p {
-      margin: 5px; }
-  .goals-list .goal-link {
-    text-decoration: none;
-    color: black; }
+  display: block;
+  /*Icons*/
+}
+.goals-list .list-item {
+  width: 80%;
+  margin: 20px auto;
+  border-radius: 18px;
+}
+.goals-list .list-item:hover {
+  border: 3px solid #45bef1;
+}
+.goals-list .goal-div {
+  padding: 20px 30px;
+  background-color: #fcf6b1;
+}
+.goals-list .goal-div p {
+  margin: 5px;
+}
+.goals-list .goal-div p:first-child {
+  font-weight: bold;
+}
+.goals-list .goal-link {
+  text-decoration: none;
+  color: black;
+}
+.goals-list .img {
+  width: 20%;
+}
+.goals-list .img-gold {
+  color: #ffb400;
+  float: right;
+  margin: 20px 0;
+}
+.goals-list .img-red {
+  color: #f6511d;
+  float: right;
+  margin: 30px 0;
+}
+.goals-list .img-green {
+  color: #7fb800;
+  float: right;
+  margin: 10px 0;
+}
+.goals-list .goal-div {
+  display: flex;
+  flex-wrap: wrap;
+}
+.goals-list .details {
+  width: 75%;
+}
 
 /*Goal status*/
-.done, .failed, .waiting, .goal-detail .goal-done, .task-container .done, .task-container .failed, .task-container .failed-both, .task-container .waiting {
-  border-width: 1px 1px 1px 15px;
+.task-container .waiting, .task-container .failed-both, .task-container .failed, .task-container .done, .goal-detail .goal-done, .waiting, .failed, .done {
+  border-width: 2px 2px 2px 15px;
   border-radius: 15px;
-  border-style: solid; }
+  border-style: solid;
+}
 
 .done {
-  border-color: #ffb400; }
+  border-color: #ffb400;
+}
 
 .failed {
-  border-color: #f6511d; }
+  border-color: #f6511d;
+}
 
 .waiting {
-  border-color: #7fb800; }
+  border-color: #7fb800;
+}
 
 /*Goal detail*/
 .goal-detail p {
-  margin: 10px 20px; }
-
+  margin: 10px 20px;
+}
 .goal-detail ul {
-  padding: 0; }
-  .goal-detail ul li {
-    list-style: none; }
-
+  padding: 0;
+}
+.goal-detail ul li {
+  list-style: none;
+}
 .goal-detail .goal-container {
   display: flex;
   flex-wrap: wrap;
-  margin: 20px 0; }
-  .goal-detail .goal-container .waiting {
-    border: none; }
-  .goal-detail .goal-container .failed {
-    border: none; }
-
+  margin: 20px 0;
+  background-color: #fcf6b1;
+}
+.goal-detail .goal-container .waiting {
+  border: none;
+}
+.goal-detail .goal-container .failed {
+  border: none;
+}
 .goal-detail .goal-done {
-  border-color: #ffb400; }
-  .goal-detail .goal-done .done {
-    border: none; }
-
+  border-color: #ffb400;
+  background-color: #fcf6b1;
+}
+.goal-detail .goal-done .done {
+  border: none;
+}
 .goal-detail .btns-list {
-  width: 20%; }
-
+  width: 20%;
+}
 .goal-detail .goal-div {
-  width: 75%; }
-  .goal-detail .goal-div p:first-child {
-    font-weight: bold; }
+  width: 75%;
+}
+.goal-detail .goal-div p:first-child {
+  font-weight: bold;
+}
+.goal-detail .img {
+  display: none;
+}
 
 /*Task detail*/
 .task-container {
   display: flex;
   flex-wrap: wrap;
-  margin: 10px 0; }
-  .task-container .task-div {
-    width: 75%; }
-    .task-container .task-div p:first-child {
-      font-weight: bold; }
-  .task-container .btns-list {
-    width: 20%; }
-  .task-container .done {
-    border-color: #ffb400;
-    display: block;
-    width: 100%; }
-  .task-container .failed {
-    border-color: #f6511d;
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%; }
-  .task-container .failed-both {
-    border-color: #f6511d;
-    width: 100%; }
-  .task-container .waiting {
-    border-color: #7fb800;
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%; }
+  margin: 10px 0;
+  background-color: #fcf6b1;
+  border-radius: 15px;
+}
+.task-container .task-div {
+  width: 75%;
+}
+.task-container .task-div p:first-child {
+  font-weight: bold;
+}
+.task-container .btns-list {
+  width: 20%;
+}
+.task-container .done {
+  border-color: #ffb400;
+  display: block;
+  width: 100%;
+}
+.task-container .failed {
+  border-color: #f6511d;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.task-container .failed-both {
+  border-color: #f6511d;
+  width: 100%;
+}
+.task-container .waiting {
+  border-color: #7fb800;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
 
 .btns-list li {
-  margin: 10px 0; }
-
+  margin: 10px 0;
+}
 .btns-list button {
-  width: 100%; }
+  width: 100%;
+}
 
 /*Edit Goal*/
 .edit {
-  text-align: center; }
-  .edit p:first-child {
-    font-weight: bold;
-    text-transform: uppercase; }
-  .edit input {
-    background-color: #fcf6b1; }
+  text-align: center;
+  display: block !important;
+  width: fit-content;
+  margin: auto;
+  padding: 10px 20px;
+  background-color: #fcf6b1;
+  border-radius: 15px;
+}
+.edit #add-goal {
+  display: block;
+}
+.edit p:first-child {
+  font-weight: bold;
+  text-transform: uppercase;
+}
 
 form {
-  text-align: center; }
+  text-align: center;
+}
+
+/*# sourceMappingURL=src/styles/css/index.css.map */

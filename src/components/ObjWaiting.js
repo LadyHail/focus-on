@@ -14,10 +14,15 @@ class ObjDone extends Component {
         const time = this.props.time;
         return (
             <div className="goal-div waiting">
-                <p>I want to {obj.description}.</p>
-                <p>I started {getLocalDate(obj.created)}.</p>
-                <p>I want to finish until {getLocalDate(obj.expDate)}.</p>
-                <p>I still have {time.days} days {time.hours} hours {time.minutes} minutes left.</p>
+                <div className="details">
+                    <p>I want to {obj.description}.</p>
+                    <p>I started {getLocalDate(obj.created)}.</p>
+                    <p>I want to finish until {getLocalDate(obj.expDate)}.</p>
+                    <p>I still have {time.days} days {time.hours} hours {time.minutes} minutes left.</p>
+                </div>
+                <div className="img">
+                    <i className="fas fa-angle-double-up fa-4x img-green"></i>
+                </div>
             </div>
         )
     }
