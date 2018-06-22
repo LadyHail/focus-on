@@ -58,7 +58,7 @@ class EditGoal extends Component {
                                 <form onSubmit={this.save} id="add-goal">
                                     <input type="date" required id="goal-date" min={this.expDate} defaultValue={this.expDate} max="2100-12-31" />
                                     <input type="time" required id="goal-time" defaultValue={this.expTime} />
-                                    <button type="submit" className="btn-success btn-save">Save changes!</button>
+                                    <button type="submit" className="btn-success btn-save"><i className="fas fa-save fa-lg btn-img"></i>Save changes!</button>
                                 </form>
                             </div>
                         }

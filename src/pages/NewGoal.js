@@ -104,7 +104,7 @@ class NewGoal extends Component {
                             <div className="btns-list">
                                 <ul>
                                     <li><AddTask btnClick={this.addTask} /></li>
-                                    <li><button type="submit" className="btn-success btn-save">Set new goal!</button></li>
+                                    <li><button type="submit" className="btn-success btn-save"><i className="fas fa-save fa-lg btn-img"></i>Set new goal!</button></li>
                                 </ul>
                             </div>
                         </form>

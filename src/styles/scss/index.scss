@@ -125,6 +125,10 @@ input {
     background-color: $gold;
 }
 
+.btn-img {
+  margin-right: 5px;
+}
+
 /*Goals List*/
 .goals-list {
     display: block;
@@ -160,6 +164,7 @@ input {
     /*Icons*/
     .img {
       width: 20%;
+      border-left: 1px solid grey;
     }
 
     .img-gold {

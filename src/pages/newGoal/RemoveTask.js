@@ -10,7 +10,7 @@ class RemoveTask extends Component {
 
     render = () => {
         return (
-            <button type="button" onClick={this.props.btnClick} data-id={this.props.id} className="btn-fail">Remove task</button>
+            <button type="button" onClick={this.props.btnClick} data-id={this.props.id} className="btn-fail"><i className="fas fa-minus fa-lg btn-img"></i>Delete task</button>
         )
     }
 }

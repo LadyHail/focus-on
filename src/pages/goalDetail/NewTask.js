@@ -72,7 +72,7 @@ class NewTask extends Component {
                                     <input type="text" placeholder="How to achieve my goal?" required id="task-desc" className="task-desc" />
                                     <input type="date" defaultValue={getDate()} id="task-date" className="task-date" required min={getDate()} max={this.goalDate} />
                                     <input type="time" defaultValue="23:59" id="task-time" className="task-time" required />
-                                    <button type="submit" className="btn-success btn-save">Set new task!</button>
+                                    <button type="submit" className="btn-success btn-save"><i className="fas fa-plus fa-lg btn-img"></i>Set new task!</button>
                                 </div>
                                 
                             </form>

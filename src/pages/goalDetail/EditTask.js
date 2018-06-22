@@ -58,7 +58,7 @@ class EditTask extends Component {
                                 <input type="text" defaultValue={this.task.description} required id="task-desc" className="task-desc" />
                                 <input type="date" defaultValue={this.expDate} id="task-date" className="task-date" required min={getDate()} max={this.goalExpDate} />
                                 <input type="time" defaultValue={this.expTime} id="task-time" className="task-time" required />
-                                <button type="submit" className="btn-success btn-save">Save changes!</button>
+                                <button type="submit" className="btn-success btn-save"><i className="fas fa-save fa-lg btn-img"></i>Save changes!</button>
                             </form>}
                         </div>
                 }

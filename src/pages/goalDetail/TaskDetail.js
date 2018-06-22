@@ -62,7 +62,7 @@ class TaskDetail extends Component {
                                     </div>
                                     <div className="btns-list">
                                         <ul>
-                                            <li><Link to={`/goal/edit/${this.props.goalId}/${this.task.id}/`}><button className="btn">I want to try again.</button></Link></li>
+                                            <li><Link to={`/goal/edit/${this.props.goalId}/${this.task.id}/`}><button className="btn"><i className="fas fa-redo fa-lg btn-img"></i>I want to try again.</button></Link></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -84,9 +84,9 @@ class TaskDetail extends Component {
                                         </div>
                                         <div className="btns-list">
                                             <ul>
-                                                <li><Link to={`/goal/edit/${this.props.goalId}/${this.task.id}/`}><button className="btn">I want to change something.</button></Link></li>
-                                                <li><button onClick={this.props.delete} data-id={this.task.id} className="btn">I decide to delete the task.</button></li>
-                                                <li><button onClick={this.props.completeTask} data-id={this.task.id} className="btn-success btn-save">Complete!</button></li>
+                                                <li><Link to={`/goal/edit/${this.props.goalId}/${this.task.id}/`}><button className="btn"><i className="fas fa-edit fa-lg btn-img"></i>I want to change something.</button></Link></li>
+                                                <li><button onClick={this.props.delete} data-id={this.task.id} className="btn"><i className="fas fa-trash-alt fa-lg btn-img"></i>I decide to delete the task.</button></li>
+                                                <li><button onClick={this.props.completeTask} data-id={this.task.id} className="btn-success btn-save"><i className="fas fa-check fa-lg btn-img"></i>Complete!</button></li>
                                             </ul>
                                         </div>
                                     </div>

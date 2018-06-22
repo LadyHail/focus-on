@@ -117,7 +117,7 @@ class GoalDetail extends Component {
                                     <ObjFailed obj={this.goal} time={this.timeLeft} />
                                     <div className="btns-list">
                                         <ul>
-                                            <li><Link to={`/goal/edit/${this.id}`}><button className="btn">I need more time!</button></Link></li>
+                                            <li><Link to={`/goal/edit/${this.id}`}><button className="btn"><i className="fas fa-stopwatch fa-lg btn-img"></i>I need more time!</button></Link></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -136,9 +136,9 @@ class GoalDetail extends Component {
                                     <ObjWaiting obj={this.goal} time={this.timeLeft} />
                                     <div className="btns-list">
                                         <ul>
-                                            <li><Link to={`/goal/edit/${this.id}`}><button className="btn">I need more time!</button></Link></li>
-                                            <li><Link to={`/goal/add/${this.id}`}><button className="btn">I want to set new task.</button></Link></li>
-                                            <li><button onClick={this.complete} className="btn-success btn-save">Complete!</button></li>
+                                            <li><Link to={`/goal/edit/${this.id}`}><button className="btn"><i className="fas fa-stopwatch fa-lg btn-img"></i>I need more time!</button></Link></li>
+                                            <li><Link to={`/goal/add/${this.id}`}><button className="btn"><i className="fas fa-plus fa-lg btn-img"></i>I want to set new task.</button></Link></li>
+                                            <li><button onClick={this.complete} className="btn-success btn-save"><i className="fas fa-check fa-lg btn-img"></i>Complete!</button></li>
                                         </ul>
                                     </div>
                                 </div>

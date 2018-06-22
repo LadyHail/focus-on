@@ -9,7 +9,7 @@ class AddTask extends Component {
 
     render = () => {
         return (
-            <button type="button" onClick={this.props.btnClick} className="btn-success">Set new task</button>
+            <button type="button" onClick={this.props.btnClick} className="btn-success"><i className="fas fa-plus fa-lg btn-img"></i>Set new task</button>
             )
     }
 }

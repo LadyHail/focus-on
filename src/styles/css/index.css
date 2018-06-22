@@ -107,6 +107,10 @@ input {
   background-color: #ffb400;
 }
 
+.btn-img {
+  margin-right: 5px;
+}
+
 /*Goals List*/
 .goals-list {
   display: block;
@@ -136,6 +140,7 @@ input {
 }
 .goals-list .img {
   width: 20%;
+  border-left: 1px solid grey;
 }
 .goals-list .img-gold {
   color: #ffb400;
