@@ -8,7 +8,8 @@ import NotFound from '../../components/NotFound';
 class TaskDetail extends Component {
 
     state = {
-        isError: false
+        isError: false,
+        timeLeft: null
     }
 
     static propTypes = {
@@ -34,9 +35,23 @@ class TaskDetail extends Component {
         if (this.goal === null || this.task === null) {
             this.setState({ isError: true });
         } else {
-            this.timeLeft = timeLeft(new Date(this.task.expDate));
-            updateStatus(this.task, this.timeLeft, this.goalId);
+            const time = timeLeft(new Date(this.task.expDate));
+            this.setState({ timeLeft: time });
+            updateStatus(this.task, time, this.goalId);
         }
+    }
+
+    componentDidMount = () => {
+        this.interval = setInterval(() => {
+            const time = timeLeft(new Date(this.task.expDate));
+            this.goal = getGoal(this.goalId);
+            updateStatus(this.task, time, this.goalId);
+            this.setState({ timeLeft: time });
+        }, 1000);
+    }
+
+    componentWillUnmount = () => {
+        clearInterval(this.interval);
     }
 
     render = () => {
@@ -49,7 +64,7 @@ class TaskDetail extends Component {
                                 <p>I did it! {this.task.description} is completed.</p>
                                 <p>I started {getLocalDate(this.task.created)}</p>
                                 <p>I finished {getLocalDate(this.task.done)}</p>
-                                <p>I spent {spentTime(this.task.created, this.task.done).days} days {spentTime(this.task.created, this.task.done).hours} hours {spentTime(this.task.created, this.task.done).minutes} minutes.</p>
+                                <p>I spent {spentTime(this.task.created, this.task.done).days} days {spentTime(this.task.created, this.task.done).hours} hours {spentTime(this.task.created, this.task.done).minutes} minutes {spentTime(this.task.created, this.task.done).seconds} seconds.</p>
                             </div>
                             :
                             this.task.status === STATUS.failed && this.goal.status !== STATUS.failed ?
@@ -58,7 +73,7 @@ class TaskDetail extends Component {
                                         <p>I want to {this.task.description}.</p>
                                         <p>I started {getLocalDate(this.task.created)}.</p>
                                         <p>I wanted to finish until {getLocalDate(this.task.expDate)}.</p>
-                                        <p>The time ended {-this.timeLeft.days} days {-this.timeLeft.hours} hours {-this.timeLeft.minutes} minutes ago. </p>
+                                        <p>The time ended {this.state.timeLeft.days} days {this.state.timeLeft.hours} hours {this.state.timeLeft.minutes} minutes {this.state.timeLeft.seconds} seconds ago. </p>
                                     </div>
                                     <div className="btns-list">
                                         <ul>
@@ -80,7 +95,7 @@ class TaskDetail extends Component {
                                             <p>I want to {this.task.description}.</p>
                                             <p>I started {getLocalDate(this.task.created)}.</p>
                                             <p>I want to finish until {getLocalDate(this.task.expDate)}.</p>
-                                            <p>I still have {this.timeLeft.days} days {this.timeLeft.hours} hours {this.timeLeft.minutes} minutes left.</p>
+                                            <p>I still have {this.state.timeLeft.days} days {this.state.timeLeft.hours} hours {this.state.timeLeft.minutes} minutes {this.state.timeLeft.seconds} seconds left.</p>
                                         </div>
                                         <div className="btns-list">
                                             <ul>

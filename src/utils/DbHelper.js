@@ -112,7 +112,7 @@ export function updateStatus(obj, timeLeft, goalId = null) {
             return false;
         }
     }
-    if (isTimedOut(timeLeft) && obj.status !== STATUS.done) {
+    if (isTimedOut(timeLeft) && obj.status === STATUS.waiting) {
         switch (type) {
             case "Goal":
                 obj.status = STATUS.failed;

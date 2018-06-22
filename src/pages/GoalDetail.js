@@ -23,15 +23,17 @@ class GoalDetail extends Component {
     state = {
         tasks: null,
         notify: false,
-        isError: false
+        isError: false,
+        timeLeft: null
     }
 
     componentWillMount = () => {
         this.id = this.props.match.params.id;
         this.goal = getGoal(this.id);
         try {
-            this.timeLeft = timeLeft(new Date(this.goal.expDate));
-            const isSuccess = updateStatus(this.goal, this.timeLeft);
+            const time = timeLeft(new Date(this.goal.expDate));
+            this.setState({ timeLeft: time});
+            const isSuccess = updateStatus(this.goal, time);
             if (!isSuccess) {
                 this.notifyMsg = 'Ooops... Something went wrong!';
                 this.notifyLvl = 'error';
@@ -41,7 +43,18 @@ class GoalDetail extends Component {
             console.log(e);
             this.setState({ isError: true });
         }
+    }
 
+    componentDidMount = () => {
+        this.interval = setInterval(() => {
+            const time = timeLeft(new Date(this.goal.expDate));
+            updateStatus(this.goal, time);
+            this.setState({ timeLeft: time });
+        }, 1000);
+    }
+
+    componentWillUnmount = () => {
+        clearInterval(this.interval);
     }
 
     deleteTask = (e) => {
@@ -114,7 +127,7 @@ class GoalDetail extends Component {
                             <div>
                                 {this.state.notify ? <RenderToBody><Notification msg={this.notifyMsg} level={this.notifyLvl} /></RenderToBody> : null}
                                 <div className="goal-container failed">                                    
-                                    <ObjFailed obj={this.goal} time={this.timeLeft} />
+                                    <ObjFailed obj={this.goal} time={this.state.timeLeft} />
                                     <div className="btns-list">
                                         <ul>
                                             <li><Link to={`/goal/edit/${this.id}`}><button className="btn"><i className="fas fa-stopwatch fa-lg btn-img"></i>I need more time!</button></Link></li>
@@ -133,7 +146,7 @@ class GoalDetail extends Component {
                             <div>
                                 {this.state.notify ? <RenderToBody><Notification msg={this.notifyMsg} level={this.notifyLvl} /></RenderToBody> : null}
                                 <div className="goal-container waiting">                                    
-                                    <ObjWaiting obj={this.goal} time={this.timeLeft} />
+                                    <ObjWaiting obj={this.goal} time={this.state.timeLeft} />
                                     <div className="btns-list">
                                         <ul>
                                             <li><Link to={`/goal/edit/${this.id}`}><button className="btn"><i className="fas fa-stopwatch fa-lg btn-img"></i>I need more time!</button></Link></li>

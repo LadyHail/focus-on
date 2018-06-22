@@ -16,7 +16,7 @@ class ObjDone extends Component {
                     <p>I achieved my goal: {obj.description}.</p>
                     <p>I started {getLocalDate(obj.created)}.</p>
                     <p>I finished {getLocalDate(obj.done)}.</p>
-                    <p>I spent {spentTime(obj.created, obj.done).days} days {spentTime(obj.created, obj.done).hours} hours {spentTime(obj.created, obj.done).minutes} minutes.</p>
+                    <p>I spent {spentTime(obj.created, obj.done).days} days {spentTime(obj.created, obj.done).hours} hours {spentTime(obj.created, obj.done).minutes} minutes {spentTime(obj.created, obj.done).seconds} seconds.</p>
                 </div>
                 <div className="img">
                     <i className="fas fa-star fa-3x img-gold"></i>

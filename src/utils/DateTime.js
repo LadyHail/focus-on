@@ -8,13 +8,15 @@ export function timeLeft(expiring) {
         const now = new Date();
         const difference = expiring - now;
         const oneDay = (1000 * 60 * 60 * 24);
-        const days = Math.round(difference / oneDay);
-        const hours = Math.round((difference % oneDay) / 3600000);
-        const minutes = Math.round(((difference % oneDay) % 3600000) / 60000);
+        const days = Math.floor(Math.abs(difference / oneDay));
+        const hours = Math.floor(Math.abs((difference % oneDay) / 3600000));
+        const minutes = Math.floor(Math.abs(((difference % oneDay) % 3600000) / 60000));
+        const seconds = Math.floor(Math.abs((((difference % oneDay) % 3600000) % 60000) / 1000));
         const timeleft = {
             days: days,
             hours: hours,
             minutes: minutes,
+            seconds: seconds,
             time: difference
         };
         return timeleft;
@@ -59,13 +61,15 @@ export function spentTime(start, finish) {
     if (start.toString() !== 'Invalid Date' && finish.toString() !== 'Invalid Date') {
         const difference = finish - start;
         const oneDay = (1000 * 60 * 60 * 24);
-        const days = Math.round(difference / oneDay);
-        const hours = Math.round((difference % oneDay) / 3600000);
-        const minutes = Math.round(((difference % oneDay) % 3600000) / 60000);
+        const days = Math.floor(Math.abs(difference / oneDay));
+        const hours = Math.floor(Math.abs((difference % oneDay) / 3600000));
+        const minutes = Math.floor(Math.abs(((difference % oneDay) % 3600000) / 60000));
+        const seconds = Math.floor(Math.abs((((difference % oneDay) % 3600000) % 60000) / 1000));
         const result = {
             days: days,
             hours: hours,
             minutes: minutes,
+            seconds: seconds,
             time: difference
         };
         return result;

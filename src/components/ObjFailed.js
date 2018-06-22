@@ -9,6 +9,10 @@ class ObjDone extends Component {
         time: PropTypes.object.isRequired
     }
 
+    shouldComponentUpdate = () => {
+        return true;
+    }
+
     render() {
         const obj = this.props.obj;
         const time = this.props.time;
@@ -18,7 +22,7 @@ class ObjDone extends Component {
                     <p>I want to {obj.description}.</p>
                     <p>I started {getLocalDate(obj.created)}.</p>
                     <p>I wanted to finish until {getLocalDate(obj.expDate)}.</p>
-                    <p>The time ended {-time.days} days {-time.hours} hours {-time.minutes} minutes ago.</p>
+                    <p>The time ended {time.days} days {time.hours} hours {time.minutes} minutes {time.seconds} seconds ago.</p>
                 </div>
                 <div className="img">
                     <i className="fas fa-clock fa-3x img-red"></i>
