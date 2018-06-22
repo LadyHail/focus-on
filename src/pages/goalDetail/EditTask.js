@@ -24,6 +24,7 @@ class EditTask extends Component {
             this.setState({ isError: true });
         } else {
             this.goalExpDate = getExpDate(new Date(goal.expDate));
+            this.goalExpTime = getExpTime(new Date(goal.expDate));
             const date = new Date(this.task.expDate);
             this.expDate = getExpDate(date);
             this.expTime = getExpTime(date);
@@ -57,7 +58,7 @@ class EditTask extends Component {
                             <form onSubmit={this.save} id="add-goal" className="edit">
                                 <input type="text" defaultValue={this.task.description} required id="task-desc" className="task-desc" />
                                 <input type="date" defaultValue={this.expDate} id="task-date" className="task-date" required min={getDate()} max={this.goalExpDate} />
-                                <input type="time" defaultValue={this.expTime} id="task-time" className="task-time" required />
+                                <input type="time" defaultValue={this.expTime} min={this.goalExpTime} id="task-time" className="task-time" required />
                                 <button type="submit" className="btn-success btn-save"><i className="fas fa-save fa-lg btn-img"></i>Save changes!</button>
                             </form>}
                         </div>

@@ -10,6 +10,7 @@ import NotFound from '../components/NotFound.js';
 import ObjDone from '../components/ObjDone';
 import ObjFailed from '../components/ObjFailed';
 import ObjWaiting from '../components/ObjWaiting';
+import { setTimeout } from 'timers';
 
 class GoalDetail extends Component {
     constructor(props) {
@@ -71,6 +72,9 @@ class GoalDetail extends Component {
         this.goal = getGoal(this.id);
         this.setState({ tasks: this.goal.tasks.length });
         this.setState({ notify: true });
+        setTimeout(() => {
+            this.setState({ notify: false });
+        }, 1000);
     }
     
     complete = (e) => {
@@ -101,6 +105,9 @@ class GoalDetail extends Component {
         this.setState({ notify: true });
         this.notifyMsg = 'Completed!';
         this.notifyLvl = 'success';
+        setTimeout(() => {
+            this.setState({ notify: false });
+        }, 1000);
     }
 
     render = () => {

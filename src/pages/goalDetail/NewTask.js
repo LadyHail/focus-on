@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { setTaskId, getGoal } from '../../utils/dbHelper.js';
-import { getDate, getExpDate } from '../../utils/dateTime.js';
+import { getDate, getExpDate, getExpTime } from '../../utils/dateTime.js';
 import { createTaskObj, addTask } from '../../utils/utils.js';
 import { Redirect } from 'react-router-dom';
 import Notification from '../../components/Notification.js';
@@ -32,6 +32,7 @@ class NewTask extends Component {
             this.setState({ nullGoal: true });
         } else {
             this.goalDate = getExpDate(new Date(this.goal.expDate));
+            this.goalTime = getExpTime(new Date(this.goal.expDate));
         }
     }
 
@@ -71,7 +72,7 @@ class NewTask extends Component {
                                 <div className="task edit" data-id={this.id} id="task">
                                     <input type="text" placeholder="How to achieve my goal?" required id="task-desc" className="task-desc" />
                                     <input type="date" defaultValue={getDate()} id="task-date" className="task-date" required min={getDate()} max={this.goalDate} />
-                                    <input type="time" defaultValue="23:59" id="task-time" className="task-time" required />
+                                    <input type="time" defaultValue={this.goalTime} min={this.goalTime} id="task-time" className="task-time" required />
                                     <button type="submit" className="btn-success btn-save"><i className="fas fa-plus fa-lg btn-img"></i>Set new task!</button>
                                 </div>
                                 

@@ -14,18 +14,20 @@ class NewGoal extends Component {
         this.addTask = this.addTask.bind(this);
         this.removeTask = this.removeTask.bind(this);
         this.goalDateChanged = this.goalDateChanged.bind(this);
+        this.goalTimeChanged = this.goalTimeChanged.bind(this);
     }
 
     componentWillMount = () => {
         this.id++;
         this.setState({
-            tasks: [<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} goalDate={this.state.goalDate} />]
+            tasks: [<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} goalDate={this.state.goalDate} goalTime={this.state.goalTime} />]
         });
     }
 
     state = {
         tasks: [],
         goalDate: new Date().toISOString().substring(0, 10),
+        goalTime: new Date().toLocaleString().substring(12, 17),
         notify: false,
         isError: false
     }
@@ -40,7 +42,7 @@ class NewGoal extends Component {
             saveGoal("goal" + goal.id.toString(), goal);
             const form = document.getElementById('add-goal');
             form.reset();
-            this.setState({ tasks: [<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} goalDate={this.state.goalDate} />] });
+            this.setState({ tasks: [<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} goalDate={this.state.goalDate} goalTime={this.state.goalTime} />] });
             this.setState({ notify: true });
         } else {
             this.setState({ isError: true });
@@ -51,7 +53,7 @@ class NewGoal extends Component {
         if (this.state.tasks.length < 64) {
             this.id++;
             let newState = this.state.tasks;
-            newState.push(<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} goalDate={this.state.goalDate} />);
+            newState.push(<NewTask key={this.id} id={this.id} removeBtnClick={this.removeTask} goalDate={this.state.goalDate} goalTime={this.state.goalTime} />);
             this.setState({ tasks: newState });
             this.setState({ notify: false });
         }       
@@ -72,7 +74,17 @@ class NewGoal extends Component {
         const date = e.target.value;
         this.setState({ goalDate: date});
         const newState = this.state.tasks.map(p => {
-            return <NewTask key={p.key} id={p.props.id} removeBtnClick={p.props.removeBtnClick} goalDate={date} />
+            return <NewTask key={p.key} id={p.props.id} removeBtnClick={p.props.removeBtnClick} goalDate={date} goalTime={this.state.goalTime} />
+        });
+        this.setState({ tasks: newState });
+        this.setState({ notify: false });
+    }
+
+    goalTimeChanged = (e) => {
+        const time = e.target.value;
+        this.setState({ goalTime: time });
+        const newState = this.state.tasks.map(p => {
+            return <NewTask key={p.key} id={p.props.id} removeBtnClick={p.props.removeBtnClick} goalDate={this.state.goalDate} goalTime={time} />
         });
         this.setState({ tasks: newState });
         this.setState({ notify: false });
@@ -93,7 +105,7 @@ class NewGoal extends Component {
                                 <div className="input-container">
                                     <label>What I want to achieve?<input type="text" placeholder="eg. Learn Web Development" required id="goal-desc" className="description" maxLength="250" /></label>
                                     <label>I want to achieve my goal until: <input type="date" required id="goal-date" min={getDate()} onChange={this.goalDateChanged} /></label>
-                                    <input type="time" required defaultValue="23:59" id="goal-time" />
+                                    <input type="time" required defaultValue={this.state.goalTime} id="goal-time" onChange={this.goalTimeChanged} />
                                 </div>
                                 
                             
