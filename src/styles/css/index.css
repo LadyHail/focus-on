@@ -7,11 +7,17 @@ body {
   background-image: url("../../img/back.jpeg");
 }
 
+main {
+  margin-top: 80px;
+}
+
 /*Navigation*/
 nav {
   width: 100%;
   margin: auto;
   background-color: #00a6ed;
+  position: fixed;
+  top: 0;
 }
 nav ul {
   display: flex;
@@ -292,6 +298,16 @@ input {
 
 form {
   text-align: center;
+}
+
+/*Not Found*/
+.img-error {
+  width: 100%;
+}
+
+.error-page .btn {
+  width: 100%;
+  font-size: 1.4em;
 }
 
 /*# sourceMappingURL=src/styles/css/index.css.map */

@@ -42,26 +42,29 @@ class ShowGoalsList extends Component {
     render = () => {
         return (
             <div className="goals-list">
-                {this.goals.map(item => {
-                    const time = this.state.times.find(g => g.id === item.id).time;
-                    return (
-                        <div key={item.id} data-id={item.id} className="list-item">
-                            <Link to={`/goal/${item.id}/`} className="goal-link">
-                                {item.status === STATUS.waiting ?
-                                    <ObjWaiting obj={item} time={time} />
-                                    :
-                                    item.status === STATUS.done ?
-                                        <ObjDone obj={item} />
-                                        :
-                                        item.status === STATUS.failed ?
-                                            <ObjFailed obj={item} time={time} />
-                                        :
-                                            null
-                                }                               
-                            </Link>
-                        </div>                            
-                    );
-                })
+                {this.goals.length === 0 ?
+                    <p className="goal-div failed">No goals found.</p>
+                    :                    
+                        this.goals.map(item => {
+                            const time = this.state.times.find(g => g.id === item.id).time;
+                            return (
+                                <div key={item.id} data-id={item.id} className="list-item">
+                                    <Link to={`/goal/${item.id}/`} className="goal-link">
+                                        {item.status === STATUS.waiting ?
+                                            <ObjWaiting obj={item} time={time} />
+                                            :
+                                            item.status === STATUS.done ?
+                                                <ObjDone obj={item} />
+                                                :
+                                                item.status === STATUS.failed ?
+                                                    <ObjFailed obj={item} time={time} />
+                                                    :
+                                                    null
+                                        }
+                                    </Link>
+                                </div>
+                            );
+                        })
                 }
             </div>
         );

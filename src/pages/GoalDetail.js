@@ -48,9 +48,14 @@ class GoalDetail extends Component {
 
     componentDidMount = () => {
         this.interval = setInterval(() => {
-            const time = timeLeft(new Date(this.goal.expDate));
-            updateStatus(this.goal, time);
-            this.setState({ timeLeft: time });
+            try {
+                const time = timeLeft(new Date(this.goal.expDate));
+                updateStatus(this.goal, time);
+                this.setState({ timeLeft: time });
+            } catch (e) {
+                console.log(e);
+                clearInterval(this.interval);
+            }
         }, 1000);
     }
 
