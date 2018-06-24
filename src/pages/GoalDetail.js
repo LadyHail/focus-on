@@ -10,7 +10,7 @@ import NotFound from '../components/NotFound.js';
 import ObjDone from '../components/ObjDone';
 import ObjFailed from '../components/ObjFailed';
 import ObjWaiting from '../components/ObjWaiting';
-import { setTimeout } from 'timers';
+import Modal from '../components/Modal';
 
 class GoalDetail extends Component {
     constructor(props) {
@@ -25,7 +25,8 @@ class GoalDetail extends Component {
         tasks: null,
         notify: false,
         isError: false,
-        timeLeft: null
+        timeLeft: null,
+        showModal: false
     }
 
     componentWillMount = () => {
@@ -107,12 +108,13 @@ class GoalDetail extends Component {
             this.goal.done = new Date().toUTCString();
         }        
         saveGoal("goal" + this.goal.id, this.goal);
-        this.setState({ notify: true });
+        this.setState({ showModal: true });
         this.notifyMsg = 'Completed!';
         this.notifyLvl = 'success';
-        setTimeout(() => {
-            this.setState({ notify: false });
-        }, 1000);
+    }
+
+    closeModal = () => {
+        this.setState({ showModal: false });
     }
 
     render = () => {
@@ -120,31 +122,16 @@ class GoalDetail extends Component {
             <div className="goal-detail">
                 {this.state.isError ?
                     <NotFound />
-                    :                   
-                    this.goal.status === STATUS.done ?
-                        <div>
-                            <div className="goal-done">
-                                <ObjDone obj={this.goal} />
-                            </div>
-                            {this.goal.tasks.map(t => {
-                                return (
-                                    <div key={t.id}>
-                                        <TaskDetail id={t.id} goalId={this.id} delete={this.deleteTask} completeTask={this.complete} />
-                                    </div>
-                                );
-                            })}
-                        </div>
-                        :
-                        this.goal.status === STATUS.failed ?
+                    :
+                    <div>
+                        <Modal show={this.state.showModal} closeModal={this.closeModal} >
+                            <p>Congratulations!</p>
+                            <p><i className="fas fa-star fa-7x img-gold"></i></p>
+                        </Modal>
+                        {this.goal.status === STATUS.done ?
                             <div>
-                                {this.state.notify ? <RenderToBody><Notification msg={this.notifyMsg} level={this.notifyLvl} /></RenderToBody> : null}
-                                <div className="goal-container failed">                                    
-                                    <ObjFailed obj={this.goal} time={this.state.timeLeft} />
-                                    <div className="btns-list">
-                                        <ul>
-                                            <li><Link to={`/goal/edit/${this.id}`}><button className="btn"><i className="fas fa-stopwatch fa-lg btn-img"></i>I need more time!</button></Link></li>
-                                        </ul>
-                                    </div>
+                                <div className="goal-done">
+                                    <ObjDone obj={this.goal} />
                                 </div>
                                 {this.goal.tasks.map(t => {
                                     return (
@@ -155,26 +142,47 @@ class GoalDetail extends Component {
                                 })}
                             </div>
                             :
-                            <div>
-                                {this.state.notify ? <RenderToBody><Notification msg={this.notifyMsg} level={this.notifyLvl} /></RenderToBody> : null}
-                                <div className="goal-container waiting">                                    
-                                    <ObjWaiting obj={this.goal} time={this.state.timeLeft} />
-                                    <div className="btns-list">
-                                        <ul>
-                                            <li><Link to={`/goal/edit/${this.id}`}><button className="btn"><i className="fas fa-stopwatch fa-lg btn-img"></i>I need more time!</button></Link></li>
-                                            <li><Link to={`/goal/add/${this.id}`}><button className="btn"><i className="fas fa-plus fa-lg btn-img"></i>I want to set new task.</button></Link></li>
-                                            <li><button onClick={this.complete} className="btn-success btn-save"><i className="fas fa-check fa-lg btn-img"></i>Complete!</button></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                {this.goal.tasks.map(t => {
-                                    return (
-                                        <div key={t.id}>
-                                            <TaskDetail id={t.id} goalId={this.id} delete={this.deleteTask} completeTask={this.complete} />
+                            this.goal.status === STATUS.failed ?
+                                <div>
+                                    {this.state.notify ? <RenderToBody><Notification msg={this.notifyMsg} level={this.notifyLvl} /></RenderToBody> : null}
+                                    <div className="goal-container failed">
+                                        <ObjFailed obj={this.goal} time={this.state.timeLeft} />
+                                        <div className="btns-list">
+                                            <ul>
+                                                <li><Link to={`/goal/edit/${this.id}`}><button className="btn"><i className="fas fa-stopwatch fa-lg btn-img"></i>I need more time!</button></Link></li>
+                                            </ul>
                                         </div>
-                                    );
-                                })}
-                            </div>
+                                    </div>
+                                    {this.goal.tasks.map(t => {
+                                        return (
+                                            <div key={t.id}>
+                                                <TaskDetail id={t.id} goalId={this.id} delete={this.deleteTask} completeTask={this.complete} />
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                                :
+                                <div>
+                                    {this.state.notify ? <RenderToBody><Notification msg={this.notifyMsg} level={this.notifyLvl} /></RenderToBody> : null}
+                                    <div className="goal-container waiting">
+                                        <ObjWaiting obj={this.goal} time={this.state.timeLeft} />
+                                        <div className="btns-list">
+                                            <ul>
+                                                <li><Link to={`/goal/edit/${this.id}`}><button className="btn"><i className="fas fa-stopwatch fa-lg btn-img"></i>I need more time!</button></Link></li>
+                                                <li><Link to={`/goal/add/${this.id}`}><button className="btn"><i className="fas fa-plus fa-lg btn-img"></i>I want to set new task.</button></Link></li>
+                                                <li><button onClick={this.complete} className="btn-success btn-save"><i className="fas fa-check fa-lg btn-img"></i>Complete!</button></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    {this.goal.tasks.map(t => {
+                                        return (
+                                            <div key={t.id}>
+                                                <TaskDetail id={t.id} goalId={this.id} delete={this.deleteTask} completeTask={this.complete} />
+                                            </div>
+                                        );
+                                    })}
+                                </div>}
+                        </div>
                     
                 }
             </div>

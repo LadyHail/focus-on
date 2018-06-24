@@ -167,30 +167,6 @@ input {
         color: $font-color;
     }
 
-    /*Icons*/
-    .img {
-      width: 20%;
-      border-left: 1px solid grey;
-    }
-
-    .img-gold {
-      color: $gold;
-      float: right;
-      margin: 20px 0;
-    }
-
-    .img-red {
-      color: $red;
-      float: right;
-      margin: 30px 0;
-    }
-
-    .img-green {
-      color: $green;
-      float: right;
-      margin: 10px 0;
-    }
-
     .goal-div {
       display: flex;
       flex-wrap: wrap;
@@ -199,6 +175,30 @@ input {
     .details {
       width: 75%;
     }
+}
+
+/*Icons*/
+.img {
+  width: 20%;
+  border-left: 1px solid grey;
+}
+
+.img-gold {
+  color: $gold;
+  float: right;
+  margin: 20px 0;
+}
+
+.img-red {
+  color: $red;
+  float: right;
+  margin: 30px 0;
+}
+
+.img-green {
+  color: $green;
+  float: right;
+  margin: 10px 0;
 }
 
 /*Goal status*/
@@ -376,4 +376,55 @@ form {
     width: 100%;
     font-size: 1.4em;
   }
+}
+
+/*Modal*/
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal-main {
+  position: fixed;
+  background: $banana;
+  width: 50%;
+  height: auto;
+  top: 190px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 10px;
+  border: 30px solid $green;
+  border-image: url('../../img/leaf.png') 30 round;
+  border-color: $green;
+  border-radius: 15px;
+
+  .img-gold {
+    float: none;
+  }
+
+  .btn-success {
+    width: 200px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.2em;
+  }
+
+  p {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+.display-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
 }

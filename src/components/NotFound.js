@@ -2,7 +2,6 @@
 import ErrorImg from '../img/notFound.jpg';
 import { Link } from 'react-router-dom';
 
-//TODO modal on complete
 class NotFound extends Component {
     render() {
         return (
