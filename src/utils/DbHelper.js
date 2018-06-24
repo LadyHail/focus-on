@@ -164,3 +164,12 @@ export function updateStatus(obj, timeLeft, goalId = null) {
         }
     }
 }
+
+export function goalsCompleted() {
+    const goals = getAll();
+    const done = goals.map(g => {
+        return g.status === STATUS.done;
+    });
+
+    return done.length;
+}

@@ -6,6 +6,7 @@ import GoalDetail from '../pages/GoalDetail.js';
 import EditGoal from '../pages/goalDetail/EditGoal.js';
 import EditTask from '../pages/goalDetail/EditTask.js';
 import NewTask from '../pages/goalDetail/NewTask.js';
+import Home from './Home';
 import Nav from './Nav.js';
 import NotFound from './NotFound.js';
 
@@ -18,7 +19,7 @@ class App extends Component {
                 <main>
                     <div>
                         <Switch>
-                            <Route exact path="/" />
+                            <Route exact path="/" component={Home} />
                             <Route path="/goal/new" component={NewGoal} />
                             <Route path="/goals" component={ShowGoalsList} />
                             <Route exact strict path="/goal/:id/" component={GoalDetail} />

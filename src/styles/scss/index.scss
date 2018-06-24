@@ -35,7 +35,7 @@ nav {
         li {
             display: inline;
             list-style: none;
-            width: 33.3%;
+            width: 25%;
             text-align: center;
 
             a {
@@ -77,13 +77,16 @@ input {
     margin-bottom: 20px;
 }
 
-.container {
-  width: 75%;
-}
-
 #add-goal {
   display: flex;
   flex-wrap: wrap;
+
+  .container {
+    width: 75%;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+  }
 
   .btns-list {
     width: 20%;
@@ -398,9 +401,8 @@ form {
   transform: translate(-50%, -50%);
   text-align: center;
   padding: 10px;
-  border: 30px solid $green;
+  border: 30px solid transparent;
   border-image: url('../../img/leaf.png') 30 round;
-  border-color: $green;
   border-radius: 15px;
 
   .img-gold {
@@ -427,4 +429,14 @@ form {
 
 .display-none {
   display: none;
+}
+
+/*Home*/
+.container {
+  padding: 20px 30px;
+  background-color: $banana;
+  border: 3px solid #00a6ed;
+  border-radius: 15px;
+  width: 80%;
+  margin: auto;
 }

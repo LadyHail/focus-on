@@ -27,7 +27,7 @@ nav ul {
 nav ul li {
   display: inline;
   list-style: none;
-  width: 33.3%;
+  width: 25%;
   text-align: center;
 }
 nav ul li a {
@@ -65,13 +65,15 @@ input {
   margin-bottom: 20px;
 }
 
-.container {
-  width: 75%;
-}
-
 #add-goal {
   display: flex;
   flex-wrap: wrap;
+}
+#add-goal .container {
+  width: 75%;
+  border: none;
+  padding: 0;
+  background-color: transparent;
 }
 #add-goal .btns-list {
   width: 20%;
@@ -334,9 +336,8 @@ form {
   transform: translate(-50%, -50%);
   text-align: center;
   padding: 10px;
-  border: 30px solid #7fb800;
+  border: 30px solid transparent;
   border-image: url("../../img/leaf.png") 30 round;
-  border-color: #7fb800;
   border-radius: 15px;
 }
 .modal-main .img-gold {
@@ -360,6 +361,16 @@ form {
 
 .display-none {
   display: none;
+}
+
+/*Home*/
+.container {
+  padding: 20px 30px;
+  background-color: #fcf6b1;
+  border: 3px solid #00a6ed;
+  border-radius: 15px;
+  width: 80%;
+  margin: auto;
 }
 
 /*# sourceMappingURL=src/styles/css/index.css.map */
