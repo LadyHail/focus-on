@@ -167,8 +167,10 @@ export function updateStatus(obj, timeLeft, goalId = null) {
 
 export function goalsCompleted() {
     const goals = getAll();
-    const done = goals.map(g => {
-        return g.status === STATUS.done;
+    const done = goals.filter(g => {
+        if (g.status === STATUS.done) {
+            return g;
+        }
     });
 
     return done.length;

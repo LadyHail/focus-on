@@ -129,7 +129,7 @@ class GoalDetail extends Component {
                             <p><i className="fas fa-star fa-7x img-gold"></i></p>
                         </Modal>
                         {this.goal.status === STATUS.done ?
-                            <div>
+                            <div className="width">
                                 <div className="goal-done">
                                     <ObjDone obj={this.goal} />
                                 </div>
@@ -143,7 +143,7 @@ class GoalDetail extends Component {
                             </div>
                             :
                             this.goal.status === STATUS.failed ?
-                                <div>
+                                <div className="width">
                                     {this.state.notify ? <RenderToBody><Notification msg={this.notifyMsg} level={this.notifyLvl} /></RenderToBody> : null}
                                     <div className="goal-container failed">
                                         <ObjFailed obj={this.goal} time={this.state.timeLeft} />
@@ -162,7 +162,7 @@ class GoalDetail extends Component {
                                     })}
                                 </div>
                                 :
-                                <div>
+                                <div className="width">
                                     {this.state.notify ? <RenderToBody><Notification msg={this.notifyMsg} level={this.notifyLvl} /></RenderToBody> : null}
                                     <div className="goal-container waiting">
                                         <ObjWaiting obj={this.goal} time={this.state.timeLeft} />

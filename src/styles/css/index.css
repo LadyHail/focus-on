@@ -1,9 +1,162 @@
+@media screen and (max-width: 849px) {
+  body {
+    width: 100%;
+  }
+
+  nav {
+    width: 100%;
+  }
+
+  .goals-list {
+    width: 100%;
+  }
+  .goals-list .list-item {
+    width: 95%;
+  }
+  .goals-list .details {
+    width: 100% !important;
+  }
+  .goals-list .img {
+    display: none !important;
+  }
+
+  .width {
+    width: 100%;
+    margin: auto;
+  }
+
+  #add-goal {
+    width: 100%;
+  }
+  #add-goal .container {
+    width: 100%;
+  }
+  #add-goal .btns-list {
+    width: 95%;
+    margin: auto;
+  }
+  #add-goal .input-container {
+    width: 95%;
+  }
+
+  .btn {
+    min-width: 60px;
+    min-height: 60px;
+  }
+
+  .btn-save {
+    min-width: 60px;
+    min-height: 60px;
+  }
+
+  .goal-container .goal-div {
+    width: 100% !important;
+  }
+  .goal-container .btns-list {
+    width: 100% !important;
+  }
+  .goal-container .btns-list ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .goal-container .btns-list li {
+    width: 30%;
+    margin: 0 1%;
+  }
+
+  .task-container .task-div {
+    width: 100% !important;
+  }
+  .task-container .btns-list {
+    width: 100% !important;
+  }
+  .task-container .btns-list ul {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .task-container .btns-list li {
+    width: 30%;
+    margin: 0 1%;
+  }
+}
+@media screen and (min-width: 850px) and (max-width: 1200px) {
+  body {
+    width: 75%;
+  }
+
+  nav {
+    width: 75%;
+  }
+
+  .goals-list {
+    width: 85%;
+    margin: auto;
+  }
+  .goals-list .list-item {
+    width: 100%;
+  }
+
+  .width {
+    width: 85%;
+    margin: auto;
+  }
+
+  #add-goal {
+    width: 80%;
+  }
+  #add-goal .container {
+    width: 100%;
+  }
+  #add-goal .btns-list {
+    width: 100%;
+    margin: auto;
+  }
+  #add-goal .input-container {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1201px) {
+  body {
+    width: 50%;
+  }
+
+  nav {
+    width: 50%;
+  }
+
+  .goals-list {
+    width: 85%;
+    margin: auto;
+  }
+  .goals-list .list-item {
+    width: 100%;
+  }
+
+  .width {
+    width: 85%;
+    margin: auto;
+  }
+
+  #add-goal {
+    width: 80%;
+  }
+  #add-goal .container {
+    width: 100%;
+  }
+  #add-goal .btns-list {
+    width: 100%;
+    margin: auto;
+  }
+  #add-goal .input-container {
+    width: 100%;
+  }
+}
 body {
   margin: auto;
   padding: 0;
   font-family: sans-serif;
   word-break: break-word;
-  /*width: 50%;*/
   background-image: url("../../img/back.jpeg");
 }
 
@@ -13,7 +166,6 @@ main {
 
 /*Navigation*/
 nav {
-  width: 100%;
   margin: auto;
   background-color: #00a6ed;
   position: fixed;
@@ -52,7 +204,6 @@ input {
 }
 
 .input-container {
-  width: 100%;
   margin: auto;
   margin-bottom: 15px;
   text-align: center;
@@ -68,15 +219,15 @@ input {
 #add-goal {
   display: flex;
   flex-wrap: wrap;
+  margin: auto;
 }
 #add-goal .container {
-  width: 75%;
   border: none;
   padding: 0;
   background-color: transparent;
 }
-#add-goal .btns-list {
-  width: 20%;
+#add-goal .btns-list ul {
+  padding: 0;
 }
 #add-goal .btns-list li {
   list-style: none;
@@ -124,7 +275,6 @@ input {
   display: block;
 }
 .goals-list .list-item {
-  width: 80%;
   margin: 20px auto;
   border-radius: 18px;
 }
@@ -288,7 +438,7 @@ input {
 .edit {
   text-align: center;
   display: block !important;
-  width: fit-content;
+  width: 80%;
   margin: auto;
   padding: 10px 20px;
   background-color: #fcf6b1;
@@ -371,6 +521,10 @@ form {
   border-radius: 15px;
   width: 80%;
   margin: auto;
+}
+.container h3 {
+  font-style: italic;
+  text-indent: 30px;
 }
 .container h4 {
   text-transform: capitalize;

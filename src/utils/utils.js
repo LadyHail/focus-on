@@ -19,7 +19,7 @@ export function createGoalObj() {
 export function createTasksObjs(tasksArray) {
     let tasks = [];
     const dateNow = new Date().toUTCString();
-    for (let item of tasksArray) {
+    for (let item of Array.from(tasksArray)) {
         try {
             const taskDate = item.querySelector('.task-date').value;
             const taskTime = item.querySelector('.task-time').value;

@@ -6,12 +6,192 @@ $green: #7fb800;
 $red: #f6511d;
 $gold: #ffb400;
 
+@media screen and (max-width: 849px) {
+  body {
+    width: 100%;
+  }
+
+  nav {
+    width: 100%;
+  }
+
+  .goals-list {
+    width: 100%;
+
+    .list-item {
+      width: 95%;
+    }
+
+    .details {
+      width: 100% !important;
+    }
+
+    .img {
+      display: none !important;
+    }
+  }
+
+  .width {
+    width: 100%;
+    margin: auto;
+  }
+
+  #add-goal {
+    width: 100%;
+
+    .container {
+      width: 100%;
+    }
+
+    .btns-list {
+      width: 95%;
+      margin: auto;
+    }
+
+    .input-container {
+      width: 95%;
+    }
+  }
+
+  .btn {
+    min-width: 60px;
+    min-height: 60px;
+  }
+
+  .btn-save {
+    min-width: 60px;
+    min-height: 60px;
+  }
+
+  .goal-container {
+    .goal-div {
+      width: 100% !important;
+    }
+
+    .btns-list {
+      width: 100% !important;
+
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      li {
+        width: 30%;
+        margin: 0 1%;
+      }
+    }
+  }
+
+  .task-container {
+    .task-div {
+      width: 100% !important;
+    }
+
+    .btns-list {
+      width: 100% !important;
+
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+
+      li {
+        width: 30%;
+        margin: 0 1%;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 850px) and (max-width: 1200px) {
+  body {
+    width: 75%;
+  }
+
+  nav {
+    width: 75%;
+  }
+
+  .goals-list {
+    width: 85%;
+    margin: auto;
+
+    .list-item {
+      width: 100%;
+    }
+  }
+
+  .width {
+    width: 85%;
+    margin: auto;
+  }
+
+  #add-goal {
+    width: 80%;
+
+    .container {
+      width: 100%;
+    }
+
+    .btns-list {
+      width: 100%;
+      margin: auto;
+    }
+
+    .input-container {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (min-width: 1201px) {
+  body {
+    width: 50%;
+  }
+
+  nav {
+    width: 50%;
+  }
+
+  .goals-list {
+    width: 85%;
+    margin: auto;
+
+    .list-item {
+      width: 100%;
+    }
+  }
+
+  .width {
+    width: 85%;
+    margin: auto;
+  }
+
+  #add-goal {
+    width: 80%;
+
+    .container {
+      width: 100%;
+    }
+
+    .btns-list {
+      width: 100%;
+      margin: auto;
+    }
+
+    .input-container {
+      width: 100%;
+    }
+  }
+}
+
 ﻿body {
     margin: auto;
     padding: 0;
     font-family: sans-serif;
     word-break: break-word;
-    /*width: 50%;*/
     background-image: url('../../img/back.jpeg');
 }
 
@@ -21,7 +201,6 @@ main {
 
 /*Navigation*/
 nav {
-    width: 100%;
     margin: auto;
     background-color: #00a6ed;
     position: fixed;
@@ -64,7 +243,6 @@ input {
 }
 
 .input-container {
-    width: 100%;
     margin: auto;
     margin-bottom: 15px;
     text-align: center;
@@ -80,17 +258,18 @@ input {
 #add-goal {
   display: flex;
   flex-wrap: wrap;
+  margin: auto;
 
   .container {
-    width: 75%;
     border: none;
     padding: 0;
     background-color: transparent;
   }
 
   .btns-list {
-    width: 20%;
-
+    ul {
+      padding: 0;
+    }
     li {
       list-style: none;
     }
@@ -143,7 +322,6 @@ input {
     display: block;
 
     .list-item {
-        width: 80%;
         margin: 20px auto;
         border-radius: 18px;
     }
@@ -348,7 +526,7 @@ input {
 .edit {
   text-align: center;
   display: block !important;
-  width: fit-content;
+  width: 80%;
   margin: auto;
   padding: 10px 20px;
   background-color: $banana;
