@@ -372,5 +372,8 @@ form {
   width: 80%;
   margin: auto;
 }
+.container h4 {
+  text-transform: capitalize;
+}
 
 /*# sourceMappingURL=src/styles/css/index.css.map */
