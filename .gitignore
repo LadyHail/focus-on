@@ -22,3 +22,9 @@ yarn-error.log*
 *.njsproj
 focus-on
 .sass-cache
+.vs
+QuotesDb/QuotesDb.csproj
+QuotesDb/QuotesDb.sln
+QuotesDb/packages
+QuotesDb/obj
+QuotesDb/bin
