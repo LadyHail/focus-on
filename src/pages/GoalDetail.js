@@ -69,7 +69,7 @@ class GoalDetail extends Component {
         const taskId = e.target.getAttribute('data-id');
         let isSuccess = deleteTask(this.id, taskId);
         if (!isSuccess) {
-            this.notifyMsg = 'Ooops... Something went wrong!';
+            this.notifyMsg = 'Ooops... Something went wrong! There must be at least one task specified!';
             this.notifyLvl = 'error';
         } else {
             this.notifyMsg = 'Task deleted!';
@@ -80,7 +80,7 @@ class GoalDetail extends Component {
         this.setState({ notify: true });
         setTimeout(() => {
             this.setState({ notify: false });
-        }, 1000);
+        }, 500);
     }
     
     complete = (e) => {
@@ -124,9 +124,10 @@ class GoalDetail extends Component {
                     <NotFound />
                     :
                     <div>
-                        <Modal show={this.state.showModal} closeModal={this.closeModal} >
+                        <Modal show={this.state.showModal} >
                             <p>Congratulations!</p>
                             <p><i className="fas fa-star fa-7x img-gold"></i></p>
+                            <button onClick={this.closeModal} className="btn-success">I did it!</button>
                         </Modal>
                         {this.goal.status === STATUS.done ?
                             <div className="width">
@@ -162,7 +163,7 @@ class GoalDetail extends Component {
                                     })}
                                 </div>
                                 :
-                                <div className="width">
+                                <div className="width">   
                                     {this.state.notify ? <RenderToBody><Notification msg={this.notifyMsg} level={this.notifyLvl} /></RenderToBody> : null}
                                     <div className="goal-container waiting">
                                         <ObjWaiting obj={this.goal} time={this.state.timeLeft} />

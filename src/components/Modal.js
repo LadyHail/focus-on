@@ -15,7 +15,6 @@ class Modal extends Component {
             <div className={this.showHide}>
                 <section className="modal-main">
                     {this.props.children}
-                    <button onClick={this.props.closeModal} className="btn-success">I did it!</button>
                 </section>
             </div>
             )
