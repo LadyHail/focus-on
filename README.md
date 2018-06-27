@@ -8,10 +8,15 @@ Once set goal can't be deleted. It's by design. If you really need to delete the
 
 ## Geting Started
 **The application doesn't run on Internet Explorer!**
+
+### Live
+Live version available [HERE](https://ladyhail.github.io/focus-on/).
+
 ### Installing
     git clone https://github.com/LadyHail/focus-on
     npm install
     npm start
+The application should run on localhost:3000.
 
 ### Built with
 - [ReactJS](https://github.com/facebook/react)
@@ -22,7 +27,7 @@ Once set goal can't be deleted. It's by design. If you really need to delete the
 - [React Notification System](https://github.com/igorprado/react-notification-system#creating-a-notification)
 - [React Router](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom)
 - [PropTypes](https://reactjs.org/docs/typechecking-with-proptypes.html)
-- C# - Used to generate JSON file which contains motivational quotes - [more details](https://github.com/LadyHail/focus-on/tree/master/QuotesDb)
+- C# - Used to generate JSON file which contains motivational quotes - [more details](https://github.com/LadyHail/focus-on/tree/master/QuotesDb).
 
 ### License
-This project is licensed under MIT License.
+This project is licensed under [MIT License](https://github.com/LadyHail/focus-on/blob/master/LICENSE.txt).
