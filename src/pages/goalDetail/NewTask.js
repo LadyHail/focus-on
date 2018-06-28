@@ -1,11 +1,11 @@
 ﻿import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { setTaskId, getGoal } from '../../utils/dbHelper.js';
 import { getDate, getExpDate, getExpTime } from '../../utils/dateTime.js';
 import { createTaskObj, addTask } from '../../utils/utils.js';
-import { Redirect } from 'react-router-dom';
 import Notification from '../../components/Notification.js';
-import RenderToBody from '../../components/RenderToBody';
-import NotFound from '../../components/NotFound';
+import RenderToBody from '../../components/RenderToBody.js';
+import NotFound from '../../components/NotFound.js';
 
 class NewTask extends Component {
     constructor(props) {

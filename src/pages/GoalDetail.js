@@ -7,10 +7,10 @@ import TaskDetail from '../pages/goalDetail/TaskDetail.js';
 import Notification from '../components/Notification.js';
 import RenderToBody from '../components/RenderToBody.js';
 import NotFound from '../components/NotFound.js';
-import ObjDone from '../components/ObjDone';
-import ObjFailed from '../components/ObjFailed';
-import ObjWaiting from '../components/ObjWaiting';
-import Modal from '../components/Modal';
+import ObjDone from '../components/ObjDone.js';
+import ObjFailed from '../components/ObjFailed.js';
+import ObjWaiting from '../components/ObjWaiting.js';
+import Modal from '../components/Modal.js';
 
 class GoalDetail extends Component {
     constructor(props) {

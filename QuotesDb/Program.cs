@@ -20,16 +20,19 @@ namespace QuotesDb
             Text = text;
         }
     }
+
     class Program
     {
         static void Main(string[] args)
         {
+            // Initialize variables
             string dir = Environment.CurrentDirectory;
             Directory.CreateDirectory(dir + "/data");
             string jsonPath = dir + "/data/" + "quotes.json";
             List<Quote> quotes = new List<Quote>();
             int id = 0;
 
+            // Download data from web. Then save it as HTML.
             WebClient webClient = new WebClient();
             for (int i = 1; i < 12; i++)
             {
@@ -39,15 +42,18 @@ namespace QuotesDb
                     );
             }
 
+            // Make operations on every saved file.
             for (int i = 1; i < 12; i++)
             {
                 string path = dir + "/data/" + i + ".html";
                 HtmlDocument doc = new HtmlDocument();
                 doc.Load(path);
 
+                // Get all divs elements in the file.
                 HtmlNodeCollection allDivs = doc.DocumentNode.SelectNodes("//div");
                 List<HtmlNode> nodesList = new List<HtmlNode>();
 
+                // Search for divs with class "quotebox". Then save them to the list.
                 foreach (HtmlNode item in allDivs)
                 {
                     if (item.HasClass("quotebox"))
@@ -56,6 +62,7 @@ namespace QuotesDb
                     }
                 }
 
+                // For each div in the list search for elements with class "quote" and "aboutquote". Then get important data and save them to the list.
                 foreach (HtmlNode item in nodesList)
                 {
                     HtmlNodeCollection childNodes = item.ChildNodes;
@@ -81,6 +88,7 @@ namespace QuotesDb
                 }
             }
 
+            // Save quotes to JSON file.
             using (StreamWriter file = File.AppendText(jsonPath))
             {
                 JsonSerializer serializer = new JsonSerializer();

@@ -2,6 +2,7 @@
 /*eslint no-loop-func: "off"*/
 /*eslint array-callback-return: "off"*/
 
+// Returns Goal object by Id.
 export function getGoal(id) {
     if (!isNaN(id)) {
         let goal = window.localStorage.getItem('goal' + id);
@@ -14,6 +15,7 @@ export function getGoal(id) {
     return null;
 }
 
+// Returns all Goals from localStorage.
 export function getAll() {
     const keys = Object.keys(window.localStorage);
     let goals = [];
@@ -31,6 +33,7 @@ export function getAll() {
     return goals;
 }
 
+// Saves Goal object to localStorage.
 export function saveGoal(id, item) {
     try {
         item = JSON.stringify(item);
@@ -42,6 +45,7 @@ export function saveGoal(id, item) {
     return true;
 }
 
+// Returns Task object by Id.
 export function getTask(goalId, id) {
     if (!isNaN(id) && !isNaN(goalId)) {
         const goal = getGoal(goalId);
@@ -57,6 +61,8 @@ export function getTask(goalId, id) {
     }
 }
 
+// Searches for non-busy Id.
+// Returns integer.
 export function findFreeId() {
     const busyIds = Object.keys(window.localStorage);
     let foundId = false;
@@ -71,6 +77,8 @@ export function findFreeId() {
     return id;
 }
 
+// Searches for free Id for new Task object.
+// Returns integer.
 export function setTaskId(goalId) {
     const goal = getGoal(goalId);
     if (goal !== null) {
@@ -89,12 +97,15 @@ export function setTaskId(goalId) {
     return null;
 }
 
+// Constant variable that represents objects status. 
 export const STATUS = {
     done: 'done',
     waiting: 'waiting',
     failed: 'failed'
 }
 
+// Specifies if object is timed out.
+// Returns boolean.
 export function isTimedOut(timeLeft) {
     if (timeLeft.time < 0) {
         return true;
@@ -103,6 +114,8 @@ export function isTimedOut(timeLeft) {
     }
 }
 
+// Updates status of object - Goal or Task.
+// Returns boolean.
 export function updateStatus(obj, timeLeft, goalId = null) {
     const type = obj.constructor.name;
     if (!timeLeft.hasOwnProperty('time')) {
@@ -166,6 +179,7 @@ export function updateStatus(obj, timeLeft, goalId = null) {
     }
 }
 
+// Returns integer that represents number of completed Goals.
 export function goalsCompleted() {
     const goals = getAll();
     const done = goals.filter(g => {

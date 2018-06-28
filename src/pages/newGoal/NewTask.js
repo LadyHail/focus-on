@@ -15,7 +15,9 @@ class NewTask extends Component {
         id: PropTypes.number.isRequired,
         removeBtnClick: PropTypes.func.isRequired,
         goalDate: PropTypes.string.isRequired,
-        goalTime: PropTypes.string.isRequired
+        goalTime: PropTypes.string.isRequired,
+        minTime: PropTypes.string.isRequired,
+        maxTime: PropTypes.string.isRequired
     }
 
     state = {

@@ -1,6 +1,7 @@
 ﻿import { findFreeId, getGoal, saveGoal, STATUS } from './dbHelper.js';
 import { Goal, Task } from './models.js';
 
+// Returns Goal object. Data is retrieved from DOM tree.
 export function createGoalObj() {
     try {
         const description = document.getElementById('goal-desc').value;
@@ -16,6 +17,7 @@ export function createGoalObj() {
     }
 }
 
+// Returns array of Task objects. Data is retrieved from DOM tree.
 export function createTasksObjs(tasksArray) {
     let tasks = [];
     const dateNow = new Date().toUTCString();
@@ -41,6 +43,7 @@ export function createTasksObjs(tasksArray) {
     return null;
 }
 
+// Returns single Task object.
 export function createTaskObj(taskHTML) {
     const dateNow = new Date().toUTCString();
     try {
@@ -61,7 +64,8 @@ export function createTaskObj(taskHTML) {
         return null;
     }
 }
-
+// Updates goal expiring date.
+// Returns boolean whenever the function complete or fail.
 export function updateGoal(goalId) {
     let expDate = null;
     try {
@@ -86,6 +90,8 @@ export function updateGoal(goalId) {
     return false;
 }
 
+// Updates task object.
+// Returns boolean whenever the function is complete or fail.
 export function updateTask(goalId, taskId) {
     const goal = getGoal(goalId);
     let task = null;
@@ -125,6 +131,7 @@ export function updateTask(goalId, taskId) {
     return false;
 }
 
+// Deletes task from goal object.
 export function deleteTask(goalId, taskId) {
     const goal = getGoal(goalId);
     if (goal !== null && goal.tasks.length > 1) {
@@ -138,6 +145,7 @@ export function deleteTask(goalId, taskId) {
     return false;
 }
 
+// Adds new task to goal object.
 export function addTask(goalId, task) {
     const goal = getGoal(goalId);
     if (goal !== null && task.constructor.name === 'Task') {
@@ -148,6 +156,8 @@ export function addTask(goalId, task) {
     return false;
 }
 
+// Sorting function. First are failed, then waiting, then done objects. It sorts also by date. 
+// Returns array.
 export function sortGoals(goals) {
     let result = [];
     let done = goals.filter(g => g.status === STATUS.done);

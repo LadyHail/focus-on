@@ -4,8 +4,8 @@ import { getGoal } from '../../utils/dbHelper.js';
 import { getExpDate, getExpTime } from '../../utils/dateTime.js';
 import { updateGoal } from '../../utils/utils.js';
 import Notification from '../../components/Notification.js';
-import RenderToBody from '../../components/RenderToBody';
-import NotFound from '../../components/NotFound';
+import RenderToBody from '../../components/RenderToBody.js';
+import NotFound from '../../components/NotFound.js';
 
 class EditGoal extends Component {
 

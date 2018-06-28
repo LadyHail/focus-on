@@ -6,7 +6,7 @@ import GoalDetail from '../pages/GoalDetail.js';
 import EditGoal from '../pages/goalDetail/EditGoal.js';
 import EditTask from '../pages/goalDetail/EditTask.js';
 import NewTask from '../pages/goalDetail/NewTask.js';
-import Home from './Home';
+import Home from './Home.js';
 import Nav from './Nav.js';
 import NotFound from './NotFound.js';
 

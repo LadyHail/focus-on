@@ -5,12 +5,12 @@ import { timeLeft } from '../utils/dateTime.js';
 import { sortGoals } from '../utils/utils.js';
 import ObjDone from '../components/ObjDone.js';
 import ObjFailed from '../components/ObjFailed.js';
-import ObjWaiting from '../components/ObjWaiting';
+import ObjWaiting from '../components/ObjWaiting.js';
 
 class ShowGoalsList extends Component {
 
     state = {
-        times: []
+        times: [] // Stores all timeleft for Goals.
     }
 
     componentWillMount = () => {
@@ -24,6 +24,7 @@ class ShowGoalsList extends Component {
         this.setState({ times: times });
     }
 
+    // Is responsible for live time counting.
     componentDidMount = () => {
         this.interval = setInterval(() => {
             const times = this.goals.map(g => {

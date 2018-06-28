@@ -1,7 +1,10 @@
-﻿export function getDate () {
+﻿// Returns date now in format YYYY-MM-DD
+export function getDate() {
     return new Date().toISOString().substring(0, 10);
 }
 
+// Calculate diference between date now and expiring date of object.
+// Returns object that contains days, hours, minutes, seconds and non formated difference between dates.
 export function timeLeft(expiring) {
     expiring = new Date(expiring);
     if (expiring.toString() !== 'Invalid Date') {
@@ -24,10 +27,12 @@ export function timeLeft(expiring) {
     return {'days': null, 'hours': null, 'minutes': null, 'time': null};
 }
 
+// Returns date formated to local date.
 export function getLocalDate(date) {
     return new Date(date).toLocaleString();
 }
 
+// Format date to YYYY-MM-DD
 export function getExpDate(date) {
     date = new Date(date);
     if (date.toString() !== 'Invalid Date') {
@@ -42,6 +47,7 @@ export function getExpDate(date) {
     return null;
 }
 
+// Format time to HH:MM
 export function getExpTime(date) {
     date = new Date(date);
     if (date.toString() !== 'Invalid Date') {
@@ -55,6 +61,8 @@ export function getExpTime(date) {
     return null;
 }
 
+// Calculate total time spent to complete the object.
+// Returns days, hours, minutes, seconds and non formated difference between dates.
 export function spentTime(start, finish) {
     start = new Date(start);
     finish = new Date(finish);

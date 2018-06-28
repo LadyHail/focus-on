@@ -1,4 +1,4 @@
-﻿
+﻿// Model for Goal object.
 export class Goal {
     constructor(id, description, expDate, created, status, tasks = [], done = null){
         this.id = id;
@@ -11,7 +11,7 @@ export class Goal {
     }
 }
 
-
+// Model for Task object.
 export class Task {
     constructor(id, description, expDate, created, status, done = null) {
         this.id = id;
