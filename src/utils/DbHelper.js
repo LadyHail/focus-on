@@ -1,5 +1,6 @@
 ﻿import { Goal, Task } from './models.js';
 /*eslint no-loop-func: "off"*/
+/*eslint array-callback-return: "off"*/
 
 export function getGoal(id) {
     if (!isNaN(id)) {

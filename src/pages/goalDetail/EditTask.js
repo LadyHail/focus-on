@@ -8,11 +8,17 @@ import RenderToBody from '../../components/RenderToBody';
 import NotFound from '../../components/NotFound';
 
 class EditTask extends Component {
+    constructor(props) {
+        super(props);
+        this.calcTime = this.calcTime.bind(this);
+    }
 
     state = {
         goBack: false,
         notify: false,
-        isError: false
+        isError: false,
+        minTime: '00:00',
+        maxTime: '23:59'
     }
 
     componentWillMount = () => {
@@ -28,6 +34,25 @@ class EditTask extends Component {
             const date = new Date(this.task.expDate);
             this.expDate = getExpDate(date);
             this.expTime = getExpTime(date);
+        }
+    }
+
+    componentDidMount() {
+        this.calcTime();
+    }
+
+    calcTime() {
+        const taskDate = document.getElementById('task-date').value;
+        if (taskDate === this.goalExpDate) {
+            this.setState({ maxTime: this.goalExpTime });
+        } else {
+            this.setState({ maxTime: '23:59' });
+        }
+
+        if (taskDate === new Date().toISOString().substring(0, 10)) {
+            this.setState({ minTime: new Date().toLocaleString().substring(12, 17) });
+        } else {
+            this.setState({ minTime: '00:00' });
         }
     }
 
@@ -57,8 +82,8 @@ class EditTask extends Component {
                             :
                             <form onSubmit={this.save} id="add-goal" className="edit">
                                 <input type="text" defaultValue={this.task.description} required id="task-desc" className="task-desc" />
-                                <input type="date" defaultValue={this.expDate} id="task-date" className="task-date" required min={getDate()} max={this.goalExpDate} />
-                                <input type="time" defaultValue={this.expTime} min={this.goalExpTime} id="task-time" className="task-time" required />
+                                <input type="date" defaultValue={this.expDate} id="task-date" className="task-date" required min={getDate()} max={this.goalExpDate} onChange={this.calcTime} />
+                                <input type="time" min={this.state.minTime} max={this.state.maxTime} id="task-time" className="task-time" required />
                                 <button type="submit" className="btn-success btn-save"><i className="fas fa-save fa-lg btn-img"></i>Save changes!</button>
                             </form>}
                         </div>

@@ -438,7 +438,7 @@ input {
 .edit {
   text-align: center;
   display: block !important;
-  width: 80%;
+  width: 80% !important;
   margin: auto;
   padding: 10px 20px;
   background-color: #fcf6b1;
