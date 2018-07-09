@@ -8,6 +8,7 @@ export class Goal {
         this.tasks = tasks;
         this.status = status;
         this.done = done;
+        this.type = "Goal";
     }
 }
 
@@ -20,5 +21,6 @@ export class Task {
         this.created = created;
         this.status = status;
         this.done = done;
+        this.type = "Task";
     }
 }

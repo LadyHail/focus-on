@@ -117,7 +117,7 @@ export function isTimedOut(timeLeft) {
 // Updates status of object - Goal or Task.
 // Returns boolean.
 export function updateStatus(obj, timeLeft, goalId = null) {
-    const type = obj.constructor.name;
+    const type = obj.type
     if (!timeLeft.hasOwnProperty('time')) {
         return false;
     }
