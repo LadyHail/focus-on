@@ -51,7 +51,7 @@ class NewGoal extends Component {
             this.setState({ notify: true });
             setTimeout(() => {
                 this.setState({ notify: false });
-            }, 100);
+            }, 1500);
         } else {
             this.setState({ isError: true });
         }
