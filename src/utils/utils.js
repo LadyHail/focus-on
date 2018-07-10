@@ -35,11 +35,11 @@ export function createTasksObjs(tasksArray) {
                 STATUS.waiting
             );
             tasks.push(task);
-            return tasks;
         } catch (e) {
             console.log(e);
         }
     }
+	if (tasks.length != 0) return tasks;
     return null;
 }
 
